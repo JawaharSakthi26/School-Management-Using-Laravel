@@ -88,7 +88,7 @@
                         <ul>
                             <li><a href="students.html">Student List</a></li>
                             <li><a href="student-details.html">Student View</a></li>
-                            <li><a href="add-student.html">Student Add</a></li>
+                            <li><a href="{{route('add-student.create')}}">Student Add</a></li>
                             <li><a href="edit-student.html">Student Edit</a></li>
                         </ul>
                     </li>

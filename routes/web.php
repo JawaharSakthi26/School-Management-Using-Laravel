@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/admin', App\Http\Controllers\Admin\DashboardController::class);
+    Route::resource('/add-student', App\Http\Controllers\Admin\StudentController::class);
+    
+    Route::resource('/teacher', App\Http\Controllers\Teacher\DashboardController::class);
+    Route::resource('/student', App\Http\Controllers\Student\DashboardController::class);
+});
+
+
+
