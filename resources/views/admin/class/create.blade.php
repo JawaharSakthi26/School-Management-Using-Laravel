@@ -1,5 +1,9 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | Add/Edit Class')
+@if (isset($item))
+    @section('title', 'PreSkool | Edit Class')
+    @else
+    @section('title', 'PreSkool | Add Class')
+@endif
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid">
