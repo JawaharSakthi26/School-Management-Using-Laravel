@@ -99,16 +99,14 @@
                             <li><a href="teachers.html">Teacher List</a></li>
                             <li><a href="teacher-details.html">Teacher View</a></li>
                             <li><a href="add-teacher.html">Teacher Add</a></li>
-                            <li><a href="edit-teacher.html">Teacher Edit</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="#"><i class="fas fa-building"></i> <span> Classes</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="departments.html">Class List</a></li>
+                            <li><a href="{{route('add-class.index')}}">Class List</a></li>
                             <li><a href="{{route('add-class.create')}}">Class Add</a></li>
-                            <li><a href="edit-department.html">Class Edit</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -117,7 +115,6 @@
                         <ul>
                             <li><a href="subjects.html">Subject List</a></li>
                             <li><a href="add-subject.html">Subject Add</a></li>
-                            <li><a href="edit-subject.html">Subject Edit</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">

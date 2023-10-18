@@ -11,6 +11,8 @@ trait CrudTrait
      */
     public function index()
     {
+        $data = $this->model::all();
+        return view("{$this->viewPath}.{$this->folderPath}.index", compact('data'));
     }
 
     /**
@@ -28,7 +30,7 @@ trait CrudTrait
     {
         $data = $request->all();
         $this->model::create($data);
-        return redirect()->back();
+        return redirect()->route("{$this->routePrefix}.index");
     }
 
     /**
@@ -44,7 +46,8 @@ trait CrudTrait
      */
     public function edit(string $id)
     {
-        //
+        $item = $this->model::findOrFail($id);
+        return view("{$this->viewPath}.{$this->folderPath}.create", compact('item'));
     }
 
     /**
@@ -52,7 +55,10 @@ trait CrudTrait
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->all();
+        $updateId = $this->model::findOrFail($id);
+        $updateId->update($data);
+        return redirect()->route("{$this->routePrefix}.index");
     }
 
     /**
@@ -60,6 +66,8 @@ trait CrudTrait
      */
     public function destroy(string $id)
     {
-        //
+        $item = $this->model::findOrFail($id);
+        $item->delete();
+        return redirect()->route("{$this->routePrefix}.index");
     }
 }
