@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,16 +15,14 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
-        Route::resource('/admin', DashboardController::class);
+        Route::resource('/admin', App\Http\Controllers\Admin\DashboardController::class);
         Route::resource('/add-student', App\Http\Controllers\Admin\StudentController::class);
+        Route::resource('/add-class', App\Http\Controllers\Admin\ClassController::class);
     });
 
     Route::middleware(['role:Admin|Teacher'])->group(function () {
-        Route::resource('/teacher',  App\Http\Controllers\Teacher\TeacherController::class);
+        Route::resource('/teacher',  App\Http\Controllers\Teacher\DashboardController::class);
     });
 
     Route::resource('/student', App\Http\Controllers\Student\DashboardController::class);
 });
-
-
-

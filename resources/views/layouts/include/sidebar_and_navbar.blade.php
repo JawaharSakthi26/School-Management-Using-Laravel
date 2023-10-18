@@ -107,7 +107,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">Class List</a></li>
-                            <li><a href="add-department.html">Class Add</a></li>
+                            <li><a href="{{route('add-class.create')}}">Class Add</a></li>
                             <li><a href="edit-department.html">Class Edit</a></li>
                         </ul>
                     </li>

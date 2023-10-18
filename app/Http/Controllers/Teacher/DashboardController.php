@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.

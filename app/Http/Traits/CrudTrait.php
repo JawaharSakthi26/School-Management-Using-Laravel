@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Traits;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+trait CrudTrait
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('teacher.dashboard');
     }
 
     /**
@@ -20,7 +18,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view("{$this->viewPath}.{$this->folderPath}.create");
     }
 
     /**
@@ -28,7 +26,9 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $this->model::create($data);
+        return redirect()->back();
     }
 
     /**
