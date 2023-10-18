@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | Add Student')
+@section('title', 'PreSkool | ' . (isset($student) ? 'Edit Student' : 'Add Student'))
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -7,135 +7,195 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Add Students</h3>
+                            <h3 class="page-title">{{ isset($student) ? 'Edit Student' : 'Add Student' }}</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="students.html">Student</a></li>
-                                <li class="breadcrumb-item active">Add Students</li>
+                                <li class="breadcrumb-item"><a href="{{ route('add-student.index') }}">Student</a></li>
+                                <li class="breadcrumb-item active">{{ isset($student) ? 'Edit Student' : 'Add Student' }}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
+            @php
+                $genderOptions = [
+                    '' => 'Select Gender',
+                    '1' => 'Male',
+                    '2' => 'Female',
+                    '3' => 'Others',
+                ];
+
+                $religionOptions = [
+                    '' => 'Select Religion',
+                    '1' => 'Hindu',
+                    '2' => 'Christian',
+                    '3' => 'Muslim',
+                    '4' => 'Others',
+                ];
+
+                $statusOptions = [
+                    '1' => 'Active',
+                    '0' => 'Inactive',
+                ];
+                
+            @endphp
+
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form action="{{route('add-student.store')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}" method="POST" enctype="multipart/form-data" id="student-form">
+                                @csrf
+                                @if(isset($student))
+                                    @method('PUT')
+                                @endif
+
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title student-info">Student Information <span><a
-                                                    href="javascript:;"><i class="feather-more-vertical"></i></a></span>
+                                        <h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span>
                                         </h5>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>First Name <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="text" placeholder="Enter First Name">
+                                            <label>Name <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="text" name="name" placeholder="Enter First Name" value="{{ isset($student) ? $student->user->name : old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Last Name <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="text" placeholder="Enter First Name">
+                                            <label>E-Mail <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="email" name="email" placeholder="Enter Email Address" value="{{ isset($student) ? $student->user->email : old('email') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Phone </label>
+                                            <input class="form-control" type="text" name="phone" placeholder="Enter Phone Number" maxlength="10" value="{{ isset($student) ? $student->phone : old('phone') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Create Password <span class="login-danger">*</span></label>
+                                            <input class="form-control" id="password" type="password" name="password" placeholder="Create Password" {{ isset($student) ? 'disabled' : '' }}>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Confirm Password <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="password" id="confirm_password" name="password_confirmation" placeholder="Confirm Password" {{ isset($student) ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Gender <span class="login-danger">*</span></label>
-                                            <select class="form-control select">
-                                                <option>Select Gender</option>
-                                                <option>Female</option>
-                                                <option>Male</option>
-                                                <option>Others</option>
+                                            <select class="form-control select" name="gender">
+                                                @foreach ($genderOptions as $value => $label)
+                                                    <option value="{{ $value }}" {{ (isset($student) && $student->gender == $value) ? 'selected' : '' }}>
+                                                        {{ $label }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms calendar-icon">
                                             <label>Date Of Birth <span class="login-danger">*</span></label>
-                                            <input class="form-control datetimepicker" type="text"
-                                                placeholder="DD-MM-YYYY">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Roll </label>
-                                            <input class="form-control" type="text" placeholder="Enter Roll Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Blood Group <span class="login-danger">*</span></label>
-                                            <select class="form-control select">
-                                                <option>Please Select Group </option>
-                                                <option>B+</option>
-                                                <option>A+</option>
-                                                <option>O+</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Religion <span class="login-danger">*</span></label>
-                                            <select class="form-control select">
-                                                <option>Please Select Religion </option>
-                                                <option>Hindu</option>
-                                                <option>Christian</option>
-                                                <option>Others</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>E-Mail <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="text" placeholder="Enter Email Address">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Class <span class="login-danger">*</span></label>
-                                            <select class="form-control select">
-                                                <option>Please Select Class </option>
-                                                <option>12</option>
-                                                <option>11</option>
-                                                <option>10</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Section <span class="login-danger">*</span></label>
-                                            <select class="form-control select">
-                                                <option>Please Select Section </option>
-                                                <option>B</option>
-                                                <option>A</option>
-                                                <option>C</option>
-                                            </select>
+                                            <input class="form-control datetimepicker" type="text" name="dob" placeholder="DD-MM-YYYY" value="{{ isset($student) ? $student->dob : old('dob') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Admission ID </label>
-                                            <input class="form-control" type="text" placeholder="Enter Admission ID">
+                                            <input class="form-control" type="text" name="admission_id" placeholder="Enter Admission ID" value="{{ isset($student) ? $student->admission_id : old('admission_id') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Phone </label>
-                                            <input class="form-control" type="text" placeholder="Enter Phone Number">
+                                            <label>Class <span class="login-danger">*</span></label>
+                                            <select class="form-control select" name="class">
+                                                <option value="">Please Select Class</option>
+                                                @foreach ($classes as $class)
+                                                    <option value="{{ $class->id }}" {{ (isset($student) && $student->class_id == $class->id) ? 'selected' : '' }}>
+                                                        {{ $class->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Roll Number </label>
+                                            <input class="form-control" type="text" name="roll_number" placeholder="Enter Roll Number" value="{{ isset($student) ? $student->roll_number : old('roll_number') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
-                                        <div class="form-group students-up-files">
-                                            <label>Upload Student Photo (150px X 150px)</label>
+                                        <div class="form-group local-forms">
+                                            <label>Blood Group <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="text" name="blood_group" placeholder="Enter Blood Group" value="{{ isset($student) ? $student->blood_group : old('blood_group') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Religion <span class="login-danger">*</span></label>
+                                            <select class="form-control select" name="religion">
+                                                @foreach ($religionOptions as $value => $label)
+                                                    <option value="{{ $value }}" {{ (isset($student) && $student->religion == $value) ? 'selected' : '' }}>
+                                                        {{ $label }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Address 1st Line </label>
+                                            <input class="form-control" type="text" name="address" placeholder="Enter Address 1st Line" value="{{ isset($student) ? $student->address : old('address') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>City </label>
+                                            <input class="form-control" type="text" name="city" placeholder="Enter City" value="{{ isset($student) ? $student->city : old('city') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>State </label>
+                                            <input class="form-control" type="text" name="state" placeholder="Enter State" value="{{ isset($student) ? $student->state : old('state') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Zip Code </label>
+                                            <input class="form-control" type="text" name="zip_code" placeholder="Enter Zip Code" value="{{ isset($student) ? $student->zip_code : old('zip_code') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Country </label>
+                                            <input class="form-control" type="text" name="country" placeholder="Enter Country" value="{{ isset($student) ? $student->country : old('country') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
                                             <div class="uplod">
-                                                <label class="file-upload image-upbtn mb-0">
-                                                    Choose File <input type="file">
-                                                </label>
+                                                <label>Upload Image</label>
+                                                <input class="form-control pt-3" type="file" name="photo">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Status <span class="login-danger">*</span></label>
+                                            @foreach ($statusOptions as $value => $label)
+                                                <div class="form-check">
+                                                    <input type="radio" id="{{ $value }}" class="form-check-input" name="status" value="{{ $value }}"
+                                                        {{ (isset($student) && $student->status == $value) ? 'checked' : '' }}>
+                                                    <label for="{{ $value }}" class="form-check-label">{{ $label }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>                                    
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -149,4 +209,144 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#student-form').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                password_confirmation: {
+                    required: true,
+                    equalTo: '#password'
+                },
+                phone: {
+                    required: true,
+                    digits: true
+                },
+                gender: {
+                    required: true
+                },
+                dob: {
+                    required: true,
+                },
+                admission_id: {
+                    required: true 
+                },
+                class: {
+                    required: true
+                },
+                roll_number: {
+                    required: true 
+                },
+                blood_group: {
+                    required: true 
+                },
+                religion: {
+                    required: true
+                },
+                address: {
+                    required: true 
+                },
+                city: {
+                    required: true 
+                },
+                state: {
+                    required: true 
+                },
+                zip_code: {
+                    required: true 
+                },
+                country: {
+                    required: true 
+                },
+                status: {
+                    required: true
+                },
+                photo: {
+                    required: true 
+                }
+            },
+            messages: {
+                name: {
+                    required: "Please enter student's name"
+                },
+                email: {
+                    required: "Please enter student's email address",
+                    email: "Please enter a valid email address"
+                },
+                password: {
+                    required: "Please create a password for student",
+                    minlength: "Password must be at least 6 characters long"
+                },
+                password_confirmation: {
+                    required: "Please confirm your password",
+                    equalTo: "Passwords do not match"
+                },
+                phone: {
+                    required: "Please enter student's phone number",
+                    digits: "Please enter digits only"
+                },
+                gender: {
+                    required: "Please select the gender of the student"
+                },
+                date_of_birth: {
+                    required: "Please enter the date of birth of the student",
+                },
+                admission_id: {
+                    required: "Please enter the student's admission ID"
+                },
+                class: {
+                    required: "Please select the student's class"
+                },
+                roll_number: {
+                    required: "Please select the student's roll number" 
+                },
+                blood_group: {
+                    required: "Please enter the student's blood group" 
+                },
+                religion: {
+                    required: "Please select the student's religion"
+                },
+                address: {
+                    required: "Please enter student's address" 
+                },
+                city: {
+                    required: "Please enter student's city" 
+                },
+                state: {
+                    required: "Please enter student's state" 
+                },
+                zip_code: {
+                    required: "Please enter student's zip code" 
+                },
+                country: {
+                    required: "Please enter student's country" 
+                },
+                status: {
+                    required: "Please select a status"
+                },
+                photo: {
+                    required: "Please upload student's photo" 
+                }
+            },
+            errorPlacement: function(error, element) {
+                error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');
+            },
+            highlight: function(element) {
+                $(element).addClass("error-input");
+            },
+            unhighlight: function(element) {
+                $(element).removeClass("error-input");
+            },
+        });
+    </script>
 @endsection

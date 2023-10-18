@@ -14,7 +14,7 @@ trait CrudTrait
         $data = $this->model::all();
         return view("{$this->viewPath}.{$this->folderPath}.index", compact('data'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

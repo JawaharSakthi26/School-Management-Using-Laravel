@@ -67,8 +67,9 @@
                         <span>Main Menu</span>
                     </li>
                     @hasrole('Admin')
-                        <li class="submenu active">
-                            <a href="#"><i class="feather-grid"></i> <span> Dashboard</span><span class="menu-arrow"></span></a>
+                        <li class="submenu">
+                            <a href="#"><i class="feather-grid"></i> <span> Dashboard</span><span
+                                    class="menu-arrow"></span></a>
                             <ul>
                                 <li class="{{ Request::is('admin*') ? 'active' : '' }}">
                                     <a href="{{ route('admin.index') }}">Admin Dashboard</a>
@@ -82,14 +83,15 @@
                             </ul>
                         </li>
                     @endhasrole
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-graduation-cap"></i> <span> Students</span> <span
+                    <li class="submenu {{ Request::is('add-student*') ? 'active' : '' }}">
+                        <a href="#" class="{{ Request::is('add-student*') ? 'active' : '' }}"><i
+                                class="fas fa-graduation-cap"></i> <span> Students</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="students.html">Student List</a></li>
-                            <li><a href="student-details.html">Student View</a></li>
-                            <li><a href="{{route('add-student.create')}}">Student Add</a></li>
-                            <li><a href="edit-student.html">Student Edit</a></li>
+                            <li class="{{ Request::is('add-student') ? 'active' : '' }}"><a
+                                    href="{{ route('add-student.index') }}">Student List</a></li>
+                            <li class="{{ Request::is('add-student/create') ? 'active' : '' }}"><a
+                                    href="{{ route('add-student.create') }}">Student Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -101,12 +103,14 @@
                             <li><a href="add-teacher.html">Teacher Add</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-building"></i> <span> Classes</span> <span
-                                class="menu-arrow"></span></a>
+                    <li class="submenu {{ Request::is('add-class*') ? 'active' : '' }}">
+                        <a href="#" class="{{ Request::is('add-class*') ? 'active' : '' }}"><i
+                                class="fas fa-building"></i> <span> Classes</span> <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="{{route('add-class.index')}}">Class List</a></li>
-                            <li><a href="{{route('add-class.create')}}">Class Add</a></li>
+                            <li class="{{ Request::is('add-class') ? 'active' : '' }}"><a
+                                    href="{{ route('add-class.index') }}">Class List</a></li>
+                            <li class="{{ Request::is('add-class/create*') ? 'active' : '' }}"><a
+                                    href="{{ route('add-class.create') }}">Class Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -121,6 +125,9 @@
                         <span>Management</span>
                     </li>
                     <li>
+                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
+                    </li>
+                    <li>
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
                     </li>
                     <li>
@@ -133,3 +140,4 @@
             </div>
         </div>
     </div>
+</div>
