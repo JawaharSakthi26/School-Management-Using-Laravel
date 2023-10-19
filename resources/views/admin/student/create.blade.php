@@ -37,52 +37,64 @@
                     '1' => 'Active',
                     '0' => 'Inactive',
                 ];
-                
+
             @endphp
 
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}" method="POST" enctype="multipart/form-data" id="student-form">
+                            <form
+                                action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}"
+                                method="POST" enctype="multipart/form-data" id="student-form">
                                 @csrf
-                                @if(isset($student))
+                                @if (isset($student))
                                     @method('PUT')
                                 @endif
 
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title student-info">Student Information <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span>
+                                        <h5 class="form-title student-info">Student Information <span><a
+                                                    href="javascript:;"><i class="feather-more-vertical"></i></a></span>
                                         </h5>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Name <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="text" name="name" placeholder="Enter First Name" value="{{ isset($student) ? $student->user->name : old('name') }}">
+                                            <input class="form-control" type="text" name="name"
+                                                placeholder="Enter First Name"
+                                                value="{{ isset($student) ? $student->user->name : old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>E-Mail <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="email" name="email" placeholder="Enter Email Address" value="{{ isset($student) ? $student->user->email : old('email') }}">
+                                            <input class="form-control" type="email" name="email"
+                                                placeholder="Enter Email Address"
+                                                value="{{ isset($student) ? $student->user->email : old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Phone </label>
-                                            <input class="form-control" type="text" name="phone" placeholder="Enter Phone Number" maxlength="10" value="{{ isset($student) ? $student->phone : old('phone') }}">
+                                            <input class="form-control" type="text" name="phone"
+                                                placeholder="Enter Phone Number" maxlength="10"
+                                                value="{{ isset($student) ? $student->phone : old('phone') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Create Password <span class="login-danger">*</span></label>
-                                            <input class="form-control" id="password" type="password" name="password" placeholder="Create Password" {{ isset($student) ? 'disabled' : '' }}>
+                                            <input class="form-control" id="password" type="password" name="password"
+                                                placeholder="Create Password" {{ isset($student) ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Confirm Password <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="password" id="confirm_password" name="password_confirmation" placeholder="Confirm Password" {{ isset($student) ? 'disabled' : '' }}>
+                                            <input class="form-control" type="password" id="confirm_password"
+                                                name="password_confirmation" placeholder="Confirm Password"
+                                                {{ isset($student) ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -90,7 +102,8 @@
                                             <label>Gender <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="gender">
                                                 @foreach ($genderOptions as $value => $label)
-                                                    <option value="{{ $value }}" {{ (isset($student) && $student->gender == $value) ? 'selected' : '' }}>
+                                                    <option value="{{ $value }}"
+                                                        {{ isset($student) && $student->gender == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -100,13 +113,17 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms calendar-icon">
                                             <label>Date Of Birth <span class="login-danger">*</span></label>
-                                            <input class="form-control datetimepicker" type="text" name="dob" placeholder="DD-MM-YYYY" value="{{ isset($student) ? $student->dob : old('dob') }}">
+                                            <input class="form-control datetimepicker" type="text" name="dob"
+                                                placeholder="DD-MM-YYYY"
+                                                value="{{ isset($student) ? $student->dob : old('dob') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Admission ID </label>
-                                            <input class="form-control" type="text" name="admission_id" placeholder="Enter Admission ID" value="{{ isset($student) ? $student->admission_id : old('admission_id') }}">
+                                            <input class="form-control" type="text" name="admission_id"
+                                                placeholder="Enter Admission ID"
+                                                value="{{ isset($student) ? $student->admission_id : old('admission_id') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -115,23 +132,28 @@
                                             <select class="form-control select" name="class">
                                                 <option value="">Please Select Class</option>
                                                 @foreach ($classes as $class)
-                                                    <option value="{{ $class->id }}" {{ (isset($student) && $student->class_id == $class->id) ? 'selected' : '' }}>
+                                                    <option value="{{ $class->id }}"
+                                                        {{ isset($student) && $student->class_id == $class->id ? 'selected' : '' }}>
                                                         {{ $class->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Roll Number </label>
-                                            <input class="form-control" type="text" name="roll_number" placeholder="Enter Roll Number" value="{{ isset($student) ? $student->roll_number : old('roll_number') }}">
+                                            <input class="form-control" type="text" name="roll_number"
+                                                placeholder="Enter Roll Number"
+                                                value="{{ isset($student) ? $student->roll_number : old('roll_number') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Blood Group <span class="login-danger">*</span></label>
-                                            <input class="form-control" type="text" name="blood_group" placeholder="Enter Blood Group" value="{{ isset($student) ? $student->blood_group : old('blood_group') }}">
+                                            <input class="form-control" type="text" name="blood_group"
+                                                placeholder="Enter Blood Group"
+                                                value="{{ isset($student) ? $student->blood_group : old('blood_group') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -139,41 +161,52 @@
                                             <label>Religion <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="religion">
                                                 @foreach ($religionOptions as $value => $label)
-                                                    <option value="{{ $value }}" {{ (isset($student) && $student->religion == $value) ? 'selected' : '' }}>
+                                                    <option value="{{ $value }}"
+                                                        {{ isset($student) && $student->religion == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Address 1st Line </label>
-                                            <input class="form-control" type="text" name="address" placeholder="Enter Address 1st Line" value="{{ isset($student) ? $student->address : old('address') }}">
+                                            <input class="form-control" type="text" name="address"
+                                                placeholder="Enter Address 1st Line"
+                                                value="{{ isset($student) ? $student->address : old('address') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>City </label>
-                                            <input class="form-control" type="text" name="city" placeholder="Enter City" value="{{ isset($student) ? $student->city : old('city') }}">
+                                            <input class="form-control" type="text" name="city"
+                                                placeholder="Enter City"
+                                                value="{{ isset($student) ? $student->city : old('city') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>State </label>
-                                            <input class="form-control" type="text" name="state" placeholder="Enter State" value="{{ isset($student) ? $student->state : old('state') }}">
+                                            <input class="form-control" type="text" name="state"
+                                                placeholder="Enter State"
+                                                value="{{ isset($student) ? $student->state : old('state') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Zip Code </label>
-                                            <input class="form-control" type="text" name="zip_code" placeholder="Enter Zip Code" value="{{ isset($student) ? $student->zip_code : old('zip_code') }}">
+                                            <input class="form-control" type="text" name="zip_code"
+                                                placeholder="Enter Zip Code"
+                                                value="{{ isset($student) ? $student->zip_code : old('zip_code') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Country </label>
-                                            <input class="form-control" type="text" name="country" placeholder="Enter Country" value="{{ isset($student) ? $student->country : old('country') }}">
+                                            <input class="form-control" type="text" name="country"
+                                                placeholder="Enter Country"
+                                                value="{{ isset($student) ? $student->country : old('country') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -189,13 +222,16 @@
                                             <label>Status <span class="login-danger">*</span></label>
                                             @foreach ($statusOptions as $value => $label)
                                                 <div class="form-check">
-                                                    <input type="radio" id="{{ $value }}" class="form-check-input" name="status" value="{{ $value }}"
-                                                        {{ (isset($student) && $student->status == $value) ? 'checked' : '' }}>
-                                                    <label for="{{ $value }}" class="form-check-label">{{ $label }}</label>
+                                                    <input type="radio" id="{{ $value }}"
+                                                        class="form-check-input" name="status"
+                                                        value="{{ $value }}"
+                                                        {{ isset($student) && $student->status == $value ? 'checked' : '' }}>
+                                                    <label for="{{ $value }}"
+                                                        class="form-check-label">{{ $label }}</label>
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -239,41 +275,43 @@
                     required: true,
                 },
                 admission_id: {
-                    required: true 
+                    required: true
                 },
                 class: {
                     required: true
                 },
                 roll_number: {
-                    required: true 
+                    required: true
                 },
                 blood_group: {
-                    required: true 
+                    required: true
                 },
                 religion: {
                     required: true
                 },
                 address: {
-                    required: true 
+                    required: true
                 },
                 city: {
-                    required: true 
+                    required: true
                 },
                 state: {
-                    required: true 
+                    required: true
                 },
                 zip_code: {
-                    required: true 
+                    required: true
                 },
                 country: {
-                    required: true 
+                    required: true
                 },
                 status: {
                     required: true
                 },
-                photo: {
-                    required: true 
-                }
+                @if (!isset($student)) // Add this condition to validate "photo" only for new records
+                    photo: {
+                        required: true
+                    }
+                @endif
             },
             messages: {
                 name: {
@@ -308,35 +346,37 @@
                     required: "Please select the student's class"
                 },
                 roll_number: {
-                    required: "Please select the student's roll number" 
+                    required: "Please select the student's roll number"
                 },
                 blood_group: {
-                    required: "Please enter the student's blood group" 
+                    required: "Please enter the student's blood group"
                 },
                 religion: {
                     required: "Please select the student's religion"
                 },
                 address: {
-                    required: "Please enter student's address" 
+                    required: "Please enter student's address"
                 },
                 city: {
-                    required: "Please enter student's city" 
+                    required: "Please enter student's city"
                 },
                 state: {
-                    required: "Please enter student's state" 
+                    required: "Please enter student's state"
                 },
                 zip_code: {
-                    required: "Please enter student's zip code" 
+                    required: "Please enter student's zip code"
                 },
                 country: {
-                    required: "Please enter student's country" 
+                    required: "Please enter student's country"
                 },
                 status: {
                     required: "Please select a status"
                 },
-                photo: {
-                    required: "Please upload student's photo" 
-                }
+                @if (!isset($student)) // Add this condition to specify the message for "photo" only for new records
+                    photo: {
+                        required: "Please upload a photo"
+                    }
+                @endif
             },
             errorPlacement: function(error, element) {
                 error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');

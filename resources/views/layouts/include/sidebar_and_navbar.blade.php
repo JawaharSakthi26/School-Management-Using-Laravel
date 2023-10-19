@@ -38,8 +38,8 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" alt="User Image"
-                                class="avatar-img rounded-circle">
+                           {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}
+                            <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6>{{ Auth::user()->name }}</h6>
@@ -94,13 +94,12 @@
                                     href="{{ route('add-student.create') }}">Student Add</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
+                    <li class="submenu {{ Request::is('add-teacher*') ? 'active' : '' }}">
+                        <a href="#" class="{{ Request::is('add-teacher*') ? 'active' : '' }}"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="teachers.html">Teacher List</a></li>
-                            <li><a href="teacher-details.html">Teacher View</a></li>
-                            <li><a href="add-teacher.html">Teacher Add</a></li>
+                            <li class="{{ Request::is('add-teacher') ? 'active' : '' }}"><a href="{{ route('add-teacher.index') }}">Teacher List</a></li>
+                            <li class="{{ Request::is('add-teacher/create') ? 'active' : '' }}"><a href="{{ route('add-teacher.create') }}">Teacher Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu {{ Request::is('add-class*') ? 'active' : '' }}">
@@ -140,4 +139,3 @@
             </div>
         </div>
     </div>
-

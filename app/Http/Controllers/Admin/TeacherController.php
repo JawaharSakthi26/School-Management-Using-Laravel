@@ -3,27 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AddClass;
-use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class StudentController extends Controller
+class TeacherController extends Controller
 {
-    public function index(){
-        $data = Student::all();
-        return view("admin.student.index", compact('data'));
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $data = Teacher::all();
+        return view('admin.teacher.index', compact('data'));
     }
 
-    public function create(){
-        $classes = AddClass::where('status','1')->get();
-        return view('admin.student.create', compact('classes'));
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.teacher.create');
     }
 
-    public function store(Request $request) {
-        
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
         $filename = '';
 
         if ($request->hasFile('photo')) {
@@ -33,25 +42,24 @@ class StudentController extends Controller
         }
 
         $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
-    
+        $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'avatar' => $filename,
-        ])->assignRole('Student');
+        ])->assignRole('Teacher');
 
         $user_id = $user->id;
-    
-        Student::create([
+
+        Teacher::create([
             'user_id' => $user_id,
-            'class_id' => $request->input('class'),
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
             'dob' => $dob,
-            'admission_id' => $request->input('admission_id'),
-            'roll_number' => $request->input('roll_number'),
-            'religion' => $request->input('religion'),
+            'joining_date' => $joining_date,
+            'qualification' => $request->input('qualification'),
             'blood_group' => $request->input('blood_group'),
             'address' => $request->input('address'),
             'city' => $request->input('city'),
@@ -61,47 +69,59 @@ class StudentController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('add-student.index');
+        return redirect()->route('add-teacher.index');
     }
 
-    public function edit($id){
-        $classes = AddClass::where('status','1')->get();
-        $student = Student::findOrFail($id);
-        return view('admin.student.create', compact('classes','student'));
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
     }
 
-    public function update(Request $request, string $id){
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        return view('admin.teacher.create', compact('teacher'));
+    }
 
-        $student = Student::find($id);
-
-        if (!$student) {
-            return redirect()->route('add-student.index')->with('error', 'Student not found');
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $teacher = Teacher::find($id);
+        if (!$teacher) {
+            return redirect()->route('add-teacher.index')->with('error', 'Teacher not found');
         }
-
-        $filename = $student->user->avatar; 
-
+        $filename = $teacher->user->avatar; 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
-        $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
 
-        $student->user->update([
+        $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
+        $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
+
+        $teacher->user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'avatar' => $filename
+            'password' => Hash::make($request->input('password')),
+            'avatar' => $filename,
         ]);
-        
-        $student->update([
+
+        $teacher->update([
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
             'dob' => $dob,
-            'admission_id' => $request->input('admission_id'),
-            'class_id' => $request->input('class'),
-            'roll_number' => $request->input('roll_number'),
+            'joining_date' => $joining_date,
+            'qualification' => $request->input('qualification'),
             'blood_group' => $request->input('blood_group'),
-            'religion' => $request->input('religion'),
             'address' => $request->input('address'),
             'city' => $request->input('city'),
             'state' => $request->input('state'),
@@ -109,13 +129,16 @@ class StudentController extends Controller
             'country' => $request->input('country'),
             'status' => $request->input('status'),
         ]);
-        return redirect()->route('add-student.index')->with('success', 'Student updated successfully');
-    }
 
+        return redirect()->route('add-teacher.index')->with('success', 'Teacher updated successfully');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         $item = User::findOrFail($id);
         $item->delete();
-        return redirect()->route("add-student.index");
+        return redirect()->route("add-teacher.index");
     }
 }
