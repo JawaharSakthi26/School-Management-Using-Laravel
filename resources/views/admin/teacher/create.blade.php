@@ -145,7 +145,7 @@
                                     <div class="col-12">
                                         <h5 class="form-title"><span>Address</span></h5>
                                     </div>
-                                    <div class="col-12 col-sm-4">
+                                    <div class="col-12 col-sm-8">
                                         <div class="form-group local-forms">
                                             <label>Address 1st Line </label>
                                             <input class="form-control" type="text" name="address"
@@ -188,16 +188,11 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
-                                            @foreach ($statusOptions as $value => $label)
-                                                <div class="form-check">
-                                                    <input type="radio" id="{{ $value }}"
-                                                        class="form-check-input" name="status"
-                                                        value="{{ $value }}"
-                                                        {{ isset($teacher) && $teacher->status == $value ? 'checked' : '' }}>
-                                                    <label for="{{ $value }}"
-                                                        class="form-check-label">{{ $label }}</label>
-                                                </div>
-                                            @endforeach
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
+                                                    {{ (isset($teacher) && $teacher->status == '1') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="statusSwitch"></label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">

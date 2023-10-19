@@ -64,15 +64,11 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
-                                            @foreach ($statusOptions as $value => $label)
-                                                <div class="form-check">
-                                                    <input type="radio" id="{{ $value }}" class="form-check-input"
-                                                        name="status" value="{{ $value }}"
-                                                        {{ isset($item) && $item->status == $value ? 'checked' : '' }}>
-                                                    <label for="{{ $value }}"
-                                                        class="form-check-label">{{ $label }}</label>
-                                                </div>
-                                            @endforeach
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
+                                                    {{ (isset($item) && $item->status == '1') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="statusSwitch"></label>
+                                            </div>
                                         </div>
                                     </div>
                                     @if (isset($item))

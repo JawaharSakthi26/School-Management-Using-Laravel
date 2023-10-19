@@ -39,18 +39,13 @@
                                             <input type="text" class="form-control" id="className" name="name" value="{{ old('name', isset($item) ? $item->name : '') }}">
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 col-sm-4">
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="activeCheckbox"
-                                                    name="status" value="1" {{ (isset($item) && $item->status == 1) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="activeCheckbox">Active</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="inactiveCheckbox"
-                                                    name="status" value="0" {{ (isset($item) && $item->status == 0) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="inactiveCheckbox">Inactive</label>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
+                                                    {{ (isset($item) && $item->status == '1') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
                                     </div>
