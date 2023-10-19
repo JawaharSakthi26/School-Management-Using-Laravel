@@ -7,10 +7,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">{{isset($item) ? 'Edit Subject' : 'Add Subject' }}</h3>
+                        <h3 class="page-title">{{ isset($item) ? 'Edit Subject' : 'Add Subject' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="subjects.html">Subject</a></li>
-                            <li class="breadcrumb-item active">{{isset($item) ? 'Edit Subject' : 'Add Subject' }}</li>
+                            <li class="breadcrumb-item active">{{ isset($item) ? 'Edit Subject' : 'Add Subject' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     '1' => 'Theory',
                     '2' => 'Practical',
                     '3' => 'Theory & Practical',
-                    '4' => 'Extra Curricular'
+                    '4' => 'Extra Curricular',
                 ];
 
                 $statusOptions = [
@@ -33,7 +33,9 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ isset($item) ? route('add-subject.update', $item->id) : route('add-subject.store') }}" method="POST" id="subject-form">
+                            <form
+                                action="{{ isset($item) ? route('add-subject.update', $item->id) : route('add-subject.store') }}"
+                                method="POST" id="subject-form">
                                 @csrf
                                 @if (isset($item))
                                     @method('PUT')
@@ -45,7 +47,8 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group local-forms">
                                             <label>Subject Name <span class="login-danger">*</span></label>
-                                            <input type="text" class="form-control" name="name" value="{{ isset($item) ? $item->name : old('name') }}">
+                                            <input type="text" class="form-control" name="name"
+                                                value="{{ isset($item) ? $item->name : old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
@@ -65,8 +68,7 @@
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
-                                                    {{ (isset($item) && $item->status == '1') ? 'checked' : '' }}>
+                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" {{ isset($item) && $item->status == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
@@ -98,9 +100,6 @@
                 type: {
                     required: true
                 },
-                status: {
-                    required: true
-                }
             },
             messages: {
                 name: {
@@ -109,9 +108,6 @@
                 type: {
                     required: "Please select the subject type"
                 },
-                status: {
-                    required: "Please select a status"
-                }
             },
             errorPlacement: function(error, element) {
                 error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');

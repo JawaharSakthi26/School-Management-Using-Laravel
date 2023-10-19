@@ -1,5 +1,4 @@
 @extends('layouts.auth')
-{{-- @section('title', 'PreSkool | Add Teacher') --}}
 @section('title', 'PreSkool | ' . (isset($teacher) ? 'Edit Teacher' : 'Add Teacher'))
 @section('content')
     <div class="page-wrapper">
@@ -261,10 +260,8 @@
                 country: {
                     required: true
                 },
-                status: {
-                    required: true
-                },
                 @if (!isset($teacher))
+                photo:{
                     required: true
                 }
             @endif
@@ -318,9 +315,6 @@
             },
             country: {
                 required: "Please enter the teacher's country"
-            },
-            status: {
-                required: "Please select a status"
             },
             @if (!isset($teacher))
                 photo: {

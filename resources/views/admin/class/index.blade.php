@@ -8,7 +8,7 @@
                     <div class="col">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index-2.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Departments</li>
+                            <li class="breadcrumb-item active">Classes</li>
                         </ul>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Departments</h3>
+                                        <h3 class="page-title">Classes</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         <a href="{{ route('add-class.create') }}" class="btn btn-primary"><i
@@ -61,7 +61,7 @@
                                                     <a>{{ $value->name }}</a>
                                                 </h2>
                                             </td>
-                                            <td>{{ $value->users->name }}</td>
+                                            <td>{{ $value->user->name }}</td>
                                             <td>
                                                 @if ($value->status == 1)
                                                     <span class="badge bg-success">Active</span>

@@ -66,7 +66,7 @@ class TeacherController extends Controller
             'state' => $request->input('state'),
             'zip_code' => $request->input('zip_code'),
             'country' => $request->input('country'),
-            'status' => $request->input('status'),
+            'status' => $request->input('status') ? '1':'0',
         ]);
 
         return redirect()->route('add-teacher.index');
@@ -127,7 +127,7 @@ class TeacherController extends Controller
             'state' => $request->input('state'),
             'zip_code' => $request->input('zip_code'),
             'country' => $request->input('country'),
-            'status' => $request->input('status'),
+            'status' => $request->input('status') ? '1' : '0',
         ]);
 
         return redirect()->route('add-teacher.index')->with('success', 'Teacher updated successfully');

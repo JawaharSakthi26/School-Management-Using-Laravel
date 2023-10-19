@@ -58,9 +58,8 @@ class StudentController extends Controller
             'state' => $request->input('state'),
             'zip_code' => $request->input('zip_code'),
             'country' => $request->input('country'),
-            'status' => $request->input('status'),
+            'status' => $request->input('status') ? '1' : '0',
         ]);
-
         return redirect()->route('add-student.index');
     }
 
@@ -107,7 +106,7 @@ class StudentController extends Controller
             'state' => $request->input('state'),
             'zip_code' => $request->input('zip_code'),
             'country' => $request->input('country'),
-            'status' => $request->input('status'),
+            'status' => $request->input('status') ? '1' : '0',
         ]);
         return redirect()->route('add-student.index')->with('success', 'Student updated successfully');
     }

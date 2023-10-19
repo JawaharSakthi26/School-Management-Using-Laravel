@@ -10,14 +10,16 @@ class AddClass extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id','name','status'
+        'user_id',
+        'name',
+        'status'
     ];
-    
-    public function student(){
-        return $this->hasMany(Student::class, 'class_id');
-    }
 
-    public function users(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function subjects(){
+        return $this->hasMany(ClassSubject::class);
+    }
+    
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

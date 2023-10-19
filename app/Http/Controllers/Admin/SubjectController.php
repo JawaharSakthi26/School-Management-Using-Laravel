@@ -16,59 +16,28 @@ class SubjectController extends Controller
     protected $folderPath = 'subject';
     protected $routePrefix = 'add-subject';
 
-    // /**
-    //  * Display a listing of the resource.
-    //  */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function store(Request $request)
+    {
+        Subject::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'type' => $request->type,
+            'status' => $request->status ? '1' : '0',
+        ]);
+        return redirect()->route("{$this->routePrefix}.index");
+    }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  */
-    // public function create()
-    // {
-    //     return view('admin.subject.create');
-    // }
+    public function update(Request $request, string $id)
+    {
+        $updateId = Subject::findOrFail($id);
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+        $updateId->update([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'type' => $request->type,
+            'status' => $request->status ? '1' : '0',
+        ]);
 
-    // /**
-    //  * Display the specified resource.
-    //  */
-    // public function show(string $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(string $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, string $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(string $id)
-    // {
-    //     //
-    // }
+        return redirect()->route("{$this->routePrefix}.index");
+    }
 }
