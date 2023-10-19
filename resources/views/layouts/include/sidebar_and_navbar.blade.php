@@ -67,8 +67,8 @@
                         <span>Main Menu</span>
                     </li>
                     @hasrole('Admin')
-                        <li class="submenu">
-                            <a href="#"><i class="feather-grid"></i> <span> Dashboard</span><span
+                        <li class="submenu {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}"><i class="feather-grid"></i> <span> Dashboard</span><span
                                     class="menu-arrow"></span></a>
                             <ul>
                                 <li class="{{ Request::is('admin*') ? 'active' : '' }}">
