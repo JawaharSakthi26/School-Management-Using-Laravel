@@ -44,8 +44,7 @@
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form
-                                action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}"
+                            <form action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}"
                                 method="POST" enctype="multipart/form-data" id="student-form">
                                 @csrf
                                 @if (isset($student))

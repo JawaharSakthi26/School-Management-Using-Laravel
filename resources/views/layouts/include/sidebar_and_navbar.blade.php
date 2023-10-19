@@ -112,12 +112,12 @@
                                     href="{{ route('add-class.create') }}">Class Add</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
+                    <li class="submenu {{ Request::is('add-subject*') ? 'active' : '' }}">
+                        <a href="#" class="{{ Request::is('add-subject*') ? 'active' : '' }}"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="subjects.html">Subject List</a></li>
-                            <li><a href="add-subject.html">Subject Add</a></li>
+                            <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a href="{{route('add-subject.index')}}">Subject List</a></li>
+                            <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a href="{{route('add-subject.create')}}">Subject Add</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">
