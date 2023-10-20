@@ -46,14 +46,22 @@
                                         <div class="form-group local-forms">
                                             <label for="classSubjects">Select Subjects <span
                                                     class="login-danger">*</span></label>
-                                            <select class="form-control select2 multi-select" id="classSubjects" name="subjects[]"
-                                                multiple="multiple">
-                                                @foreach ($subjects as $subject)
-                                                    <option value="{{ $subject->id }}">
-                                                        {{-- {{ in_array($subject->id, old('subjects', isset($item) ? $item->subjects->pluck('id')->toArray() : [])) ? 'selected' : '' }} --}}
-                                                        {{ $subject->name }}
-                                                    </option>
-                                                @endforeach
+                                            <select class="form-control select2 multi-select" id="classSubjects"
+                                                name="subjects[]" multiple="multiple">
+                                                @if (isset($item))
+                                                    @foreach ($subjects as $subject)
+                                                        <option value="{{ $subject->id }}"
+                                                            {{ in_array($subject->id, $selectedSubjects) ? 'selected' : '' }}>
+                                                            {{ $subject->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($subjects as $subject)
+                                                        <option value="{{ $subject->id }}">
+                                                            {{ $subject->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -93,29 +101,21 @@
                 name: {
                     required: true,
                 },
-                subjects: {
+                'subjects[]': {
                     required: true
                 },
-                status: {
-                    required: true
-                }
             },
             messages: {
                 name: {
                     required: "Please enter a class name",
                 },
-                subjects: {
+                'subjects[]': {
                     required: "Please select atleast one subject"
-                },
-                status: {
-                    required: "Please select a status"
                 },
             },
             errorPlacement: function(error, element) {
-                if (element.attr("name") == "name") {
+                if (element.attr("name") == "name" || element.attr("name") == "subjects[]") {
                     error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');
-                } else if (element.attr("name") == "status") {
-                    error.appendTo(element.closest(".form-group")).addClass('error-message');
                 }
             },
             highlight: function(element) {

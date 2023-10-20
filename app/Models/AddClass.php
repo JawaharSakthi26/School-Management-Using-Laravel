@@ -16,7 +16,7 @@ class AddClass extends Model
     ];
 
     public function subjects(){
-        return $this->hasMany(ClassSubject::class);
+        return $this->hasMany(ClassSubject::class,'class_id');
     }
     
     public function user(){

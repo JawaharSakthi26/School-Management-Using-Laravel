@@ -36,7 +36,7 @@ class ClassController extends Controller
         $class_id = $class->id;
         $user_id = $class->user_id;
 
-        foreach($request->subjects as $subject){
+        foreach ($request->subjects as $subject) {
             ClassSubject::create([
                 'user_id' => $user_id,
                 'class_id' => $class_id,
@@ -49,17 +49,37 @@ class ClassController extends Controller
     public function update(Request $request, string $id)
     {
         $updateId = AddClass::findOrFail($id);
+
         $updateId->update([
+            'user_id' => $request->user_id,
             'name' => $request->name,
             'status' => $request->status ? '1' : '0',
         ]);
-        return redirect()->route("{$this->routePrefix}.index");
+        
+        $selectedSubjects = $request->input('subjects', []);
+        $existingSubjects = $updateId->subjects->pluck('id')->toArray();
+        $subjectsToDetach = array_diff($existingSubjects, $selectedSubjects);
+
+        foreach ($subjectsToDetach as $subjectId) {
+            $updateId->subjects()->where('id', $subjectId)->delete();
+        }
+
+        foreach ($request->subjects as $subject) {
+            ClassSubject::create([
+                'user_id' => $updateId->user_id,
+                'class_id' => $updateId->id,
+                'subject_id' => $subject
+            ]);
+        }
+
+        return redirect()->route('add-class.index')->with('success', 'Class updated successfully');
     }
 
     public function edit(string $id)
     {
         $item = AddClass::findOrFail($id);
-        $subjects = Subject::where('status','1')->get();
-        return view("admin.class.create", compact('item','subjects'));
+        $selectedSubjects = $item->subjects->pluck('subject_id')->toArray();
+        $subjects = Subject::where('status', '1')->get();
+        return view("admin.class.create", compact('item', 'subjects', 'selectedSubjects'));
     }
 }
