@@ -129,8 +129,8 @@
                     <li>
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
                     </li>
-                    <li>
-                        <a href="time-table.html"><i class="fas fa-table"></i> <span>Time Table</span></a>
+                    <li class="{{ Request::is('add-timetable*') ? 'active' : '' }}">
+                        <a href="{{route('add-timetable.index')}}"><i class="fas fa-table"></i> <span>Time Table</span></a>
                     </li>
                     <li>
                         <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>

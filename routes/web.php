@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-class', App\Http\Controllers\Admin\ClassController::class);
         Route::resource('/add-teacher', \App\Http\Controllers\Admin\TeacherController::class);
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
+        Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
+        Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
     });
 
     Route::middleware(['role:Admin|Teacher'])->group(function () {
