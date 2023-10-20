@@ -12,18 +12,21 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = Student::all();
         return view("admin.student.index", compact('data'));
     }
 
-    public function create(){
-        $classes = AddClass::where('status','1')->get();
+    public function create()
+    {
+        $classes = AddClass::where('status', '1')->get();
         return view('admin.student.create', compact('classes'));
     }
 
-    public function store(Request $request) {
-        
+    public function store(Request $request)
+    {
+
         $filename = '';
 
         if ($request->hasFile('photo')) {
@@ -33,7 +36,7 @@ class StudentController extends Controller
         }
 
         $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
-    
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -42,7 +45,7 @@ class StudentController extends Controller
         ])->assignRole('Student');
 
         $user_id = $user->id;
-    
+
         Student::create([
             'user_id' => $user_id,
             'class_id' => $request->input('class'),
@@ -63,21 +66,24 @@ class StudentController extends Controller
         return redirect()->route('add-student.index');
     }
 
-    public function edit($id){
-        $classes = AddClass::where('status','1')->get();
+    public function edit($id)
+    {
+        $classes = AddClass::where('status', '1')->get();
         $student = Student::findOrFail($id);
-        return view('admin.student.create', compact('classes','student'));
+        return view('admin.student.create', compact('classes', 'student'));
     }
 
-    public function update(Request $request, string $id){
-
+    public function update(Request $request, string $id)
+    {
         $student = Student::find($id);
 
         if (!$student) {
             return redirect()->route('add-student.index')->with('error', 'Student not found');
         }
 
-        $filename = $student->user->avatar; 
+        $user = $student->user;
+
+        $filename = $user->avatar;
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -86,12 +92,20 @@ class StudentController extends Controller
         }
         $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
 
-        $student->user->update([
+        $userData = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'avatar' => $filename
-        ]);
-        
+            'avatar' => $filename,
+        ];
+
+        if ($request->has('password')) {
+            $userData['password'] = Hash::make($request->input('password'));
+        } else {
+            $userData['password'] = $user->password;
+        }
+
+        $user->update($userData);
+
         $student->update([
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
@@ -108,8 +122,10 @@ class StudentController extends Controller
             'country' => $request->input('country'),
             'status' => $request->input('status') ? '1' : '0',
         ]);
+
         return redirect()->route('add-student.index')->with('success', 'Student updated successfully');
     }
+
 
     public function destroy(string $id)
     {

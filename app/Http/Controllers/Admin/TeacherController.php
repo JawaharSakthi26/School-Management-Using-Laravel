@@ -66,7 +66,7 @@ class TeacherController extends Controller
             'state' => $request->input('state'),
             'zip_code' => $request->input('zip_code'),
             'country' => $request->input('country'),
-            'status' => $request->input('status') ? '1':'0',
+            'status' => $request->input('status') ? '1' : '0',
         ]);
 
         return redirect()->route('add-teacher.index');
@@ -98,23 +98,33 @@ class TeacherController extends Controller
         if (!$teacher) {
             return redirect()->route('add-teacher.index')->with('error', 'Teacher not found');
         }
-        $filename = $teacher->user->avatar; 
+    
+        $user = $teacher->user;
+    
+        $filename = $teacher->user->avatar;
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
-
+    
         $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
         $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
-
-        $teacher->user->update([
+    
+        $userData = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
             'avatar' => $filename,
-        ]);
-
+        ];
+    
+        if ($request->has('password')) {
+            $userData['password'] = Hash::make($request->input('password'));
+        } else {
+            $userData['password'] = $user->password;
+        }
+    
+        $user->update($userData);
+    
         $teacher->update([
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
@@ -129,9 +139,10 @@ class TeacherController extends Controller
             'country' => $request->input('country'),
             'status' => $request->input('status') ? '1' : '0',
         ]);
-
+    
         return redirect()->route('add-teacher.index')->with('success', 'Teacher updated successfully');
     }
+    
     /**
      * Remove the specified resource from storage.
      */

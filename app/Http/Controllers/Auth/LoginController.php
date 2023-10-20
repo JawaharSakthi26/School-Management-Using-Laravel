@@ -43,9 +43,9 @@ class LoginController extends Controller
     {
         if ($user->hasRole('Admin')) {
             return redirect()->route('admin.index');
-        } elseif ($user->hasRole('Teacher')) {
+        } elseif ($user->hasRole('Admin|Teacher')) {
             return redirect()->route('teacher.index');
-        } elseif ($user->hasRole('Student')) {
+        } elseif ($user->hasRole('Admin|Student')) {
             return redirect()->route('student.index');
         }
 
