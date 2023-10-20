@@ -28,7 +28,7 @@
                                         <h3 class="page-title">Teachers</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="{{route('add-student.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                        <a href="{{route('add-teacher.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,6 @@
                                                     <input class="form-check-input" type="checkbox" value="something">
                                                 </div>
                                             </th>
-                                            {{-- <th>Admission ID</th> --}}
                                             <th>Name</th>
                                             <th>DOB</th>
                                             <th>Mobile Number</th>
@@ -60,7 +59,6 @@
                                                         <input class="form-check-input" type="checkbox" value="something">
                                                     </div>
                                                 </td>
-                                                {{-- <td>{{ $value->admission_id }}</td> --}}
                                                 <td>
                                                     <h2 class="table-avatar">
                                                         <a href="#" class="avatar avatar-sm me-2"><img
@@ -85,9 +83,6 @@
                                                         <a href="{{route('add-teacher.edit', $value->id)}}" class="btn btn-sm bg-success-light me-2 ">
                                                             <i class="feather-edit"></i>
                                                         </a>
-                                                        {{-- <a href="edit-student.html" class="btn btn-sm bg-danger-light">
-                                                            <i class="feather-trash"></i>
-                                                        </a> --}}
                                                         <form action="{{ route('add-teacher.destroy', $value->user_id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
