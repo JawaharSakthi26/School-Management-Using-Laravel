@@ -57,7 +57,7 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Gender <span class="login-danger">*</span></label>
-                                            <select class="form-control" name="gender">
+                                            <select class="form-control select" name="gender">
                                                 @foreach ($genderOptions as $value => $label)
                                                     <option value="{{ $value }}"
                                                         {{ isset($teacher) && $teacher->gender == $value ? 'selected' : '' }}>
