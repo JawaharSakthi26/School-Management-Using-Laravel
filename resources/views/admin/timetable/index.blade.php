@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row">
-                <form action="" method="get">
+                <form action="" method="get" id="timetable-form">
                     <div class="row">
                         <div class="col-5">
                             <div class="form-group local-forms">
@@ -133,6 +133,7 @@
     </footer>
 
     </div>
+
     <script>
         $(document).ready(function() {
             $('#classSelect').change(function() {
@@ -141,7 +142,6 @@
             });
 
             function fetchSubjects(classId) {
-                console.log(classId);
                 $.ajax({
                     url: '{{ url('fetch-subjects') }}' + '/' + classId,
                     type: 'GET',
@@ -156,6 +156,27 @@
                     }
                 });
             }
+
+            $("#timetable-form").validate({
+                rules: {
+                    class_id: "required",
+                    subject_id: "required"
+                },
+                messages: {
+                    class_id: "Please select a class",
+                    subject_id: "Please select a subject"
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.closest(".form-group.local-forms")).addClass(
+                        'error-message');
+                },
+                highlight: function(element) {
+                    $(element).addClass("error-input");
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass("error-input");
+                },
+            });
         });
     </script>
 @endsection
