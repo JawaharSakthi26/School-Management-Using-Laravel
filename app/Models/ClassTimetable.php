@@ -14,6 +14,7 @@ class ClassTimetable extends Model
         'class_id',
         'subject_id',
         'day_id',
+        'teacher_id',
         'start_time',
         'end_time'
     ];

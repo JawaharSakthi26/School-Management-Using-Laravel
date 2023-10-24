@@ -21,6 +21,7 @@ class TimeTableController extends Controller
         $teacher = Teacher::where('status', '1')->get();
         $class = AddClass::where('status', '1')->get();
         $week_days = Day::orderBy('id')->get();
+        $teachers = Teacher::all();
 
         $classId = $request->input('class_id');
         $subjectId = $request->input('subject_id');
@@ -34,17 +35,7 @@ class TimeTableController extends Controller
                 ->get();
         }   
     
-        return view('admin.timetable.index', compact('class', 'teacher', 'week_days', 'timetableData'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $teacher = Teacher::where('status', '1')->get();
-        $class = AddClass::where('status', '1')->get();
-        return view('admin.timetable.create', compact('teacher', 'class'));
+        return view('admin.timetable.index', compact('class', 'teacher', 'week_days', 'timetableData', 'teachers'));
     }
 
     /**
@@ -59,6 +50,7 @@ class TimeTableController extends Controller
                 'user_id' => Auth::user()->id,
                 'class_id' => $request->class_id,
                 'subject_id' => $request->subject_id,
+                'teacher_id' => $request->teacher_id,
                 'day_id' =>  $timetable['day_id'],
                 'start_time' => $timetable['start_time'],
                 'end_time' => $timetable['end_time']

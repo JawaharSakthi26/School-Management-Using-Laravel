@@ -52,6 +52,22 @@
                 @csrf
                 <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}">
                 <input type="hidden" name="subject_id" value="{{ Request::get('subject_id') }}">
+                <div class="row mx-3">
+                    <div class="col-5">
+                        <div class="form-group local-forms">
+                            <label>Teacher <span class="login-danger">*</span></label>
+                            <select class="form-control select" name="teacher_id">
+                                <option value=""> -- Select Teacher -- </option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->user->id }}"
+                                        @if ($teacher->user->id == old('teacher_id', $timetableData[0]->teacher_id ?? null)) selected @endif>
+                                        {{ $teacher->user->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card card-table">
@@ -90,7 +106,9 @@
                                                 @else
                                                     <tr class="table">
                                                         <td>Sunday</td>
-                                                        <td colspan="2" class="text-center fs-4 text-capitalize bg-secondary text-dark font-monospace rounded-2">Weekend Holiday!</td>
+                                                        <td colspan="2"
+                                                            class="text-center fs-4 text-capitalize bg-secondary text-dark font-monospace rounded-2">
+                                                            Weekend Holiday!</td>
                                                     </tr>
                                                 @endif
                                             @endforeach

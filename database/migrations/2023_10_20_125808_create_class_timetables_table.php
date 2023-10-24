@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('day_id');
+            $table->unsignedBigInteger('teacher_id');
             $table->string('start_time');
             $table->string('end_time');
             $table->timestamps();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('class_id')->references('id')->on('add_classes')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
             
         });
