@@ -29,6 +29,7 @@
     <style>
         .error-input {
             border: 1px solid red !important;
+            color: red;
         }
 
         .error-message {
@@ -88,7 +89,17 @@
         }
         toastr.success("{{ Session::get('message') }}");
     </script>
+    @endif
 
+    @if(Session::has('error'))
+
+    <script>
+        toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+        }
+        toastr.error("{{ Session::get('error') }}");
+    </script>
     @endif
 </body>
 </html>

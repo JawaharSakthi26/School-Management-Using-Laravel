@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-teacher', \App\Http\Controllers\Admin\TeacherController::class);
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
         Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
+        Route::resource('/my-profile', \App\Http\Controllers\MyProfileController::class);
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
     });
 
