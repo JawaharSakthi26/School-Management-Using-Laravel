@@ -33,6 +33,18 @@
         .error-message {
             color: red;
         }
+
+        .holiday-row {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .holiday-cell {
+            text-align: center;
+            font-style: italic;
+            font-size: 36px;
+        }
     </style>
 
 </head>

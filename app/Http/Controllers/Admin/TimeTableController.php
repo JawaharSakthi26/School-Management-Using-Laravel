@@ -9,18 +9,32 @@ use App\Models\Day;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TimeTableController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $teacher = Teacher::where('status', '1')->get();
         $class = AddClass::where('status', '1')->get();
-        $week_days = Day::all();
-        return view('admin.timetable.index', compact('class', 'teacher', 'week_days'));
+        $week_days = Day::orderBy('id')->get();
+
+        $classId = $request->input('class_id');
+        $subjectId = $request->input('subject_id');
+    
+        $timetableData = [];
+    
+        if ($classId && $subjectId) {
+            $timetableData = DB::table('class_timetables')
+                ->where('class_id', $classId)
+                ->where('subject_id', $subjectId)
+                ->get();
+        }   
+    
+        return view('admin.timetable.index', compact('class', 'teacher', 'week_days', 'timetableData'));
     }
 
     /**
@@ -87,13 +101,12 @@ class TimeTableController extends Controller
 
     public function fetchSubjects($classId)
     {
-
         $class = AddClass::find($classId);
         $subjects = $class->subjects;
 
         $subjectArray = [];
         foreach ($subjects as $subject) {
-            $subjectArray[$subject->id] = $subject->subjects->name;
+            $subjectArray[$subject->subjects->id] = $subject->subjects->name;
         }
         return response()->json($subjectArray);
     }

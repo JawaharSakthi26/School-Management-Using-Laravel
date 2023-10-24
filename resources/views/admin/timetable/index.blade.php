@@ -48,10 +48,10 @@
             </div>
         </div>
         @if (!empty(Request::get('class_id')) && Request::get('subject_id'))
-            <form action="{{route('add-timetable.store')}}" method="POST">
+            <form action="{{ route('add-timetable.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="class_id" id="" value="{{ Request::get('class_id') }}">
-                <input type="hidden" name="subject_id" id="" value="{{ Request::get('subject_id') }}">
+                <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}">
+                <input type="hidden" name="subject_id" value="{{ Request::get('subject_id') }}">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card card-table">
@@ -64,28 +64,39 @@
                                                 <th>Day</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $index = 1;
-                                            @endphp
+                                            @php $index = 1; @endphp
                                             @foreach ($week_days as $days)
-                                                <input type="hidden" name="timetable[{{ $index }}][day_id]" id=""
-                                                    value="{{ $days->id }}">
-                                                <tr>
-                                                    <td>{{ $days->name }}</td>
-                                                    <td><input type="time" class="form-control" name="timetable[{{ $index }}][start_time]"></td>
-                                                    <td><input type="time" class="form-control" name="timetable[{{ $index }}][end_time]"></td>
-                                                </tr>
-                                                @php
-                                                    $index++;
-                                                @endphp
+                                                @if ($days->name !== 'Sunday')
+                                                    <tr>
+                                                        <td>{{ $days->name }}</td>
+                                                        <td>
+                                                            <input type="hidden"
+                                                                name="timetable[{{ $index }}][day_id]"
+                                                                value="{{ $days->id }}">
+                                                            <input type="time" class="form-control"
+                                                                name="timetable[{{ $index }}][start_time]"
+                                                                value="{{ old('timetable.' . $index . '.start_time', $timetableData[$index - 1]->start_time ?? '') }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="time" class="form-control"
+                                                                name="timetable[{{ $index }}][end_time]"
+                                                                value="{{ old('timetable.' . $index . '.end_time', $timetableData[$index - 1]->end_time ?? '') }}">
+                                                        </td>
+                                                    </tr>
+                                                    @php $index++; @endphp
+                                                @else
+                                                    <tr class="table">
+                                                        <td>Sunday</td>
+                                                        <td colspan="2" class="text-center fs-4 text-capitalize bg-secondary text-dark font-monospace rounded-2">Weekend Holiday!</td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="col-12 text-center">
+                                    <div class="col-12 text-center mt-4">
                                         <div class="search-student-btn">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
@@ -100,7 +111,7 @@
     </div>
 
     <footer>
-        <p>Copyright © 2022 Dreamguys.</p>
+        <p>Copyright © 2023 PreSkool.</p>
     </footer>
 
     </div>
