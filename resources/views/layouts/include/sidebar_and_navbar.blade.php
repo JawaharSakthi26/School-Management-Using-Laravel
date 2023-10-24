@@ -38,7 +38,6 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                           {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}
                             <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
