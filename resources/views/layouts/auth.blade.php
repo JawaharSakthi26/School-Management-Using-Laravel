@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/multiselect/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -74,7 +75,20 @@
     <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/multiselect/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/toastr/toastr.js') }} "></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-</body>
 
+    @if(Session::has('message'))
+
+    <script>
+        toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+        }
+        toastr.success("{{ Session::get('message') }}");
+    </script>
+
+    @endif
+</body>
 </html>

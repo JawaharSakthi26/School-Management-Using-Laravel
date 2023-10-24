@@ -43,7 +43,7 @@ class ClassController extends Controller
                 'subject_id' => $subject
             ]);
         }
-        return redirect()->route('add-class.index');
+        return redirect()->route('add-class.index')->with('message','Class Created Successfully!');
     }
 
     public function update(Request $request, string $id)
@@ -71,8 +71,7 @@ class ClassController extends Controller
                 'subject_id' => $subject
             ]);
         }
-
-        return redirect()->route('add-class.index')->with('success', 'Class updated successfully');
+        return redirect()->route('add-class.index')->with('message', 'Class Updated successfully');
     }
 
     public function edit(string $id)

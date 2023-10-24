@@ -69,7 +69,7 @@ class TeacherController extends Controller
             'status' => $request->input('status') ? '1' : '0',
         ]);
 
-        return redirect()->route('add-teacher.index');
+        return redirect()->route('add-teacher.index')->with('message','Teacher Created Successfully!');
     }
 
     /**
@@ -140,7 +140,7 @@ class TeacherController extends Controller
             'status' => $request->input('status') ? '1' : '0',
         ]);
     
-        return redirect()->route('add-teacher.index')->with('success', 'Teacher updated successfully');
+        return redirect()->route('add-teacher.index')->with('message', 'Teacher updated successfully');
     }
     
     /**

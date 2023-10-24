@@ -24,7 +24,7 @@ class SubjectController extends Controller
             'type' => $request->type,
             'status' => $request->status ? '1' : '0',
         ]);
-        return redirect()->route("{$this->routePrefix}.index");
+        return redirect()->route("add-subject.index")->with('message','Subject Created Successfully!');
     }
 
     public function update(Request $request, string $id)
@@ -38,6 +38,6 @@ class SubjectController extends Controller
             'status' => $request->status ? '1' : '0',
         ]);
 
-        return redirect()->route("{$this->routePrefix}.index");
+        return redirect()->route("add-subject.index")->with('message','Class Created Successfully!');
     }
 }

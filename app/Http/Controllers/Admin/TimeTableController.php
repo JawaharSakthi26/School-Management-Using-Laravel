@@ -64,7 +64,7 @@ class TimeTableController extends Controller
                 'end_time' => $timetable['end_time']
             ]);
         }
-        return redirect()->back()->with('success','Class Timetable Saved!');
+        return redirect()->back()->with('message','Class Timetable Saved!');
     }
 
     public function fetchSubjects($classId)

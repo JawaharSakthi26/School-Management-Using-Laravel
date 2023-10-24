@@ -63,7 +63,7 @@ class StudentController extends Controller
             'country' => $request->input('country'),
             'status' => $request->input('status') ? '1' : '0',
         ]);
-        return redirect()->route('add-student.index');
+        return redirect()->route('add-student.index')->with('message','Student Created Successfully!');
     }
 
     public function edit($id)
@@ -123,7 +123,7 @@ class StudentController extends Controller
             'status' => $request->input('status') ? '1' : '0',
         ]);
 
-        return redirect()->route('add-student.index')->with('success', 'Student updated successfully');
+        return redirect()->route('add-student.index')->with('message', 'Student updated successfully');
     }
 
 
@@ -131,6 +131,6 @@ class StudentController extends Controller
     {
         $item = User::findOrFail($id);
         $item->delete();
-        return redirect()->route("add-student.index");
+        return redirect()->route("add-student.index")->with('message','Student Deleted Successfully!');
     }
 }
