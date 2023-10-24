@@ -261,76 +261,76 @@
                     required: true
                 },
                 @if (!isset($teacher))
-                photo:{
-                    required: true
-                }
-            @endif
-        },
-        messages: {
-            name: {
-                required: "Please enter the teacher's name"
+                    photo: {
+                        required: true
+                    }
+                @endif
             },
-            gender: {
-                required: "Please select the teacher's gender"
+            messages: {
+                name: {
+                    required: "Please enter the teacher's name"
+                },
+                gender: {
+                    required: "Please select the teacher's gender"
+                },
+                dob: {
+                    required: "Please enter the teacher's date of birth"
+                },
+                phone: {
+                    required: "Please enter the teacher's phone number",
+                    digits: "Please enter digits only"
+                },
+                joining_date: {
+                    required: "Please enter teacher's dashboard",
+                },
+                qualification: {
+                    required: "Please enter teacher's qualification",
+                },
+                blood_group: {
+                    required: "Please enter the teacher's blood group"
+                },
+                email: {
+                    required: "Please enter the teacher's email address",
+                    email: "Please enter a valid email address"
+                },
+                password: {
+                    required: "Please create a password for the teacher",
+                    minlength: "Password must be at least 6 characters long"
+                },
+                confirm_password: {
+                    required: "Please confirm the password",
+                    equalTo: "Passwords do not match"
+                },
+                address: {
+                    required: "Please enter the teacher's address"
+                },
+                city: {
+                    required: "Please enter the teacher's city"
+                },
+                state: {
+                    required: "Please enter the teacher's state"
+                },
+                zip_code: {
+                    required: "Please enter the teacher's zip code"
+                },
+                country: {
+                    required: "Please enter the teacher's country"
+                },
+                @if (!isset($teacher))
+                    photo: {
+                        required: "Please upload a photo"
+                    }
+                @endif
             },
-            dob: {
-                required: "Please enter the teacher's date of birth"
+            errorPlacement: function(error, element) {
+                error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');
             },
-            phone: {
-                required: "Please enter the teacher's phone number",
-                digits: "Please enter digits only"
+            highlight: function(element) {
+                $(element).addClass("error-input");
             },
-            joining_date: {
-                required: "Please enter teacher's dashboard",
+            unhighlight: function(element) {
+                $(element).removeClass("error-input");
             },
-            qualification: {
-                required: "Please enter teacher's qualification",
-            },
-            blood_group: {
-                required: "Please enter the teacher's blood group"
-            },
-            email: {
-                required: "Please enter the teacher's email address",
-                email: "Please enter a valid email address"
-            },
-            password: {
-                required: "Please create a password for the teacher",
-                minlength: "Password must be at least 6 characters long"
-            },
-            confirm_password: {
-                required: "Please confirm the password",
-                equalTo: "Passwords do not match"
-            },
-            address: {
-                required: "Please enter the teacher's address"
-            },
-            city: {
-                required: "Please enter the teacher's city"
-            },
-            state: {
-                required: "Please enter the teacher's state"
-            },
-            zip_code: {
-                required: "Please enter the teacher's zip code"
-            },
-            country: {
-                required: "Please enter the teacher's country"
-            },
-            @if (!isset($teacher))
-                photo: {
-                    required: "Please upload a photo"
-                }
-            @endif
-        },
-        errorPlacement: function(error, element) {
-            error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');
-        },
-        highlight: function(element) {
-            $(element).addClass("error-input");
-        },
-        unhighlight: function(element) {
-            $(element).removeClass("error-input");
-        },
         });
     </script>
 
