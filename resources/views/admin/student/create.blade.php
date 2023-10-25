@@ -76,8 +76,8 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Phone </label>
-                                            <input class="form-control" type="text" name="phone"
-                                                placeholder="Enter Phone Number" maxlength="10"
+                                            <input class="form-control" type="text" name="phone" id="phone"
+                                                placeholder="Enter Phone Number"
                                                 value="{{ isset($student) ? $student->phone : old('phone') }}">
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@
                                         <div class="form-group local-forms">
                                             <label>Zip Code </label>
                                             <input class="form-control" type="text" name="zip_code"
-                                                placeholder="Enter Zip Code"
+                                                placeholder="Enter Zip Code" maxlength="6"
                                                 value="{{ isset($student) ? $student->zip_code : old('zip_code') }}">
                                         </div>
                                     </div>
@@ -260,7 +260,6 @@
                 },
                 phone: {
                     required: true,
-                    digits: true
                 },
                 gender: {
                     required: true
@@ -325,7 +324,6 @@
                 },
                 phone: {
                     required: "Please enter student's phone number",
-                    digits: "Please enter digits only"
                 },
                 gender: {
                     required: "Please select the gender of the student"

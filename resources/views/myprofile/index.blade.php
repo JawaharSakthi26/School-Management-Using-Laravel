@@ -68,7 +68,7 @@
                                             <h5 class="card-title d-flex justify-content-between">
                                                 <span>Personal Details</span>
                                                 <a class="edit-link" data-bs-toggle="modal"
-                                                    data-bs-target="#edit_personal_details">
+                                                    data-bs-target="#scrollable-modal">
                                                     <i class="far fa-edit me-1"></i>Edit
                                                 </a>
                                             </h5>
@@ -167,12 +167,12 @@
                                 '0' => 'Inactive',
                             ];
                         @endphp
-                        <div class="modal fade" id="edit_personal_details" tabindex="-1"
-                            aria-labelledby="edit_personal_details_label" aria-hidden="true">
-                            <div class="modal-dialog">
+                        <div class="modal fade" id="scrollable-modal" tabindex="-1" role="dialog"
+                            aria-labelledby="scrollableModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="edit_personal_details_label">Change Basic Information
+                                        <h5 class="modal-title" id="scrollableModalTitle">Change Basic Information
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -234,14 +234,14 @@
                                                 <div class="mb-3">
                                                     <label>Joining Date <span class="login-danger">*</span></label>
                                                     <input class="form-control datetimepicker" type="text"
-                                                        name="joining_date" 
+                                                        name="joining_date"
                                                         value="{{ $user->hasRole('Teacher') ? $user->teacher->joining_date : '' }}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Qualification <span class="login-danger">*</span></label>
                                                     <input class="form-control" type="text" name="qualification"
                                                         placeholder="Qualification"
-                                                        value="{{ $user->hasRole('Teacher') ? $user->teacher->qualification : ''}}">
+                                                        value="{{ $user->hasRole('Teacher') ? $user->teacher->qualification : '' }}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Address <span class="login-danger">*</span></label>

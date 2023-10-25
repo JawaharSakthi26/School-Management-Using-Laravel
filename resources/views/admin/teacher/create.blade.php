@@ -78,8 +78,8 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Mobile <span class="login-danger">*</span></label>
-                                            <input type="text" class="form-control" name="phone"
-                                                placeholder="Enter Phone" maxlength="10"
+                                            <input type="text" class="form-control" name="phone" id="phone"
+                                                placeholder="Enter Phone"
                                                 value="{{ isset($teacher) ? $teacher->phone : old('phone') }}">
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                         <div class="form-group local-forms">
                                             <label>Zip Code </label>
                                             <input class="form-control" type="text" name="zip_code"
-                                                placeholder="Enter Zip Code"
+                                                placeholder="Enter Zip Code" maxlength="6"
                                                 value="{{ isset($teacher) ? $teacher->zip_code : old('zip_code') }}">
                                         </div>
                                     </div>
@@ -222,7 +222,6 @@
                 },
                 phone: {
                     required: true,
-                    digits: true
                 },
                 joining_date: {
                     required: true,
@@ -278,7 +277,6 @@
                 },
                 phone: {
                     required: "Please enter the teacher's phone number",
-                    digits: "Please enter digits only"
                 },
                 joining_date: {
                     required: "Please enter teacher's dashboard",

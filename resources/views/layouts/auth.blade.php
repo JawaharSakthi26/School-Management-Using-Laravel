@@ -65,6 +65,8 @@
     <script src="{{ asset('assets/plugins/multiselect/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.js') }} "></script>
+    <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ asset('assets/js/mask.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
     @if(Session::has('message'))
