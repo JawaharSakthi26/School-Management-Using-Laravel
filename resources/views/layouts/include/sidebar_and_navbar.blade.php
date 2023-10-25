@@ -38,7 +38,8 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" alt="User Image" class="avatar-img rounded-circle">
+                            <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" alt="User Image"
+                                class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6>{{ Auth::user()->name }}</h6>
@@ -47,7 +48,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <a class="dropdown-item" href="{{route('my-profile.index')}}">My Profile</a>
+                    <a class="dropdown-item" href="{{ route('my-profile.index') }}">My Profile</a>
                     <a class="dropdown-item"href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -66,9 +67,11 @@
                         <span>Main Menu</span>
                     </li>
                     @hasrole('Admin')
-                        <li class="submenu {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}">
-                            <a href="#" class="{{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}"><i class="feather-grid"></i> <span> Dashboard</span><span
-                                    class="menu-arrow"></span></a>
+                        <li
+                            class="submenu {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}">
+                            <a href="#"
+                                class="{{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}"><i
+                                    class="feather-grid"></i> <span> Dashboard</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li class="{{ Request::is('admin*') ? 'active' : '' }}">
                                     <a href="{{ route('admin.index') }}">Admin Dashboard</a>
@@ -94,11 +97,14 @@
                         </ul>
                     </li>
                     <li class="submenu {{ Request::is('add-teacher*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-teacher*') ? 'active' : '' }}"><i class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
+                        <a href="#" class="{{ Request::is('add-teacher*') ? 'active' : '' }}"><i
+                                class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="{{ Request::is('add-teacher') ? 'active' : '' }}"><a href="{{ route('add-teacher.index') }}">Teacher List</a></li>
-                            <li class="{{ Request::is('add-teacher/create') ? 'active' : '' }}"><a href="{{ route('add-teacher.create') }}">Teacher Add</a></li>
+                            <li class="{{ Request::is('add-teacher') ? 'active' : '' }}"><a
+                                    href="{{ route('add-teacher.index') }}">Teacher List</a></li>
+                            <li class="{{ Request::is('add-teacher/create') ? 'active' : '' }}"><a
+                                    href="{{ route('add-teacher.create') }}">Teacher Add</a></li>
                         </ul>
                     </li>
                     <li class="submenu {{ Request::is('add-class*') ? 'active' : '' }}">
@@ -109,14 +115,19 @@
                                     href="{{ route('add-class.index') }}">Class List</a></li>
                             <li class="{{ Request::is('add-class/create*') ? 'active' : '' }}"><a
                                     href="{{ route('add-class.create') }}">Class Add</a></li>
+                            <li class="{{ Request::is('add-classTeacher') ? 'active' : '' }}"><a
+                                    href="{{ route('add-classTeacher.index') }}">Class Teacher</a></li>
                         </ul>
                     </li>
                     <li class="submenu {{ Request::is('add-subject*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-subject*') ? 'active' : '' }}"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span
+                        <a href="#" class="{{ Request::is('add-subject*') ? 'active' : '' }}"><i
+                                class="fas fa-book-reader"></i> <span> Subjects</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a href="{{route('add-subject.index')}}">Subject List</a></li>
-                            <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a href="{{route('add-subject.create')}}">Subject Add</a></li>
+                            <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a
+                                    href="{{ route('add-subject.index') }}">Subject List</a></li>
+                            <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a
+                                    href="{{ route('add-subject.create') }}">Subject Add</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">
@@ -129,7 +140,8 @@
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
                     </li>
                     <li class="{{ Request::is('add-timetable*') ? 'active' : '' }}">
-                        <a href="{{route('add-timetable.index')}}"><i class="fas fa-table"></i> <span>Time Table</span></a>
+                        <a href="{{ route('add-timetable.index') }}"><i class="fas fa-table"></i> <span>Time
+                                Table</span></a>
                     </li>
                     <li>
                         <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
