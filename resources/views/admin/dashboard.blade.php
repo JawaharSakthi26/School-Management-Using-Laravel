@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | Home')
+@section('title', 'PreSkool | Admin Home')
 
 @section('content')
 <div class="page-wrapper">

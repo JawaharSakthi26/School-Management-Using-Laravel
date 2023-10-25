@@ -84,52 +84,60 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="submenu {{ Request::is('add-student*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('add-student*') ? 'active' : '' }}"><i
+                                    class="fas fa-graduation-cap"></i> <span> Students</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li class="{{ Request::is('add-student') ? 'active' : '' }}"><a
+                                        href="{{ route('add-student.index') }}">Student List</a></li>
+                                <li class="{{ Request::is('add-student/create') ? 'active' : '' }}"><a
+                                        href="{{ route('add-student.create') }}">Student Add</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu {{ Request::is('add-teacher*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('add-teacher*') ? 'active' : '' }}"><i
+                                    class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li class="{{ Request::is('add-teacher') ? 'active' : '' }}"><a
+                                        href="{{ route('add-teacher.index') }}">Teacher List</a></li>
+                                <li class="{{ Request::is('add-teacher/create') ? 'active' : '' }}"><a
+                                        href="{{ route('add-teacher.create') }}">Teacher Add</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu {{ Request::is('add-class*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('add-class*') ? 'active' : '' }}"><i
+                                    class="fas fa-building"></i> <span> Classes</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li class="{{ Request::is('add-class') ? 'active' : '' }}"><a
+                                        href="{{ route('add-class.index') }}">Class List</a></li>
+                                <li class="{{ Request::is('add-class/create*') ? 'active' : '' }}"><a
+                                        href="{{ route('add-class.create') }}">Class Add</a></li>
+                                <li class="{{ Request::is('add-classTeacher') ? 'active' : '' }}"><a
+                                        href="{{ route('add-classTeacher.index') }}">Class Teacher</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu {{ Request::is('add-subject*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('add-subject*') ? 'active' : '' }}"><i
+                                    class="fas fa-book-reader"></i> <span> Subjects</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a
+                                        href="{{ route('add-subject.index') }}">Subject List</a></li>
+                                <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a
+                                        href="{{ route('add-subject.create') }}">Subject Add</a></li>
+                            </ul>
+                        </li>
                     @endhasrole
-                    <li class="submenu {{ Request::is('add-student*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-student*') ? 'active' : '' }}"><i
-                                class="fas fa-graduation-cap"></i> <span> Students</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li class="{{ Request::is('add-student') ? 'active' : '' }}"><a
-                                    href="{{ route('add-student.index') }}">Student List</a></li>
-                            <li class="{{ Request::is('add-student/create') ? 'active' : '' }}"><a
-                                    href="{{ route('add-student.create') }}">Student Add</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu {{ Request::is('add-teacher*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-teacher*') ? 'active' : '' }}"><i
-                                class="fas fa-chalkboard-teacher"></i> <span> Teachers</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li class="{{ Request::is('add-teacher') ? 'active' : '' }}"><a
-                                    href="{{ route('add-teacher.index') }}">Teacher List</a></li>
-                            <li class="{{ Request::is('add-teacher/create') ? 'active' : '' }}"><a
-                                    href="{{ route('add-teacher.create') }}">Teacher Add</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu {{ Request::is('add-class*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-class*') ? 'active' : '' }}"><i
-                                class="fas fa-building"></i> <span> Classes</span> <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li class="{{ Request::is('add-class') ? 'active' : '' }}"><a
-                                    href="{{ route('add-class.index') }}">Class List</a></li>
-                            <li class="{{ Request::is('add-class/create*') ? 'active' : '' }}"><a
-                                    href="{{ route('add-class.create') }}">Class Add</a></li>
-                            <li class="{{ Request::is('add-classTeacher') ? 'active' : '' }}"><a
-                                    href="{{ route('add-classTeacher.index') }}">Class Teacher</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu {{ Request::is('add-subject*') ? 'active' : '' }}">
-                        <a href="#" class="{{ Request::is('add-subject*') ? 'active' : '' }}"><i
-                                class="fas fa-book-reader"></i> <span> Subjects</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a
-                                    href="{{ route('add-subject.index') }}">Subject List</a></li>
-                            <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a
-                                    href="{{ route('add-subject.create') }}">Subject Add</a></li>
-                        </ul>
-                    </li>
+                    @hasrole('Teacher')
+                        <li class="{{ Request::is('teacher*') ? 'active' : '' }}">
+                            <a href="{{ route('teacher.index') }}" class="{{ Request::is('teacher*') }}"><i class="feather-grid"></i><span> Dashboard</span></a>
+                        </li>
+                        <li class="{{ Request::is('my-students*') ? 'active' : '' }}">
+                            <a href="{{ route('my-students.index') }}" class="{{ Request::is('my-students*') }}"><i class="fa fa-users"></i><span> My Students</span></a>
+                        </li>
+                    @endhasrole
                     <li class="menu-title">
                         <span>Management</span>
                     </li>
