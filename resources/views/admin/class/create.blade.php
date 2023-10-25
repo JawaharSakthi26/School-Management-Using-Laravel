@@ -11,10 +11,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Add/Edit Class</h3>
+                        <h3 class="page-title">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('add-class.index') }}">Class</a></li>
-                            <li class="breadcrumb-item active">Add/Edit Class</li>
+                            <li class="breadcrumb-item active">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</li>
                         </ul>
                     </div>
                 </div>
