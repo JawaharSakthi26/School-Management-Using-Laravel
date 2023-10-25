@@ -165,7 +165,7 @@
                 old_password: {
                     required: true
                 },
-                new_password: {
+                password: {
                     required: true,
                     minlength: 6 
                 },
@@ -178,7 +178,7 @@
                 old_password: {
                     required: 'Please enter your old password.'
                 },
-                new_password: {
+                password: {
                     required: 'Please enter a new password.',
                     minlength: 'Password must be at least {0} characters.'
                 },
