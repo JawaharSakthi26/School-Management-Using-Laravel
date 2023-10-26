@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:Admin|Teacher'])->group(function () {
         Route::resource('/teacher',  App\Http\Controllers\Teacher\DashboardController::class);
         Route::resource('/my-students',  App\Http\Controllers\Teacher\MyStudentController::class);
+        Route::resource('/my-timetable',  App\Http\Controllers\Teacher\MyTimetableController::class);
     });
 
     Route::middleware(['role:Admin|Student'])->group(function () {

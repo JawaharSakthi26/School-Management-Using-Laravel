@@ -137,6 +137,9 @@
                         <li class="{{ Request::is('my-students*') ? 'active' : '' }}">
                             <a href="{{ route('my-students.index') }}" class="{{ Request::is('my-students*') }}"><i class="fa fa-users"></i><span> My Students</span></a>
                         </li>
+                        <li class="{{ Request::is('my-timetable*') ? 'active' : '' }}">
+                            <a href="{{ route('my-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i class="fas fa-table"></i><span> My Timetable</span></a>
+                        </li>
                     @endhasrole
                     <li class="menu-title">
                         <span>Management</span>
