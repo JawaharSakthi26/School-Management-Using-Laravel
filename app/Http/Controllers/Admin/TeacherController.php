@@ -35,41 +35,47 @@ class TeacherController extends Controller
     {
         $filename = '';
 
+        $data = $request->all();
+
+        if (User::where('email', $data['email'])->exists()) {
+            return redirect()->back()->with('error', 'Email already exists')->withInput(); 
+        }
+
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
 
-        $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
-        $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
+        $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
+        $joining_date = Carbon::createFromFormat('d-m-Y', $data['joining_date'])->format('Y-m-d');
 
         $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
             'avatar' => $filename,
         ])->assignRole('Teacher');
 
         $user_id = $user->id;
 
-        Teacher::create([
+        $user->teacher()->create([
             'user_id' => $user_id,
-            'phone' => $request->input('phone'),
-            'gender' => $request->input('gender'),
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
             'dob' => $dob,
             'joining_date' => $joining_date,
-            'qualification' => $request->input('qualification'),
-            'blood_group' => $request->input('blood_group'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'state' => $request->input('state'),
-            'zip_code' => $request->input('zip_code'),
-            'country' => $request->input('country'),
-            'status' => $request->input('status') ? '1' : '0',
+            'qualification' => $data['qualification'],
+            'blood_group' => $data['blood_group'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip_code' => $data['zip_code'],
+            'country' => $data['country'],
+            'status' => $data['status'] ? '1' : '0',
         ]);
 
-        return redirect()->route('add-teacher.index')->with('message','Teacher Created Successfully!');
+        return redirect()->route('add-teacher.index')->with('message', 'Teacher Created Successfully!');
     }
 
     /**
@@ -98,33 +104,33 @@ class TeacherController extends Controller
         if (!$teacher) {
             return redirect()->route('add-teacher.index')->with('error', 'Teacher not found');
         }
-    
+
         $user = $teacher->user;
-    
+
         $filename = $teacher->user->avatar;
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
-    
+
         $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
         $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
-    
+
         $userData = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'avatar' => $filename,
         ];
-    
+
         if ($request->has('password')) {
             $userData['password'] = Hash::make($request->input('password'));
         } else {
             $userData['password'] = $user->password;
         }
-    
+
         $user->update($userData);
-    
+
         $teacher->update([
             'phone' => $request->input('phone'),
             'gender' => $request->input('gender'),
@@ -139,10 +145,10 @@ class TeacherController extends Controller
             'country' => $request->input('country'),
             'status' => $request->input('status') ? '1' : '0',
         ]);
-    
+
         return redirect()->route('add-teacher.index')->with('message', 'Teacher updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
