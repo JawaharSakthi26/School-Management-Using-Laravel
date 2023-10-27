@@ -143,12 +143,16 @@
                         <li class="{{ Request::is('attendance*') ? 'active' : '' }}">
                             <a href="{{ route('attendance.index') }}" class="{{ Request::is('attendance*') }}"><i class="fa fa-address-book"></i><span> Attendance</span></a>
                         </li>
+                        <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
+                            <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i class="fas fa-calendar-day"></i><span> My Calendar</span></a>
+                        </li>
                     @endhasrole
+                    @hasrole('Admin')
                     <li class="menu-title">
                         <span>Management</span>
                     </li>
                     <li>
-                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Events</span></a>
+                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
                     </li>
                     <li>
                         <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
@@ -160,6 +164,7 @@
                     <li>
                         <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
                     </li>
+                    @endhasrole
                 </ul>
             </div>
         </div>
