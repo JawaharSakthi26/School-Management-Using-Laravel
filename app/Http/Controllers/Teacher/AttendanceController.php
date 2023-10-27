@@ -8,7 +8,6 @@ use App\Models\ClassTeacher;
 use App\Models\Student;
 use App\Models\StudentAttendance;
 use App\Models\StudentAttendanceStatus;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +18,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendanceDates = StudentAttendance::with('statuses')->get();
+        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id)->get();
         return view('teacher.attendance.index', compact('attendanceDates'));
     }
 
