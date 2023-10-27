@@ -100,6 +100,10 @@ class TeacherController extends Controller
 
         $filename = $user->avatar;
         $data = $request->all();
+        
+        if (User::where('email', $data['email'])->where('id', '!=', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'Email already exists')->withInput();
+        }
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');

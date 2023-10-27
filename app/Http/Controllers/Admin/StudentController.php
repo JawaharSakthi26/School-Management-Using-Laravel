@@ -30,8 +30,17 @@ class StudentController extends Controller
 
         if (User::where('email', $data['email'])->exists()) {
             return redirect()->back()->with('error', 'Email already exists')->withInput();
-        } elseif(Student::where('admission_id', $data['admission_id'])->exists()){
+        }
+
+        if (Student::where('admission_id', $data['admission_id'])->exists()) {
             return redirect()->back()->with('error', 'Admission ID already exists')->withInput();
+        }
+
+        if (Student::where('class_id', $data['class'])
+            ->where('roll_number', $data['roll_number'])
+            ->exists()
+        ) {
+            return redirect()->back()->with('error', 'Roll Number already exists for this class')->withInput();
         }
 
         $filename = '';
@@ -86,15 +95,30 @@ class StudentController extends Controller
         }
 
         $filename = $user->avatar;
-
         $data = $request->all();
+
+        if (User::where('email', $data['email'])->where('id', '!=', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'Email already exists')->withInput();
+        }
+
+        if (Student::where('admission_id', $data['admission_id'])->where('user_id', '!=', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'Admission ID already exists')->withInput();
+        }
+
+        if (Student::where('class_id', $data['class'])
+            ->where('roll_number', $data['roll_number'])
+            ->where('user_id', '!=', $user->id)
+            ->exists()
+        ) {
+            return redirect()->back()->with('error', 'Roll Number already exists for this class')->withInput();
+        }
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
-        
+
         $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
 
         $userData = [
@@ -105,8 +129,6 @@ class StudentController extends Controller
 
         if ($request->has('password')) {
             $userData['password'] = Hash::make($request->input('password'));
-        } else {
-            $userData['password'] = $user->password;
         }
 
         $user->update($userData);
