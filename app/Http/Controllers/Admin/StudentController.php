@@ -26,6 +26,13 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
+        $data = $request->all();
+
+        if (User::where('email', $data['email'])->exists()) {
+            return redirect()->back()->with('error', 'Email already exists')->withInput();
+        } elseif(Student::where('admission_id', $data['admission_id'])->exists()){
+            return redirect()->back()->with('error', 'Admission ID already exists')->withInput();
+        }
 
         $filename = '';
 
@@ -35,66 +42,64 @@ class StudentController extends Controller
             $file->move('uploads/', $filename);
         }
 
-        $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
+        $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
 
         $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
             'avatar' => $filename,
         ])->assignRole('Student');
 
-        $user_id = $user->id;
-
-        Student::create([
-            'user_id' => $user_id,
-            'class_id' => $request->input('class'),
-            'phone' => $request->input('phone'),
-            'gender' => $request->input('gender'),
+        $user->student()->create([
+            'class_id' => $data['class'],
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
             'dob' => $dob,
-            'admission_id' => $request->input('admission_id'),
-            'roll_number' => $request->input('roll_number'),
-            'religion' => $request->input('religion'),
-            'blood_group' => $request->input('blood_group'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'state' => $request->input('state'),
-            'zip_code' => $request->input('zip_code'),
-            'country' => $request->input('country'),
+            'admission_id' => $data['admission_id'],
+            'roll_number' => $data['roll_number'],
+            'religion' => $data['religion'],
+            'blood_group' => $data['blood_group'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip_code' => $data['zip_code'],
+            'country' => $data['country'],
             'status' => $request->input('status') ? '1' : '0',
         ]);
-        return redirect()->route('add-student.index')->with('message','Student Created Successfully!');
+        return redirect()->route('add-student.index')->with('message', 'Student Created Successfully!');
     }
 
     public function edit($id)
     {
         $classes = AddClass::where('status', '1')->get();
-        $student = Student::findOrFail($id);
+        $student = User::with('student')->findOrFail($id);
         return view('admin.student.create', compact('classes', 'student'));
     }
 
     public function update(Request $request, string $id)
     {
-        $student = Student::find($id);
+        $user = User::find($id);
 
-        if (!$student) {
+        if (!$user) {
             return redirect()->route('add-student.index')->with('error', 'Student not found');
         }
 
-        $user = $student->user;
-
         $filename = $user->avatar;
+
+        $data = $request->all();
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/', $filename);
         }
-        $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
+        
+        $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
 
         $userData = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
+            'name' => $data['name'],
+            'email' => $data['email'],
             'avatar' => $filename,
         ];
 
@@ -106,20 +111,20 @@ class StudentController extends Controller
 
         $user->update($userData);
 
-        $student->update([
-            'phone' => $request->input('phone'),
-            'gender' => $request->input('gender'),
+        $user->student()->update([
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
             'dob' => $dob,
-            'admission_id' => $request->input('admission_id'),
-            'class_id' => $request->input('class'),
-            'roll_number' => $request->input('roll_number'),
-            'blood_group' => $request->input('blood_group'),
-            'religion' => $request->input('religion'),
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'state' => $request->input('state'),
-            'zip_code' => $request->input('zip_code'),
-            'country' => $request->input('country'),
+            'admission_id' => $data['admission_id'],
+            'class_id' => $data['class'],
+            'roll_number' => $data['roll_number'],
+            'blood_group' => $data['blood_group'],
+            'religion' => $data['religion'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip_code' => $data['zip_code'],
+            'country' => $data['country'],
             'status' => $request->input('status') ? '1' : '0',
         ]);
 
@@ -131,6 +136,6 @@ class StudentController extends Controller
     {
         $item = User::findOrFail($id);
         $item->delete();
-        return redirect()->route("add-student.index")->with('message','Student Deleted Successfully!');
+        return redirect()->route("add-student.index")->with('message', 'Student Deleted Successfully!');
     }
 }

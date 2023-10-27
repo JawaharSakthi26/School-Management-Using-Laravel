@@ -46,14 +46,14 @@ class User extends Authenticatable
     ];
 
     public function classes() {
-        return $this->hasMany(AddClass::class, 'user_id');
+        return $this->hasMany(AddClass::class,'user_id');
     }
 
     public function student(){
-        return $this->hasOne(Student::class);
+        return $this->hasOne(Student::class,'user_id','id');
     }
 
     public function teacher(){
-        return $this->hasOne(Teacher::class,'id','user_id');
+        return $this->hasOne(Teacher::class,'user_id','id');
     }
 }

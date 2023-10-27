@@ -80,7 +80,7 @@
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="actions ">
-                                                        <a href="{{route('add-teacher.edit', $value->id)}}" class="btn btn-sm bg-success-light me-2 ">
+                                                        <a href="{{route('add-teacher.edit', $value->user_id)}}" class="btn btn-sm bg-success-light me-2 ">
                                                             <i class="feather-edit"></i>
                                                         </a>
                                                         <form action="{{ route('add-teacher.destroy', $value->user_id) }}" method="POST">

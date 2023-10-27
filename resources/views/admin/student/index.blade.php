@@ -84,12 +84,9 @@
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="actions ">
-                                                        <a href="{{route('add-student.edit', $value->id)}}" class="btn btn-sm bg-success-light me-2 ">
+                                                        <a href="{{route('add-student.edit', $value->user_id)}}" class="btn btn-sm bg-success-light me-2 ">
                                                             <i class="feather-edit"></i>
                                                         </a>
-                                                        {{-- <a href="edit-student.html" class="btn btn-sm bg-danger-light">
-                                                            <i class="feather-trash"></i>
-                                                        </a> --}}
                                                         <form action="{{ route('add-student.destroy', $value->user_id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
