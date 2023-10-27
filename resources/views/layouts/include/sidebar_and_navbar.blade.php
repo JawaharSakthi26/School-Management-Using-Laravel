@@ -66,23 +66,12 @@
                     <li class="menu-title">
                         <span>Main Menu</span>
                     </li>
+                    {{-- <li class="{{ Request::is('admin*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.index') }}">Admin Dashboard</a>
+                    </li> --}}
                     @hasrole('Admin')
-                        <li
-                            class="submenu {{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}">
-                            <a href="#"
-                                class="{{ Request::is('admin*') || Request::is('teacher*') || Request::is('student*') ? 'active' : '' }}"><i
-                                    class="feather-grid"></i> <span> Dashboard</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li class="{{ Request::is('admin*') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.index') }}">Admin Dashboard</a>
-                                </li>
-                                <li class="{{ Request::is('teacher*') ? 'active' : '' }}">
-                                    <a href="{{ route('teacher.index') }}">Teacher Dashboard</a>
-                                </li>
-                                <li class="{{ Request::is('student*') ? 'active' : '' }}">
-                                    <a href="{{ route('student.index') }}">Student Dashboard</a>
-                                </li>
-                            </ul>
+                        <li class="{{ Request::is('admin*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.index') }}" class="{{ Request::is('admin*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
                         <li class="submenu {{ Request::is('add-student*') ? 'active' : '' }}">
                             <a href="#" class="{{ Request::is('add-student*') ? 'active' : '' }}"><i
@@ -132,38 +121,36 @@
                     @endhasrole
                     @hasrole('Teacher')
                         <li class="{{ Request::is('teacher*') ? 'active' : '' }}">
-                            <a href="{{ route('teacher.index') }}" class="{{ Request::is('teacher*') }}"><i class="feather-grid"></i><span> Dashboard</span></a>
+                            <a href="{{ route('teacher.index') }}" class="{{ Request::is('teacher*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
                         <li class="{{ Request::is('my-students*') ? 'active' : '' }}">
-                            <a href="{{ route('my-students.index') }}" class="{{ Request::is('my-students*') }}"><i class="fa fa-users"></i><span> My Students</span></a>
+                            <a href="{{ route('my-students.index') }}" class="{{ Request::is('my-students*') }}"><i
+                                    class="fa fa-users"></i><span> My Students</span></a>
                         </li>
                         <li class="{{ Request::is('my-timetable*') ? 'active' : '' }}">
-                            <a href="{{ route('my-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i class="fas fa-table"></i><span> My Timetable</span></a>
+                            <a href="{{ route('my-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i
+                                    class="fas fa-table"></i><span> My Timetable</span></a>
                         </li>
                         <li class="{{ Request::is('attendance*') ? 'active' : '' }}">
-                            <a href="{{ route('attendance.index') }}" class="{{ Request::is('attendance*') }}"><i class="fa fa-address-book"></i><span> Attendance</span></a>
+                            <a href="{{ route('attendance.index') }}" class="{{ Request::is('attendance*') }}"><i
+                                    class="fa fa-address-book"></i><span> Attendance</span></a>
                         </li>
                         <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
-                            <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i class="fas fa-calendar-day"></i><span> My Calendar</span></a>
+                            <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
+                                    class="fas fa-calendar-day"></i><span> My Calendar</span></a>
                         </li>
                     @endhasrole
                     @hasrole('Admin')
-                    <li class="menu-title">
-                        <span>Management</span>
-                    </li>
-                    <li>
-                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
-                    </li>
-                    <li>
-                        <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
-                    </li>
-                    <li class="{{ Request::is('add-timetable*') ? 'active' : '' }}">
-                        <a href="{{ route('add-timetable.index') }}"><i class="fas fa-table"></i> <span>Time
-                                Table</span></a>
-                    </li>
-                    <li>
-                        <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
-                    </li>
+                        <li class="menu-title">
+                            <span>Management</span>
+                        </li>
+                        <li>
+                            <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
+                        </li>
+                        <li class="{{ Request::is('add-timetable*') ? 'active' : '' }}">
+                            <a href="{{ route('add-timetable.index') }}"><i class="fas fa-table"></i> <span>Time
+                                    Table</span></a>
+                        </li>
                     @endhasrole
                 </ul>
             </div>
