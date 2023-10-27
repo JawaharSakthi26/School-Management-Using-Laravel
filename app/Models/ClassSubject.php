@@ -14,7 +14,7 @@ class ClassSubject extends Model
     ];
 
     public function class(){
-        return $this->belongsTo(AddClass::class);
+        return $this->belongsTo(AddClass::class,'class_id');
     }
 
     public function subjects(){

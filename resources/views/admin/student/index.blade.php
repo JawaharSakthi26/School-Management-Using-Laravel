@@ -28,7 +28,8 @@
                                         <h3 class="page-title">Students</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="{{route('add-student.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                        <a href="{{ route('add-student.create') }}" class="btn btn-primary"><i
+                                                class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -38,11 +39,7 @@
                                     class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </th>
+                                            <th>#</th>
                                             <th>Admission ID</th>
                                             <th>Name</th>
                                             <th>Class</th>
@@ -56,11 +53,7 @@
                                     <tbody>
                                         @foreach ($data as $index => $value)
                                             <tr>
-                                                <td>
-                                                    <div class="form-check check-tables">
-                                                        <input class="form-check-input" type="checkbox" value="something">
-                                                    </div>
-                                                </td>
+                                                <td>{{ $index+1 }}</td>
                                                 <td>{{ $value->admission_id }}</td>
                                                 <td>
                                                     <h2 class="table-avatar">
@@ -84,13 +77,16 @@
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="actions ">
-                                                        <a href="{{route('add-student.edit', $value->user_id)}}" class="btn btn-sm bg-success-light me-2 ">
+                                                        <a href="{{ route('add-student.edit', $value->user_id) }}"
+                                                            class="btn btn-sm bg-success-light me-2 ">
                                                             <i class="feather-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('add-student.destroy', $value->user_id) }}" method="POST">
+                                                        <form action="{{ route('add-student.destroy', $value->user_id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm bg-danger-light"><i class="feather-trash"></i></button>
+                                                            <button type="submit" class="btn btn-sm bg-danger-light"><i
+                                                                    class="feather-trash"></i></button>
                                                         </form>
                                                     </div>
                                                 </td>

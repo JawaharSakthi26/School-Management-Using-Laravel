@@ -8,7 +8,6 @@ use App\Models\AddClass;
 use App\Models\ClassSubject;
 use App\Models\Subject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ClassController extends Controller
 {
@@ -27,19 +26,23 @@ class ClassController extends Controller
 
     public function store(Request $request)
     {
+        $data = $request->all();
+
+        if(AddClass::where('name',$data['name'])->exists()){
+            return redirect()->back()->with('error', 'Class already exists')->withInput(); 
+        }
+
         $class = AddClass::create([
-            'user_id' => $request->user_id,
-            'name' => $request->input('name'),
+            'user_id' => $data['user_id'],
+            'name' => $data['name'],
             'status' => $request->input('status') ? '1' : '0'
         ]);
 
-        $class_id = $class->id;
         $user_id = $class->user_id;
 
         foreach ($request->subjects as $subject) {
-            ClassSubject::create([
+            $class->subjects()->create([
                 'user_id' => $user_id,
-                'class_id' => $class_id,
                 'subject_id' => $subject
             ]);
         }
@@ -48,26 +51,31 @@ class ClassController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $updateId = AddClass::findOrFail($id);
+        $class = AddClass::findOrFail($id);
 
-        $updateId->update([
+        $data = $request->all();
+
+        if(AddClass::where('name',$data['name'])->where('id', '!=', $id)->exists()){
+            return redirect()->back()->with('error', 'Class already exists')->withInput(); 
+        }
+
+        $class->update([
             'user_id' => $request->user_id,
             'name' => $request->name,
             'status' => $request->status ? '1' : '0',
         ]);
         
         $selectedSubjects = $request->input('subjects', []);
-        $existingSubjects = $updateId->subjects->pluck('id')->toArray();
+        $existingSubjects = $class->subjects->pluck('id')->toArray();
         $subjectsToDetach = array_diff($existingSubjects, $selectedSubjects);
 
         foreach ($subjectsToDetach as $subjectId) {
-            $updateId->subjects()->where('id', $subjectId)->delete();
+            $class->subjects()->where('id', $subjectId)->delete();
         }
 
         foreach ($request->subjects as $subject) {
-            ClassSubject::create([
-                'user_id' => $updateId->user_id,
-                'class_id' => $updateId->id,
+            $class->subjects()->create([
+                'user_id' => $class->user_id,
                 'subject_id' => $subject
             ]);
         }
