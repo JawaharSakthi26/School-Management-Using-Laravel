@@ -74,7 +74,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table
-                                        class="table border-0 star-student table-hover table-center mb-0 datatable table-striped mb-3">
+                                        class="table border-0 star-student table-hover table-center mb-0 table-striped mb-3">
                                         <thead class="student-thread">
                                             <tr>
                                                 <th>Day</th>
@@ -153,6 +153,36 @@
                             subjectSelect.append('<option value="' + key + '">' + value +
                                 '</option>');
                         });
+                    }
+                });
+            }
+
+            function fetchTimetable(classId, subjectId) {
+                $.ajax({
+                    url: '{{ route('fetch-timetable') }}',
+                    type: 'GET',
+                    data: {
+                        class_id: classId,
+                        subject_id: subjectId
+                    },
+                    success: function(data) {
+                        if (data.length > 0) {
+                            var timetableTable = $('#timetable-content');
+                            timetableTable.empty();
+                            data.forEach(function(item, index) {
+                                var row = '<tr>' +
+                                    '<td>' + item.day + '</td>' +
+                                    '<td><input type="hidden" name="timetable[' + index +
+                                    '][day_id]" value="' + item.day_id + '">' +
+                                    '<input type="time" class="form-control" name="timetable[' +
+                                    index + '][start_time]" value="' + item.start_time +
+                                    '"></td>' +
+                                    '<td><input type="time" class="form-control" name="timetable[' +
+                                    index + '][end_time]" value="' + item.end_time + '"></td>' +
+                                    '</tr>';
+                                timetableTable.append(row);
+                            });
+                        }
                     }
                 });
             }

@@ -25,16 +25,16 @@ class TimeTableController extends Controller
 
         $classId = $request->input('class_id');
         $subjectId = $request->input('subject_id');
-    
+
         $timetableData = [];
-    
+
         if ($classId && $subjectId) {
             $timetableData = DB::table('class_timetables')
                 ->where('class_id', $classId)
                 ->where('subject_id', $subjectId)
                 ->get();
-        }   
-    
+        }
+
         return view('admin.timetable.index', compact('class', 'teacher', 'week_days', 'timetableData', 'teachers'));
     }
 
@@ -43,23 +43,47 @@ class TimeTableController extends Controller
      */
     public function store(Request $request)
     {
-        ClassTimetable::where('class_id',$request->class_id)->where('subject_id',$request->subject_id)->delete();
+        ClassTimetable::where('class_id', $request->class_id)
+            ->where('subject_id', $request->subject_id)
+            ->delete();
 
         $data = $request->all();
 
         foreach ($request->timetable as $timetable) {
-            ClassTimetable::create([
-                'user_id' => Auth::user()->id,
-                'class_id' => $data['class_id'],
-                'subject_id' => $data['subject_id'],
-                'teacher_id' => $data['teacher_id'],
-                'day_id' =>  $timetable['day_id'],
-                'start_time' => $timetable['start_time'],
-                'end_time' => $timetable['end_time']
-            ]);
+            $dayId = $timetable['day_id'];
+            $startTime = $timetable['start_time'];
+            $endTime = $timetable['end_time'];
+
+            $existingTimetable = ClassTimetable::where('class_id', $data['class_id'])
+                ->where('day_id', $dayId)
+                ->where('start_time', $startTime)
+                ->where('end_time', $endTime)
+                ->first();
+
+            $existingTeacherTimetable = ClassTimetable::where('teacher_id', $data['teacher_id'])
+                ->where('day_id', $dayId)
+                ->where('start_time', $startTime)
+                ->where('end_time', $endTime)
+                ->first();
+
+            if (!$existingTimetable && !$existingTeacherTimetable) {
+                ClassTimetable::create([
+                    'user_id' => Auth::user()->id,
+                    'class_id' => $data['class_id'],
+                    'subject_id' => $data['subject_id'],
+                    'teacher_id' => $data['teacher_id'],
+                    'day_id' => $dayId,
+                    'start_time' => $startTime,
+                    'end_time' => $endTime,
+                ]);
+            } else {
+                return redirect()->back()->with('error', 'Class already exist for the class/teacher')->withInput();
+            }
         }
-        return redirect()->route('add-timetable.index')->with('message','Class Timetable Saved!');
+
+        return redirect()->route('add-timetable.index')->with('message', 'Class Timetable Saved!');
     }
+
 
     public function fetchSubjects($classId)
     {
@@ -71,5 +95,21 @@ class TimeTableController extends Controller
             $subjectArray[$subject->subjects->id] = $subject->subjects->name;
         }
         return response()->json($subjectArray);
+    }
+
+    public function fetchTimetable(Request $request)
+    {
+        $classId = $request->input('class_id');
+        $subjectId = $request->input('subject_id');
+        $timetableData = [];
+
+        if ($classId && $subjectId) {
+            $timetableData = DB::table('class_timetables')
+                ->where('class_id', $classId)
+                ->where('subject_id', $subjectId)
+                ->get();
+        }
+
+        return response()->json($timetableData);
     }
 }
