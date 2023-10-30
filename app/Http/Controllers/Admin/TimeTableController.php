@@ -45,12 +45,14 @@ class TimeTableController extends Controller
     {
         ClassTimetable::where('class_id',$request->class_id)->where('subject_id',$request->subject_id)->delete();
 
+        $data = $request->all();
+
         foreach ($request->timetable as $timetable) {
             ClassTimetable::create([
                 'user_id' => Auth::user()->id,
-                'class_id' => $request->class_id,
-                'subject_id' => $request->subject_id,
-                'teacher_id' => $request->teacher_id,
+                'class_id' => $data['class_id'],
+                'subject_id' => $data['subject_id'],
+                'teacher_id' => $data['teacher_id'],
                 'day_id' =>  $timetable['day_id'],
                 'start_time' => $timetable['start_time'],
                 'end_time' => $timetable['end_time']

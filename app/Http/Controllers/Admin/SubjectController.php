@@ -18,10 +18,12 @@ class SubjectController extends Controller
 
     public function store(Request $request)
     {
+        $data = $request->all();
+
         Subject::create([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'type' => $request->type,
+            'user_id' => $data['user_id'],
+            'name' => $data['name'],
+            'type' => $data['type'],
             'status' => $request->status ? '1' : '0',
         ]);
         return redirect()->route("add-subject.index")->with('message','Subject Created Successfully!');
@@ -30,11 +32,12 @@ class SubjectController extends Controller
     public function update(Request $request, string $id)
     {
         $updateId = Subject::findOrFail($id);
+        $data = $request->all();
 
         $updateId->update([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'type' => $request->type,
+            'user_id' => $data['user_id'],
+            'name' => $data['name'],
+            'type' => $data['type'],
             'status' => $request->status ? '1' : '0',
         ]);
 

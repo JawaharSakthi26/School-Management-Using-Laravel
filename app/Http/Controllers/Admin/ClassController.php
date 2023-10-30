@@ -59,8 +59,8 @@ class ClassController extends Controller
         }
 
         $class->update([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
+            'user_id' => $data['user_id'],
+            'name' => $data['name'],
             'status' => $request->status ? '1' : '0',
         ]);
         

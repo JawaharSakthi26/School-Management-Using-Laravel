@@ -44,10 +44,12 @@ class ClassTeacherController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+
         ClassTeacher::create([
-            'user_id' => $request->user_id,
-            'class_id' => $request->class_id,
-            'teacher_id' => $request->teacher_id,
+            'user_id' => $data['user_id'],
+            'class_id' =>$data['class_id'],
+            'teacher_id' => $data['teacher_id'],
         ]);
         return redirect()->route('add-classTeacher.index')->with('message', 'Class teacher created successfully');
     }
@@ -79,10 +81,12 @@ class ClassTeacherController extends Controller
     {
         $updateId = ClassTeacher::findOrFail($id);
 
+        $data = $request->all();
+        
         $updateId->update([
-            'user_id' => $request->user_id,
-            'class_id' => $request->class_id,
-            'teacher_id' => $request->teacher_id,
+            'user_id' => $data['user_id'],
+            'class_id' => $data['class_id'],
+            'teacher_id' => $data['teacher_id'],
         ]);
 
         return redirect()->route('add-classTeacher.index')->with('message', 'Class Teacher Updated Successfully');
