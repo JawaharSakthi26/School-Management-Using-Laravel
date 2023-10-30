@@ -45,11 +45,13 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+
         $attendance = StudentAttendance::updateOrcreate(
             [
-                'user_id' => $request->user_id,
-                'class_id' => $request->class_id,
-                'attendance_date' => $request->attendance_date
+                'user_id' => $data['user_id'],
+                'class_id' => $data['class_id'],
+                'attendance_date' => $data['attendance_date']
             ],
             []
         );
@@ -92,7 +94,7 @@ class AttendanceController extends Controller
 
         $attendance = StudentAttendance::findOrFail($id);
 
-        return view('teacher.attendance.create', compact('attendance','class','studentsInClass'));
+        return view('teacher.attendance.create', compact('attendance', 'class', 'studentsInClass'));
     }
 
     /**
@@ -101,28 +103,28 @@ class AttendanceController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request);
-        {
-            $attendance = StudentAttendance::updateOrcreate(
+        $data = $request->all();
+
+        $attendance = StudentAttendance::updateOrcreate(
+            [
+                'user_id' => $data['user_id'],
+                'class_id' => $data['class_id'],
+                'attendance_date' => $data['attendance_date']
+            ],
+            []
+        );
+
+        foreach ($request->attendance as $userId => $status) {
+            $attendance->statuses()->updateOrcreate(
                 [
-                    'user_id' => $request->user_id,
-                    'class_id' => $request->class_id,
-                    'attendance_date' => $request->attendance_date
+                    'attendance_date_id' => $attendance->id,
+                    'student_id' => $userId,
                 ],
-                []
+                ['status' => $status]
             );
-    
-            foreach ($request->attendance as $userId => $status) {
-                $attendance->statuses()->updateOrcreate(
-                    [
-                        'attendance_date_id' => $attendance->id,
-                        'student_id' => $userId,
-                    ],
-                    ['status' => $status]
-                );
-            }
-    
-            return redirect()->route('attendance.index')->with('message', 'Attendance recorded successfully');
         }
+
+        return redirect()->route('attendance.index')->with('message', 'Attendance recorded successfully');
     }
 
     /**
@@ -132,6 +134,6 @@ class AttendanceController extends Controller
     {
         $item = StudentAttendance::findOrFail($id);
         $item->delete();
-        return redirect()->route("attendance.index")->with('message','Attendance Record Deleted Successfully!');
+        return redirect()->route("attendance.index")->with('message', 'Attendance Record Deleted Successfully!');
     }
 }
