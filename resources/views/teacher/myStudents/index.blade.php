@@ -37,7 +37,7 @@
 
                             <div class="table-responsive">
                                 <table
-                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    class="table border-0 star-student table-hover table-center mb-0 table-striped" id="datatable">
                                     <thead class="student-thread">
                                         <tr>
                                             <th>Admission ID</th>
@@ -85,18 +85,6 @@
                                                         <span class="badge bg-danger">Inactive</span>
                                                     @endif
                                                 </td>
-                                                {{-- <td class="text-end">
-                                                <div class="actions ">
-                                                    <a href="{{route('add-student.edit', $value->id)}}" class="btn btn-sm bg-success-light me-2 ">
-                                                        <i class="feather-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('add-student.destroy', $value->user_id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm bg-danger-light"><i class="feather-trash"></i></button>
-                                                    </form>
-                                                </div>
-                                            </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

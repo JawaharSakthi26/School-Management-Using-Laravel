@@ -32,14 +32,9 @@
                             </div>
 
                             <table
-                                class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                class="table border-0 star-student table-hover table-center mb-0 table-striped" id="datatable">
                                 <thead class="student-thread">
                                     <tr>
-                                        <th>
-                                            <div class="form-check check-tables">
-                                                <input class="form-check-input" type="checkbox" value="something">
-                                            </div>
-                                        </th>
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Created by</th>
@@ -50,11 +45,6 @@
                                 <tbody>
                                     @foreach ($data as $key => $value)
                                         <tr>
-                                            <td>
-                                                <div class="form-check check-tables">
-                                                    <input class="form-check-input" type="checkbox" value="something">
-                                                </div>
-                                            </td>
                                             <td>{{ $key + 1 }}</td>
                                             <td>
                                                 <h2>

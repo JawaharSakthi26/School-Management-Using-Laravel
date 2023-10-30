@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery_datatables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/multiselect/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
@@ -50,6 +51,7 @@
     <script>
         $(document).ready(function() {
             $('.multi-select').select2();
+            $('#datatable').DataTable();
         });
     </script>
 
@@ -62,7 +64,8 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/plugins/jquery_datatables/datatables.js') }}"></script>
     <script src="{{ asset('assets/plugins/multiselect/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.js') }} "></script>

@@ -36,7 +36,7 @@
 
                             <div class="table-responsive">
                                 <table
-                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    class="table border-0 star-student table-hover table-center mb-0 table-striped" id="datatable">
                                     <thead class="student-thread">
                                         <tr>
                                             <th>Class</th>
