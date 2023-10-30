@@ -7,7 +7,6 @@ use App\Models\AddClass;
 use App\Models\ClassTeacher;
 use App\Models\Student;
 use App\Models\StudentAttendance;
-use App\Models\StudentAttendanceStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +17,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id)->get();
+        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id) ->orderBy('attendance_date', 'asc') ->get();
         return view('teacher.attendance.index', compact('attendanceDates'));
     }
 
@@ -66,15 +65,7 @@ class AttendanceController extends Controller
             );
         }
 
-        return redirect()->route('attendance.index')->with('message', 'Attendance recorded successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('attendance.index')->with('message', 'Attendance added successfully');
     }
 
     /**
@@ -124,7 +115,7 @@ class AttendanceController extends Controller
             );
         }
 
-        return redirect()->route('attendance.index')->with('message', 'Attendance recorded successfully');
+        return redirect()->route('attendance.index')->with('message', 'Attendance updated successfully');
     }
 
     /**

@@ -52,7 +52,7 @@
                                         @foreach ($attendanceDates as $index => $value)
                                             <tr>
                                                 <td>{{ $value->class->name }}</td>
-                                                <td>{{ $value->attendance_date }}</td>
+                                                <td>{{ date('M d, Y', strtotime($value->attendance_date)) }}</td>
                                                 <td>{{ $value->statuses->where('status', '1')->count() }}</td>
                                                 <td>{{ $value->statuses->where('status', '2')->count() }}</td>
                                                 <td>{{ $value->statuses->where('status', '3')->count() }}</td>

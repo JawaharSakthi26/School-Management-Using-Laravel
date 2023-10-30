@@ -9,7 +9,8 @@
                         <h3 class="page-title">{{ isset($attendance) ? 'Edit Attendance' : 'Add Attendance' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('attendance.index') }}">Attendance</a></li>
-                            <li class="breadcrumb-item active">{{ isset($attendance) ? 'Edit Attendance' : 'Add Attendance' }}</li>
+                            <li class="breadcrumb-item active">
+                                {{ isset($attendance) ? 'Edit Attendance' : 'Add Attendance' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -33,22 +34,39 @@
                                         <div class="form-group local-forms">
                                             <label for="class_name">Class Name <span class="login-danger">*</span></label>
                                             <input type="text" class="form-control" id="class_name" name="class_name"
-                                                value="{{ $class->name }}"
-                                                disabled>
+                                                value="{{ $class->name }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group local-forms">
-                                            <label for="class_name">Attendance Date <span class="login-danger">*</span></label>
-                                            <input type="date" class="form-control" 
-                                                name="attendance_date" value="{{ isset($attendance) ? $attendance->attendance_date : '' }}">
+                                            <label for="class_name">Attendance Date <span
+                                                    class="login-danger">*</span></label>
+                                            <input type="date" class="form-control" name="attendance_date"
+                                                value="{{ isset($attendance) ? $attendance->attendance_date : '' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success btn-sm select-all"
+                                                data-status="1">Select
+                                                All Present</button>
+                                            <button type="button" class="btn btn-danger btn-sm select-all"
+                                                data-status="2">Select
+                                                All Absent</button>
+                                            <button type="button" class="btn btn-warning btn-sm select-all"
+                                                data-status="3">Select
+                                                All Late Entry</button>
+                                            <button type="button" class="btn btn-info btn-sm select-all"
+                                                data-status="4">Select
+                                                All Permission</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table
-                                        class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    <table class="table border-0 star-student table-hover table-center mb-0 table-striped"
+                                        id="datatable">
                                         <thead class="student-thread">
                                             <tr>
                                                 <th>Student Name</th>
@@ -66,19 +84,23 @@
                                                     <td>{{ $value->roll_number }}</td>
                                                     <td>
                                                         <input type="radio" name="attendance[{{ $value->user_id }}]"
-                                                            value="1" {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 1 ? 'checked' : '' }}>
+                                                            value="1"
+                                                            {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 1 ? 'checked' : '' }}>
                                                     </td>
                                                     <td>
                                                         <input type="radio" name="attendance[{{ $value->user_id }}]"
-                                                            value="2" {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 2 ? 'checked' : '' }}>
+                                                            value="2"
+                                                            {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 2 ? 'checked' : '' }}>
                                                     </td>
                                                     <td>
                                                         <input type="radio" name="attendance[{{ $value->user_id }}]"
-                                                            value="3" {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 3 ? 'checked' : '' }}>
+                                                            value="3"
+                                                            {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 3 ? 'checked' : '' }}>
                                                     </td>
                                                     <td>
                                                         <input type="radio" name="attendance[{{ $value->user_id }}]"
-                                                            value="4" {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 4 ? 'checked' : '' }}>
+                                                            value="4"
+                                                            {{ isset($attendance) && $attendance->statuses->where('student_id', $value->user_id)->first()->status == 4 ? 'checked' : '' }}>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -92,7 +114,8 @@
                                     @endif
                                     <div class="col-12">
                                         <div class="student-submit mt-3">
-                                            <button type="submit" class="btn btn-primary">{{(isset($attendance)) ? 'Update' : 'Submit'}}</button>
+                                            <button type="submit"
+                                                class="btn btn-primary">{{ isset($attendance) ? 'Update' : 'Submit' }}</button>
                                         </div>
                                     </div>
                             </form>
@@ -103,4 +126,35 @@
         </div>
     </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".select-all").click(function() {
+                const status = $(this).data("status");
+                $('input[type="radio"][value="' + status + '"]').prop('checked', true);
+            });
+        });
+
+        $('#attendance-form').validate({
+            rules: {
+                attendance_date: {
+                    required: true
+                },
+            },
+            messages: {
+                attendance_date: {
+                    required: "Please enter an Attendance Date"
+                },
+            },
+            errorPlacement: function(error, element) {
+                error.insertAfter(element.closest(".form-group.local-forms")).addClass('error-message');
+            },
+            highlight: function(element) {
+                $(element).addClass("error-input");
+            },
+            unhighlight: function(element) {
+                $(element).removeClass("error-input");
+            },
+        });
+    </script>
 @endsection
