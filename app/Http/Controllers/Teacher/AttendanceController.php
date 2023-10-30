@@ -55,7 +55,7 @@ class AttendanceController extends Controller
         );
 
         foreach ($request->attendance as $userId => $status) {
-            StudentAttendanceStatus::updateOrcreate(
+            $attendance->statuses()->updateOrcreate(
                 [
                     'attendance_date_id' => $attendance->id,
                     'student_id' => $userId,
@@ -112,7 +112,7 @@ class AttendanceController extends Controller
             );
     
             foreach ($request->attendance as $userId => $status) {
-                StudentAttendanceStatus::updateOrcreate(
+                $attendance->statuses()->updateOrcreate(
                     [
                         'attendance_date_id' => $attendance->id,
                         'student_id' => $userId,

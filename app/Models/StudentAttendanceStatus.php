@@ -12,4 +12,8 @@ class StudentAttendanceStatus extends Model
     protected $fillable= [
         'attendance_date_id','student_id','status'
     ];
+
+    public function attendance(){
+        return $this->belongsTo(StudentAttendance::class,'attendance_date_id');
+    }
 }
