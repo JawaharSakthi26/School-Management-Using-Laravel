@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CrudTrait;
 use App\Models\AddClass;
-use App\Models\ClassSubject;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 

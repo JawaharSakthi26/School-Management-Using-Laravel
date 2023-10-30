@@ -24,9 +24,6 @@ class ClassTeacherController extends Controller
      */
     public function create()
     {
-        // $classes = AddClass::where('status', 1)->get();
-        // $teachers = Teacher::where('status', 1)->get();
-
         $classes = AddClass::whereNotIn('id', function ($query) {
             $query->select('class_id')
                 ->from('class_teachers')
