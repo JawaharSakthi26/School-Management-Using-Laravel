@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
         Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
+        Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');
     });
 
     Route::middleware(['role:Admin|Teacher'])->group(function () {

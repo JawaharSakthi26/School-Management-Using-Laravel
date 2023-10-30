@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 class TimeTableController extends Controller
 {
@@ -104,12 +105,11 @@ class TimeTableController extends Controller
         $timetableData = [];
 
         if ($classId && $subjectId) {
-            $timetableData = DB::table('class_timetables')
-                ->where('class_id', $classId)
+            $timetableData = ClassTimetable::with('day')->where('class_id', $classId)
                 ->where('subject_id', $subjectId)
                 ->get();
         }
-
-        return response()->json($timetableData);
+        $viewContent = View::make('ajax.timetable', ['timetableData' => $timetableData])->render();
+        return response()->json(['viewContent' => $viewContent]);
     }
 }

@@ -10,4 +10,8 @@ class Day extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function timetable(){
+        return $this->hasMany(ClassTimetable::class,'day_id','id');
+    }
 }
