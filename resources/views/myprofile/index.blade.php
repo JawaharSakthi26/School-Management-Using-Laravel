@@ -128,18 +128,20 @@
                                                         {{ $user->hasRole('Teacher') ? $user->teacher->blood_group : $user->student->blood_group }}
                                                     </p>
                                                 </div>
-                                                <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Joining Date</p>
-                                                    <p class="col-sm-9">
-                                                        {{ $user->hasRole('Teacher') ? \Carbon\Carbon::parse($user->teacher->joining_date)->format('F j, Y') : '' }}
-                                                    </p>
-                                                </div>
-                                                <div class="row">
-                                                    <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Qualification</p>
-                                                    <p class="col-sm-9">
-                                                        {{ $user->hasRole('Teacher') ? $user->teacher->qualification : '' }}
-                                                    </p>
-                                                </div>
+                                                @hasrole('Teacher')
+                                                    <div class="row">
+                                                        <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Joining Date</p>
+                                                        <p class="col-sm-9">
+                                                            {{ $user->hasRole('Teacher') ? \Carbon\Carbon::parse($user->teacher->joining_date)->format('F j, Y') : '' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Qualification</p>
+                                                        <p class="col-sm-9">
+                                                            {{ $user->hasRole('Teacher') ? $user->teacher->qualification : '' }}
+                                                        </p>
+                                                    </div>
+                                                @endhasrole
                                             @endhasrole
                                         </div>
                                     </div>
@@ -231,18 +233,51 @@
                                                         placeholder="Enter Blood Group"
                                                         value="{{ $user->hasRole('Teacher') ? $user->teacher->blood_group : $user->student->blood_group }}">
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label>Joining Date <span class="login-danger">*</span></label>
-                                                    <input class="form-control datetimepicker" type="text"
-                                                        name="joining_date"
-                                                        value="{{ $user->hasRole('Teacher') ? $user->teacher->joining_date : '' }}">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label>Qualification <span class="login-danger">*</span></label>
-                                                    <input class="form-control" type="text" name="qualification"
-                                                        placeholder="Qualification"
-                                                        value="{{ $user->hasRole('Teacher') ? $user->teacher->qualification : '' }}">
-                                                </div>
+                                                @if ($user->hasRole('Student'))
+                                                    <div class="mb-3">
+                                                        <div class="mb-3">
+                                                            <label>Class <span class="login-danger">*</span></label>
+                                                            <input class="form-control" type="text"
+                                                                name="joining_date"
+                                                                value="{{ $user->hasRole('Student') ? $user->student->class->name : '' }}" disabled>
+                                                        </div>
+                                                        <label>Religion <span class="login-danger">*</span></label>
+                                                        <select class="form-control select" name="religion">
+                                                            @foreach ($religionOptions as $index => $value)
+                                                                <option value="{{ $index }}"
+                                                                    {{ $user->student->religion == $index ? 'selected' : '' }}>
+                                                                    {{ $value }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label>Admission ID <span class="login-danger">*</span></label>
+                                                        <input class="form-control" type="text"
+                                                            value="{{ $user->hasRole('Student') ? $user->student->admission_id : '' }}"
+                                                            disabled>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label>Roll Number <span class="login-danger">*</span></label>
+                                                        <input class="form-control" type="text"
+                                                            value="{{ $user->hasRole('Student') ? $user->student->roll_number : '' }}"
+                                                            disabled>
+                                                    </div>
+                                                @endif
+                                                @if ($user->hasRole('Teacher'))
+                                                    <div class="mb-3">
+                                                        <label>Joining Date <span class="login-danger">*</span></label>
+                                                        <input class="form-control datetimepicker" type="text"
+                                                            name="joining_date"
+                                                            value="{{ $user->hasRole('Teacher') ? $user->teacher->joining_date : '' }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label>Qualification <span class="login-danger">*</span></label>
+                                                        <input class="form-control" type="text" name="qualification"
+                                                            placeholder="Qualification"
+                                                            value="{{ $user->hasRole('Teacher') ? $user->teacher->qualification : '' }}">
+                                                    </div>
+                                                @endif
                                                 <div class="mb-3">
                                                     <label>Address <span class="login-danger">*</span></label>
                                                     <input class="form-control" type="text" name="address"

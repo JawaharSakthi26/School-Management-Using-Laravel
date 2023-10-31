@@ -9,49 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class MyProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('myprofile.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
@@ -92,16 +54,28 @@ class MyProfileController extends Controller
                     'zip_code' => $request->input('zip_code'),
                     'country' => $request->input('country'),
                 ]);
+            } elseif ($user->hasRole('Student')) {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email
+                ]);
+
+                $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
+
+                $user->student->update([
+                    'phone' => $request->input('phone'),
+                    'gender' => $request->input('gender'),
+                    'dob' => $dob,
+                    'religion' => $request->input('religion'),
+                    'blood_group' => $request->input('blood_group'),
+                    'address' => $request->input('address'),
+                    'city' => $request->input('city'),
+                    'state' => $request->input('state'),
+                    'zip_code' => $request->input('zip_code'),
+                    'country' => $request->input('country'),
+                ]);
             }
         }
         return redirect()->route('my-profile.index')->with('message', 'Profile updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

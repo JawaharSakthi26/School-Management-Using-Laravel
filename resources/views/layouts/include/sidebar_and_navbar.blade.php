@@ -140,6 +140,23 @@
                                     class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>
                         </li>
                     @endhasrole
+                    @hasrole('Student')
+                        <li class="{{ Request::is('student*') ? 'active' : '' }}">
+                            <a href="{{ route('student.index') }}" class="{{ Request::is('student*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
+                        </li>
+                        <li class="{{ Request::is('my-timetable*') ? 'active' : '' }}">
+                            <a href="{{ route('my-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i
+                                    class="fas fa-table"></i><span> My Timetable</span></a>
+                        </li>
+                        <li class="{{ Request::is('attendance*') ? 'active' : '' }}">
+                            <a href="{{ route('attendance.index') }}" class="{{ Request::is('attendance*') }}"><i
+                                    class="fa fa-address-book"></i><span> Attendance</span></a>
+                        </li>
+                        <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
+                            <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
+                                    class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>
+                        </li>
+                    @endhasrole
                     @hasrole('Admin')
                         <li class="menu-title">
                             <span>Management</span>
