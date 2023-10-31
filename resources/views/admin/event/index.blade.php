@@ -44,9 +44,6 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="eventModalLabel">Add Event</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                         </div>
                         <div class="modal-body">
                             <form id="eventForm">
@@ -68,7 +65,6 @@
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-success" id="saveEventBtn">Create event</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
