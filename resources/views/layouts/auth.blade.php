@@ -32,7 +32,16 @@
         .error-input {
             border: 1px solid red !important;
         }
-
+        .fc-widget-content{
+            background-color: #8E8FFA;
+        }
+        .fc-sun {
+            background-color: #C3ACD0;
+        }
+        .fc-day-number{
+            font-size: 16px;
+            color: #7743DB;
+        }
         .error-message {
             color: red;
         }
@@ -72,7 +81,6 @@
     <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/mask.js') }}"></script>
     <script src="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/fullcalendar/jquery.fullcalendar.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
     @if (Session::has('message'))

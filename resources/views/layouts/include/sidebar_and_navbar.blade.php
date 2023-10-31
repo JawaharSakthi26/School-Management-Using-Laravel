@@ -144,8 +144,9 @@
                         <li class="menu-title">
                             <span>Management</span>
                         </li>
-                        <li>
-                            <a href="event.html"><i class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
+                        <li class="{{ Request::is('calendar*') || Request::is('event*') ? 'active' : '' }}">
+                            <a href="{{ route('calendar') }}"><i 
+                                class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
                         </li>
                         <li class="{{ Request::is('add-timetable*') ? 'active' : '' }}">
                             <a href="{{ route('add-timetable.index') }}"><i class="fas fa-table"></i> <span>Time
