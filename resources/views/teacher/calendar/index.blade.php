@@ -15,15 +15,6 @@
                     </div>
                 </div>
             </div>
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col"></div>
-                    <div class="col-auto text-end float-end ms-auto">
-                        <a href="add-events.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
@@ -50,14 +41,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         <footer>
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>
-
     </div>
-
     </div>
 @endsection

@@ -137,7 +137,7 @@
                         </li>
                         <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
                             <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
-                                    class="fas fa-calendar-day"></i><span> My Calendar</span></a>
+                                    class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>
                         </li>
                     @endhasrole
                     @hasrole('Admin')

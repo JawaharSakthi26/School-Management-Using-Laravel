@@ -32,16 +32,20 @@
         .error-input {
             border: 1px solid red !important;
         }
-        .fc-widget-content{
+
+        .fc-widget-content {
             background-color: #8E8FFA;
         }
+
         .fc-sun {
             background-color: #C3ACD0;
         }
-        .fc-day-number{
+
+        .fc-day-number {
             font-size: 16px;
             color: #7743DB;
         }
+
         .error-message {
             color: red;
         }
@@ -56,13 +60,6 @@
     @endif
 
     @yield('content')
-
-    <script>
-        $(document).ready(function() {
-            $('.multi-select').select2();
-            $('#datatable').DataTable();
-        });
-    </script>
 
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
@@ -102,6 +99,107 @@
             toastr.error("{{ Session::get('error') }}");
         </script>
     @endif
-</body>
 
+    <script>
+        $(document).ready(function() {
+            $('.multi-select').select2();
+            $('#datatable').DataTable();
+        });
+    </script>
+
+    @if (Auth::check())
+        <script>
+            var userRole = @json(Auth::user()->roles->pluck('name')->first());
+
+            $(document).ready(function() {
+                var calendar = $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay'
+                    },
+                    navLinks: true,
+                    editable: true,
+                    events: {
+                        url: "calendar",
+                        method: "GET"
+                    },
+                    displayEventTime: false,
+                    eventRender: function(event, element, view) {
+                        if (event.allDay === 'true') {
+                            event.allDay = true;
+                        } else {
+                            event.allDay = false;
+                        }
+
+                        if (event.start.day() === 0) {
+                            element.addClass('sunday-holiday');
+                        }
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    select: function(start, end, allDay) {
+                        if (userRole == 'Admin') {
+                            $('#eventModal').modal('show');
+
+                            $('#saveEventBtn').on('click', function() {
+                                var title = $('#eventTitle').val();
+                                var category = $('#eventCategory').val();
+                                var user_id = $('#user_id').val();
+
+                                if (title && category) {
+                                    var title = title;
+                                    var startFormatted = moment(start, 'DD.MM.YYYY').format(
+                                        'YYYY-MM-DD');
+                                    var endFormatted = moment(end, 'DD.MM.YYYY').format(
+                                        'YYYY-MM-DD');
+                                    var category = category;
+                                    var user_id = user_id;
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '{{ route('event.store') }}',
+                                        data: 'title=' + title + '&start=' +
+                                            startFormatted +
+                                            '&end=' + endFormatted + '&category=' +
+                                            category +
+                                            '&user_id=' + user_id + '&_token=' +
+                                            "{{ csrf_token() }}",
+                                        type: "post",
+                                        success: function(data) {
+                                            console.log(data);
+                                            $('#calendar').fullCalendar(
+                                                'refetchEvents');
+                                        }
+                                    });
+                                }
+                                $('#eventModal').modal('hide');
+                                $('#eventTitle').val('');
+                                $('#eventCategory').val('');
+                            });
+                        }
+                    },
+                    eventClick: function(event) {
+                        if (userRole == 'Admin') {
+                            console.log(event.id);
+                            var deleteMsg = confirm("Do you really want to delete?");
+                            if (deleteMsg) {
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: '{{ route('event.destroy', 'event.id') }}',
+                                    data: "&id=" + event.id + '&_token=' + "{{ csrf_token() }}",
+                                    success: function(data) {
+                                        if (parseInt(data) > 0) {
+                                            $('#calendar').fullCalendar('removeEvents', event
+                                                .id);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    @endif
+</body>
 </html>
