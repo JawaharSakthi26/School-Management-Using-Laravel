@@ -44,45 +44,59 @@ class TimeTableController extends Controller
      */
     public function store(Request $request)
     {
-        ClassTimetable::where('class_id', $request->class_id)
-            ->where('subject_id', $request->subject_id)
-            ->delete();
+        DB::beginTransaction();
 
-        $data = $request->all();
+        try {
+            ClassTimetable::where('class_id', $request->class_id)
+                ->where('subject_id', $request->subject_id)
+                ->delete();
 
-        foreach ($request->timetable as $timetable) {
-            $dayId = $timetable['day_id'];
-            $startTime = $timetable['start_time'];
-            $endTime = $timetable['end_time'];
+            $data = $request->all();
 
-            $existingTimetable = ClassTimetable::where('class_id', $data['class_id'])
-                ->where('day_id', $dayId)
-                ->where('start_time', $startTime)
-                ->where('end_time', $endTime)
-                ->first();
+            foreach ($request->timetable as $timetable) {
+                $dayId = $timetable['day_id'];
+                $startTime = $timetable['start_time'];
+                $endTime = $timetable['end_time'];
 
-            $existingTeacherTimetable = ClassTimetable::where('teacher_id', $data['teacher_id'])
-                ->where('day_id', $dayId)
-                ->where('start_time', $startTime)
-                ->where('end_time', $endTime)
-                ->first();
+                $existingTimetable = ClassTimetable::where('class_id', $data['class_id'])
+                    ->where('day_id', $dayId)
+                    ->where('start_time', $startTime)
+                    ->where('end_time', $endTime)
+                    ->first();
 
-            if (!$existingTimetable && !$existingTeacherTimetable) {
-                ClassTimetable::create([
-                    'user_id' => Auth::user()->id,
-                    'class_id' => $data['class_id'],
-                    'subject_id' => $data['subject_id'],
-                    'teacher_id' => $data['teacher_id'],
-                    'day_id' => $dayId,
-                    'start_time' => $startTime,
-                    'end_time' => $endTime,
-                ]);
-            } else {
-                return redirect()->back()->with('error', 'Class already exist for the class/teacher')->withInput();
+                $existingTeacherTimetable = ClassTimetable::where('teacher_id', $data['teacher_id'])
+                    ->where('day_id', $dayId)
+                    ->where('start_time', $startTime)
+                    ->where('end_time', $endTime)
+                    ->first();
+
+                if (!$existingTimetable && !$existingTeacherTimetable) {
+                    ClassTimetable::create([
+                        'user_id' => Auth::user()->id,
+                        'class_id' => $data['class_id'],
+                        'subject_id' => $data['subject_id'],
+                        'teacher_id' => $data['teacher_id'],
+                        'day_id' => $dayId,
+                        'start_time' => $startTime,
+                        'end_time' => $endTime,
+                    ]);
+                } else {
+                    // If a conflict is detected, roll back the transaction.
+                    DB::rollBack();
+
+                    return redirect()->back()->with('error', 'Class already exists for the class/teacher')->withInput();
+                }
             }
-        }
+            DB::commit();
 
-        return redirect()->route('add-timetable.index')->with('message', 'Class Timetable Saved!');
+            return redirect()->route('add-timetable.index')->with('message', 'Class Timetable Saved!');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Changes have been rolled back.')->withInput();
+            
+        }
     }
 
 
