@@ -43,7 +43,7 @@
 
         .fc-day-number {
             font-size: 18px;
-            color: #F5F5F5;
+            color: #000;
         }
 
         .fc-day-header{

@@ -68,8 +68,8 @@
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
-                                    <h6>Revenue</h6>
-                                    <h3>$505</h3>
+                                    <h6>Events</h6>
+                                    <h3>{{ App\Models\Event::count()}}</h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="assets/img/icons/dash-icon-04.svg" alt="Dashboard Icon">

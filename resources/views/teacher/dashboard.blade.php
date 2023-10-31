@@ -66,8 +66,8 @@
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
-                                    <h6>Total Lessons</h6>
-                                    <h3>30/50</h3>
+                                    <h6>Total Events</h6>
+                                    <h3>{{ $classCount = App\Models\Event::count() }}</h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="assets/img/icons/teacher-icon-02.svg" alt="Dashboard Icon">

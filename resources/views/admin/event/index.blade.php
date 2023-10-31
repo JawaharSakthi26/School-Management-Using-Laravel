@@ -35,7 +35,7 @@
             </div>
 
             @php
-                $eventCategory = ['Academic Events', 'Extracurricular Activities', 'Social and Cultural Events', 'Community and Charity Events', 'Parent and Family Engagement', 'Special Celebrations'];
+                $eventCategory = ['Academic Events', 'Extracurricular Activities', 'Cultural Events', 'Parent and Family Engagement', 'Special Celebrations', 'Holidays', 'Others'];
             @endphp
 
             <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
