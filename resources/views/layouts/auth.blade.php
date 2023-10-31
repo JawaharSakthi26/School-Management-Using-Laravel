@@ -34,16 +34,20 @@
         }
 
         .fc-widget-content {
-            background-color: #8E8FFA;
+            background-color: #80B3FF;
         }
 
         .fc-sun {
-            background-color: #C3ACD0;
+            background-color: #687EFF;
         }
 
         .fc-day-number {
-            font-size: 16px;
-            color: #7743DB;
+            font-size: 18px;
+            color: #F5F5F5;
+        }
+
+        .fc-day-header{
+            color: #3D30A2;
         }
 
         .error-message {
