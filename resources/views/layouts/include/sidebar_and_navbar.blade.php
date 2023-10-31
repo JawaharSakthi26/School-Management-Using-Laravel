@@ -153,7 +153,7 @@
                                     class="fa fa-address-book"></i><span> Attendance</span></a>
                         </li>
                         <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
-                            <a href="{{ route('my-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
+                            <a href="{{ route('academic-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
                                     class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>
                         </li>
                     @endhasrole
