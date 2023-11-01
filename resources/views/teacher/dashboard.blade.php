@@ -47,10 +47,15 @@
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
-                                    <h6>Total Students</h6>
+                                    <h6>My Students</h6>
                                     @php
                                         $class = App\Models\ClassTeacher::where('teacher_id', Auth::user()->id)->first();
-                                        $students = App\Models\Student::where('class_id', $class->class_id)->count();
+                                        $students = 'NIL';
+                                        try {
+                                            $students = App\Models\Student::where('class_id', $class->class_id)->count();
+                                        } catch (\Exception $e) {
+                                            
+                                        }
                                     @endphp
                                     <h3>{{ $students }}</h3>
                                 </div>
@@ -82,7 +87,8 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6>Total Hours</h6>
-                                    <h3>{{ $classCount = App\Models\ClassTimetable::where('teacher_id', Auth::user()->id)->count() }}</h3>
+                                    <h3>{{ $classCount = App\Models\ClassTimetable::where('teacher_id', Auth::user()->id)->count() }}
+                                    </h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="assets/img/icons/teacher-icon-03.svg" alt="Dashboard Icon">
