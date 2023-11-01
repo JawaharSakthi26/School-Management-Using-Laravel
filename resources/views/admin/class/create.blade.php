@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@if (isset($item))
+@if (isset($selectLookups['item']))
     @section('title', 'PreSkool | Edit Class')
 @else
     @section('title', 'PreSkool | Add Class')
@@ -11,10 +11,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</h3>
+                        <h3 class="page-title">{{ isset($selectLookups['item']) ? 'Edit Class' : 'Add Class' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('add-class.index') }}">Class</a></li>
-                            <li class="breadcrumb-item active">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</li>
+                            <li class="breadcrumb-item active">{{ isset($selectLookups['item']) ? 'Edit Class' : 'Add Class' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -25,10 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <form method="POST"
-                                action="{{ isset($item) ? route('add-class.update', $item->id) : route('add-class.store') }}"
+                                action="{{ isset($selectLookups['item']) ? route('add-class.update', $selectLookups['item']->id) : route('add-class.store') }}"
                                 id="class-form">
                                 @csrf
-                                @if (isset($item))
+                                @if (isset($selectLookups['item']))
                                     @method('PUT')
                                 @endif
                                 <div class="row">
@@ -39,7 +39,7 @@
                                         <div class="form-group local-forms">
                                             <label for="className">Class Name <span class="login-danger">*</span></label>
                                             <input type="text" class="form-control" id="className" name="name"
-                                                value="{{ old('name', isset($item) ? $item->name : '') }}">
+                                                value="{{ old('name', isset($selectLookups['item']) ? $selectLookups['item']->name : '') }}">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -48,15 +48,15 @@
                                                     class="login-danger">*</span></label>
                                             <select class="form-control select2 multi-select" id="classSubjects"
                                                 name="subjects[]" multiple="multiple">
-                                                @if (isset($item))
-                                                    @foreach ($subjects as $subject)
+                                                @if (isset($selectLookups['item']))
+                                                    @foreach ($selectLookups['subjects'] as $subject)
                                                         <option value="{{ $subject->id }}"
-                                                            {{ in_array($subject->id, $selectedSubjects) ? 'selected' : '' }}>
+                                                            {{ in_array($subject->id, $selectLookups['selectedSubjects']) ? 'selected' : '' }}>
                                                             {{ $subject->name }}
                                                         </option>
                                                     @endforeach
                                                 @else
-                                                    @foreach ($subjects as $subject)
+                                                    @foreach ($selectLookups['subjects'] as $subject)
                                                         <option value="{{ $subject->id }}">
                                                             {{ $subject->name }}
                                                         </option>
@@ -71,20 +71,20 @@
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input custom-switch" type="checkbox"
                                                     id="statusSwitch" name="status" value="1"
-                                                    {{ isset($item) && $item->status == '1' ? 'checked' : '' }}>
+                                                    {{ isset($selectLookups['item']) && $selectLookups['item']->status == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
                                     </div>
-                                    @if (isset($item))
-                                        <input type="hidden" name="user_id" value="{{ $item->user_id }}">
+                                    @if (isset($selectLookups['item']))
+                                        <input type="hidden" name="user_id" value="{{ $selectLookups['item']->user_id }}">
                                     @else
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                     @endif
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit"
-                                                class="btn btn-primary">{{ isset($item) ? 'Update' : 'Submit' }}</button>
+                                                class="btn btn-primary">{{ isset($selectLookups['item']) ? 'Update' : 'Submit' }}</button>
                                         </div>
                                     </div>
                                 </div>

@@ -3,32 +3,46 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\CrudTrait;
+use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
-    use CrudTrait;
+    use RestControllerTrait;
 
-    protected $model = AddClass::class;
-    protected $viewPath = 'admin';
-    protected $folderPath = 'class';
-    protected $routePrefix = 'add-class';
+    public $modelClass = AddClass::class;
+    public $folderPath = 'admin';
+    public $viewPath = 'class';
+    public $routeName = 'add-class';
+    public $message = 'Class';
 
-    public function create()
+    protected function _selectLookups($id = null): array
     {
         $subjects = Subject::where('status', '1')->get();
-        return view('admin.class.create', compact('subjects'));
+
+        if ($id) {
+            $item = AddClass::findOrFail($id);
+            $selectedSubjects = $item->subjects->pluck('subject_id')->toArray();
+        } else {
+            $item = null;
+            $selectedSubjects = [];
+        }
+
+        return [
+            'item' => $item,
+            'subjects' => $subjects,
+            'selectedSubjects' => $selectedSubjects,
+        ];
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
 
-        if(AddClass::where('name',$data['name'])->exists()){
-            return redirect()->back()->with('error', 'Class already exists')->withInput(); 
+        if (AddClass::where('name', $data['name'])->exists()) {
+            return redirect()->back()->with('error', 'Class already exists')->withInput();
         }
 
         $class = AddClass::create([
@@ -45,7 +59,7 @@ class ClassController extends Controller
                 'subject_id' => $subject
             ]);
         }
-        return redirect()->route('add-class.index')->with('message','Class Created Successfully!');
+        return redirect()->route('add-class.index')->with('message', 'Class Created Successfully!');
     }
 
     public function update(Request $request, string $id)
@@ -54,8 +68,8 @@ class ClassController extends Controller
 
         $data = $request->all();
 
-        if(AddClass::where('name',$data['name'])->where('id', '!=', $id)->exists()){
-            return redirect()->back()->with('error', 'Class already exists')->withInput(); 
+        if (AddClass::where('name', $data['name'])->where('id', '!=', $id)->exists()) {
+            return redirect()->back()->with('error', 'Class already exists')->withInput();
         }
 
         $class->update([
@@ -63,7 +77,7 @@ class ClassController extends Controller
             'name' => $data['name'],
             'status' => $request->status ? '1' : '0',
         ]);
-        
+
         $selectedSubjects = $request->input('subjects', []);
         $existingSubjects = $class->subjects->pluck('id')->toArray();
         $subjectsToDetach = array_diff($existingSubjects, $selectedSubjects);
@@ -79,13 +93,5 @@ class ClassController extends Controller
             ]);
         }
         return redirect()->route('add-class.index')->with('message', 'Class Updated successfully');
-    }
-
-    public function edit(string $id)
-    {
-        $item = AddClass::findOrFail($id);
-        $selectedSubjects = $item->subjects->pluck('subject_id')->toArray();
-        $subjects = Subject::where('status', '1')->get();
-        return view("admin.class.create", compact('item', 'subjects', 'selectedSubjects'));
     }
 }

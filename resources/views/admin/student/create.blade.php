@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | ' . (isset($student) ? 'Edit Student' : 'Add Student'))
+@section('title', 'PreSkool | ' . (isset($selectLookups['student']) ? 'Edit Student' : 'Add Student'))
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -7,10 +7,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">{{ isset($student) ? 'Edit Student' : 'Add Student' }}</h3>
+                            <h3 class="page-title">{{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('add-student.index') }}">Student</a></li>
-                                <li class="breadcrumb-item active">{{ isset($student) ? 'Edit Student' : 'Add Student' }}</li>
+                                <li class="breadcrumb-item active">{{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}</li>
                             </ul>
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form action="{{ isset($student) ? route('add-student.update', $student->id) : route('add-student.store') }}"
+                            <form action="{{ isset($selectLookups['student']) ? route('add-student.update', $selectLookups['student']->id) : route('add-student.store') }}"
                                 method="POST" enctype="multipart/form-data" id="student-form">
                                 @csrf
-                                @if (isset($student))
+                                @if (isset($selectLookups['student']))
                                     @method('PUT')
                                 @endif
 
@@ -62,7 +62,7 @@
                                             <label>Name <span class="login-danger">*</span></label>
                                             <input class="form-control" type="text" name="name"
                                                 placeholder="Enter First Name"
-                                                value="{{ isset($student) ? $student->name : old('name') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->name : old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -70,7 +70,7 @@
                                             <label>E-Mail <span class="login-danger">*</span></label>
                                             <input class="form-control" type="email" name="email"
                                                 placeholder="Enter Email Address"
-                                                value="{{ isset($student) ? $student->email : old('email') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->email : old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -78,14 +78,14 @@
                                             <label>Phone </label>
                                             <input class="form-control" type="text" name="phone" id="phone"
                                                 placeholder="Enter Phone Number"
-                                                value="{{ isset($student) ? $student->student->phone : old('phone') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->phone : old('phone') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Create Password <span class="login-danger">*</span></label>
                                             <input class="form-control" id="password" type="password" name="password"
-                                                placeholder="Create Password" {{ isset($student) ? 'disabled' : '' }}>
+                                                placeholder="Create Password" {{ isset($selectLookups['student']) ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -93,7 +93,7 @@
                                             <label>Confirm Password <span class="login-danger">*</span></label>
                                             <input class="form-control" type="password" id="confirm_password"
                                                 name="password_confirmation" placeholder="Confirm Password"
-                                                {{ isset($student) ? 'disabled' : '' }}>
+                                                {{ isset($selectLookups['student']) ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -102,7 +102,7 @@
                                             <select class="form-control select" name="gender">
                                                 @foreach ($genderOptions as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($student) && $student->student->gender == $value ? 'selected' : '' }}>
+                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->gender == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -114,7 +114,7 @@
                                             <label>Date Of Birth <span class="login-danger">*</span></label>
                                             <input class="form-control datetimepicker" type="text" name="dob"
                                                 placeholder="DD-MM-YYYY"
-                                                value="{{ isset($student) ? $student->student->dob : old('dob') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->dob : old('dob') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -122,7 +122,7 @@
                                             <label>Admission ID </label>
                                             <input class="form-control" type="text" name="admission_id"
                                                 placeholder="Enter Admission ID"
-                                                value="{{ isset($student) ? $student->student->admission_id : old('admission_id') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->admission_id : old('admission_id') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -130,9 +130,9 @@
                                             <label>Class <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="class">
                                                 <option value="">Please Select Class</option>
-                                                @foreach ($classes as $class)
+                                                @foreach ($selectLookups['classes'] as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ isset($student) && $student->student->class_id == $class->id ? 'selected' : '' }}>
+                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->class_id == $class->id ? 'selected' : '' }}>
                                                         {{ $class->name }}
                                                     </option>
                                                 @endforeach
@@ -144,7 +144,7 @@
                                             <label>Roll Number </label>
                                             <input class="form-control" type="text" name="roll_number"
                                                 placeholder="Enter Roll Number"
-                                                value="{{ isset($student) ? $student->student->roll_number : old('roll_number') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->roll_number : old('roll_number') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -152,7 +152,7 @@
                                             <label>Blood Group <span class="login-danger">*</span></label>
                                             <input class="form-control" type="text" name="blood_group"
                                                 placeholder="Enter Blood Group"
-                                                value="{{ isset($student) ? $student->student->blood_group : old('blood_group') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->blood_group : old('blood_group') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -161,7 +161,7 @@
                                             <select class="form-control select" name="religion">
                                                 @foreach ($religionOptions as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($student) && $student->student->religion == $value ? 'selected' : '' }}>
+                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->religion == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -173,7 +173,7 @@
                                             <label>Address 1st Line </label>
                                             <input class="form-control" type="text" name="address"
                                                 placeholder="Enter Address 1st Line"
-                                                value="{{ isset($student) ? $student->student->address : old('address') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->address : old('address') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -181,7 +181,7 @@
                                             <label>City </label>
                                             <input class="form-control" type="text" name="city"
                                                 placeholder="Enter City"
-                                                value="{{ isset($student) ? $student->student->city : old('city') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->city : old('city') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -189,7 +189,7 @@
                                             <label>State </label>
                                             <input class="form-control" type="text" name="state"
                                                 placeholder="Enter State"
-                                                value="{{ isset($student) ? $student->student->state : old('state') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->state : old('state') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -197,7 +197,7 @@
                                             <label>Zip Code </label>
                                             <input class="form-control" type="text" name="zip_code"
                                                 placeholder="Enter Zip Code" maxlength="6"
-                                                value="{{ isset($student) ? $student->student->zip_code : old('zip_code') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->zip_code : old('zip_code') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -205,7 +205,7 @@
                                             <label>Country </label>
                                             <input class="form-control" type="text" name="country"
                                                 placeholder="Enter Country"
-                                                value="{{ isset($student) ? $student->student->country : old('country') }}">
+                                                value="{{ isset($selectLookups['student']) ? $selectLookups['student']->student->country : old('country') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -221,7 +221,7 @@
                                             <label>Status <span class="login-danger">*</span></label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
-                                                    {{ (isset($student) && $student->student->status == '1') ? 'checked' : '' }}>
+                                                    {{ (isset($selectLookups['student']) && $selectLookups['student']->student->status == '1') ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
@@ -297,7 +297,7 @@
                 country: {
                     required: true
                 },
-                @if (!isset($student)) // Add this condition to validate "photo" only for new records
+                @if (!isset($selectLookups['student'])) // Add this condition to validate "photo" only for new records
                     photo: {
                         required: true
                     }
@@ -358,7 +358,7 @@
                 country: {
                     required: "Please enter student's country"
                 },
-                @if (!isset($student)) // Add this condition to specify the message for "photo" only for new records
+                @if (!isset($selectLookups['student'])) // Add this condition to specify the message for "photo" only for new records
                     photo: {
                         required: "Please upload a photo"
                     }

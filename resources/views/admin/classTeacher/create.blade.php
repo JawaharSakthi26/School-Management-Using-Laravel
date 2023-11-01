@@ -7,24 +7,37 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</h3>
+                        <h3 class="page-title">
+                            @if(isset($selectLookups['item']))
+                                Edit Class
+                            @else
+                                Add Class
+                            @endif
+                        </h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('add-class.index') }}">Class</a></li>
-                            <li class="breadcrumb-item active">{{ isset($item) ? 'Edit Class' : 'Add Class' }}</li>
+                            <li class="breadcrumb-item active">
+                                @if(isset($selectLookups['item']))
+                                    Edit Class
+                                @else
+                                    Add Class
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            {{-- @dd($selectLookups['item']); --}}
 
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
                             <form method="POST"
-                                action="{{ isset($item) ? route('add-classTeacher.update', $item->id) : route('add-classTeacher.store') }}"
+                                action="{{ isset($selectLookups['item']) ? route('add-classTeacher.update', $selectLookups['item']->id) : route('add-classTeacher.store') }}"
                                 id="class-form">
                                 @csrf
-                                @if (isset($item))
+                                @if (isset($selectLookups['item']))
                                     @method('PUT')
                                 @endif
                                 <div class="row">
@@ -36,9 +49,10 @@
                                             <label for="className">Class Name <span class="login-danger">*</span></label>
                                             <select class="form-control select" id="className" name="class_id">
                                                 <option value="">Select Class</option>
-                                                @foreach ($classes as $class)
+                                                @foreach ($selectLookups['classes'] as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ isset($item) && $item->class_id == $class->id ? 'selected' : '' }}>
+                                                        @if(isset($selectLookups['item']) && $selectLookups['item']->class_id == $class->id) selected @endif
+                                                    >
                                                         {{ $class->name }}
                                                     </option>
                                                 @endforeach
@@ -51,24 +65,26 @@
                                                     class="login-danger">*</span></label>
                                             <select class="form-control select" id="classSubjects" name="teacher_id">
                                                 <option value="">-- Select --</option>
-                                                @foreach ($teachers as $teacher)
+                                                @foreach ($selectLookups['teachers'] as $teacher)
                                                     <option value="{{ $teacher->user->id }}"
-                                                        {{ isset($item) && $item->teacher->id == $teacher->user->id ? 'selected' : '' }}>
+                                                        @if(isset($selectLookups['item']) && $selectLookups['item']->teacher_id == $teacher->user_id) selected @endif
+                                                    >
                                                         {{ $teacher->user->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    @if (isset($item))
-                                        <input type="hidden" name="user_id" value="{{ $item->user_id }}">
-                                    @else
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    @endif
+                                    <input type="hidden" name="user_id" value="{{ $selectLookups['item'] ? $selectLookups['item']->user_id : Auth::user()->id }}">
                                     <div class="col-12">
                                         <div class="student-submit">
-                                            <button type="submit"
-                                                class="btn btn-primary">{{ isset($item) ? 'Update' : 'Submit' }}</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                @if(isset($selectLookups['item']))
+                                                    Update
+                                                @else
+                                                    Submit
+                                                @endif
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -108,5 +124,5 @@
             },
         });
     </script>
-    
+
 @endsection

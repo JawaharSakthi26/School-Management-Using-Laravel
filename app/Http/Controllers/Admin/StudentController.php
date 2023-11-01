@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
 use App\Models\Student;
 use App\Models\User;
@@ -12,16 +13,34 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+    use RestControllerTrait;
+
+    public $modelClass = User::class;
+    public $folderPath = 'admin';
+    public $viewPath = 'student';
+    public $routeName = 'add-student';
+    public $message = 'Student';
+
+    
     public function index()
     {
-        $data = Student::all();
+        $data = Student::with('user')->get();
         return view("admin.student.index", compact('data'));
     }
 
-    public function create()
+    protected function _selectLookups($id = null): array
     {
         $classes = AddClass::where('status', '1')->get();
-        return view('admin.student.create', compact('classes'));
+        $student = null;
+
+        if ($id) {
+            $student = User::with('student')->findOrFail($id);
+        }
+
+        return [
+            'classes' => $classes,
+            'student' => $student,
+        ];
     }
 
     public function store(Request $request)
@@ -77,13 +96,6 @@ class StudentController extends Controller
             'status' => $request->input('status') ? '1' : '0',
         ]);
         return redirect()->route('add-student.index')->with('message', 'Student Created Successfully!');
-    }
-
-    public function edit($id)
-    {
-        $classes = AddClass::where('status', '1')->get();
-        $student = User::with('student')->findOrFail($id);
-        return view('admin.student.create', compact('classes', 'student'));
     }
 
     public function update(Request $request, string $id)
