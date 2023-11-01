@@ -21,22 +21,8 @@ class TimeTableController extends Controller
     {
         $teacher = Teacher::where('status', '1')->get();
         $class = AddClass::where('status', '1')->get();
-        $week_days = Day::orderBy('id')->get();
-        $teachers = Teacher::all();
 
-        $classId = $request->input('class_id');
-        $subjectId = $request->input('subject_id');
-
-        $timetableData = [];
-
-        if ($classId && $subjectId) {
-            $timetableData = DB::table('class_timetables')
-                ->where('class_id', $classId)
-                ->where('subject_id', $subjectId)
-                ->get();
-        }
-
-        return view('admin.timetable.index', compact('class', 'teacher', 'week_days', 'timetableData', 'teachers'));
+        return view('admin.timetable.index', compact('class', 'teacher'));
     }
 
     /**
