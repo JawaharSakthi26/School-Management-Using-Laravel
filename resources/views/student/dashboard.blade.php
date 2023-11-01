@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Welcome Bruklin!</h3>
+                            <h3 class="page-title">Welcome {{ Auth::user()->name }}!</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
                                 <li class="breadcrumb-item active">Student</li>

@@ -141,11 +141,11 @@
                         </li>
                     @endhasrole
                     @hasrole('Student')
-                        <li class="{{ Request::is('student*') ? 'active' : '' }}">
-                            <a href="{{ route('student.index') }}" class="{{ Request::is('student*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
+                        <li class="{{ Request::is('student') ? 'active' : '' }}">
+                            <a href="{{ route('student.index') }}" class="{{ Request::is('student') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
-                        <li class="{{ Request::is('my-timetable*') ? 'active' : '' }}">
-                            <a href="{{ route('my-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i
+                        <li class="{{ Request::is('student-timetable*') ? 'active' : '' }}">
+                            <a href="{{ route('student-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i
                                     class="fas fa-table"></i><span> My Timetable</span></a>
                         </li>
                         <li class="{{ Request::is('attendance*') ? 'active' : '' }}">

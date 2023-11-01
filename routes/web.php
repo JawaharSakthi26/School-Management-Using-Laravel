@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:Admin|Student'])->group(function () {
         Route::resource('/student', App\Http\Controllers\Student\DashboardController::class);
         Route::resource('/academic-calendar',  App\Http\Controllers\Student\CalendarController::class);
+        Route::resource('/student-timetable',  App\Http\Controllers\Student\MyTimetableController::class);
     });
 
 Route::resource('/my-profile', \App\Http\Controllers\MyProfileController::class);
