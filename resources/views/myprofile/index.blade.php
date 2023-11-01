@@ -183,21 +183,17 @@
                                                 <div class="mb-3">
                                                     <label for="gender" class="form-label">Gender</label>
                                                     <select class="form-control" name="gender">
-                                                        @if ($user->hasRole('Teacher'))
-                                                            @foreach (config('custom.genderOptions') as $value => $label)
-                                                                <option value="{{ $value }}"
-                                                                    {{ $user->teacher->gender == $value ? 'selected' : '' }}>
-                                                                    {{ $label }}
-                                                                </option>
-                                                            @endforeach
-                                                        @elseif ($user->hasRole('Student'))
-                                                            @foreach (config('custom.genderOptions') as $value => $label)
-                                                                <option value="{{ $value }}"
-                                                                    {{ $user->student->gender == $value ? 'selected' : '' }}>
-                                                                    {{ $label }}
-                                                                </option>
-                                                            @endforeach
-                                                        @endif
+                                                        @php
+                                                            $genderOptions = config('custom.genderOptions');
+                                                            $selectedGender = $user->hasRole('Teacher') ? $user->teacher->gender : $user->student->gender;
+                                                        @endphp
+
+                                                        @foreach ($genderOptions as $value => $label)
+                                                            <option value="{{ $value }}"
+                                                                {{ $selectedGender == $value ? 'selected' : '' }}>
+                                                                {{ $label }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -218,7 +214,8 @@
                                                             <label>Class <span class="login-danger">*</span></label>
                                                             <input class="form-control" type="text"
                                                                 name="joining_date"
-                                                                value="{{ $user->hasRole('Student') ? $user->student->class->name : '' }}" disabled>
+                                                                value="{{ $user->hasRole('Student') ? $user->student->class->name : '' }}"
+                                                                disabled>
                                                         </div>
                                                         <label>Religion <span class="login-danger">*</span></label>
                                                         <select class="form-control" name="religion">
