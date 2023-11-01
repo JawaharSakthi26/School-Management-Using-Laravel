@@ -16,63 +16,65 @@ class MyProfileController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $data = $request->all();
+
         $user = User::findOrFail($id);
         if ($request->has('password')) {
-            if (!Hash::check($request->old_password, $user->password)) {
+            if (!Hash::check($data['old_password'], $user->password)) {
                 return redirect()->back()->with('error', 'The old password is incorrect.');
             }
 
             if ($request->filled('password')) {
-                $user->update(['password' => Hash::make($request->password)]);
+                $user->update(['password' => Hash::make($data['password'])]);
             }
 
         } else {
             if ($user->hasRole('Admin')) {
                 $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email
+                    'name' => $data['name'],
+                    'email' => $data['email']
                 ]);
             } elseif ($user->hasRole('Teacher')) {
                 $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email
+                    'name' => $data['name'],
+                    'email' => $data['email']
                 ]);
 
-                $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
-                $joining_date = Carbon::createFromFormat('d-m-Y', $request->input('joining_date'))->format('Y-m-d');
+                $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
+                $joining_date = Carbon::createFromFormat('d-m-Y', $data['joining_date'])->format('Y-m-d');
 
                 $user->teacher->update([
-                    'phone' => $request->input('phone'),
-                    'gender' => $request->input('gender'),
+                    'phone' => $data['phone'],
+                    'gender' => $data['gender'],
                     'dob' => $dob,
                     'joining_date' => $joining_date,
-                    'qualification' => $request->input('qualification'),
-                    'blood_group' => $request->input('blood_group'),
-                    'address' => $request->input('address'),
-                    'city' => $request->input('city'),
-                    'state' => $request->input('state'),
-                    'zip_code' => $request->input('zip_code'),
-                    'country' => $request->input('country'),
+                    'qualification' => $data['qualification'],
+                    'blood_group' => $data['blood_group'],
+                    'address' => $data['address'],
+                    'city' => $data['city'],
+                    'state' => $data['state'],
+                    'zip_code' => $data['zip_code'],
+                    'country' => $data['country'],
                 ]);
             } elseif ($user->hasRole('Student')) {
                 $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email
+                    'name' => $data['name'],
+                    'email' => $data['email']
                 ]);
 
-                $dob = Carbon::createFromFormat('d-m-Y', $request->input('dob'))->format('Y-m-d');
+                $dob = Carbon::createFromFormat('d-m-Y', $data['dob'])->format('Y-m-d');
 
                 $user->student->update([
-                    'phone' => $request->input('phone'),
-                    'gender' => $request->input('gender'),
+                    'phone' => $data['phone'],
+                    'gender' => $data['gender'],
                     'dob' => $dob,
-                    'religion' => $request->input('religion'),
-                    'blood_group' => $request->input('blood_group'),
-                    'address' => $request->input('address'),
-                    'city' => $request->input('city'),
-                    'state' => $request->input('state'),
-                    'zip_code' => $request->input('zip_code'),
-                    'country' => $request->input('country'),
+                    'religion' => $data['religion'],
+                    'blood_group' => $data['blood_group'],
+                    'address' => $data['address'],
+                    'city' => $data['city'],
+                    'state' => $data['state'],
+                    'zip_code' => $data['zip_code'],
+                    'country' => $data['country'],
                 ]);
             }
         }

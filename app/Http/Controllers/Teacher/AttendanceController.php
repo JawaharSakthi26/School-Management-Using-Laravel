@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
 use App\Models\ClassTeacher;
 use App\Models\Student;
@@ -12,23 +13,30 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
+    use RestControllerTrait;
+
+    public $modelClass = StudentAttendance::class;
+    public $folderPath = 'teacher';
+    public $viewPath = 'attendance';
+    public $routeName = 'attendance';
+    public $message = 'Attendance';
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id) ->orderBy('attendance_date', 'asc') ->get();
+        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id)->orderBy('attendance_date', 'asc')->get();
         return view('teacher.attendance.index', compact('attendanceDates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    protected function _selectLookups($id = null): array
     {
         $teacherId = Auth::user()->id;
         $classTeacher = ClassTeacher::where('teacher_id', $teacherId)->first();
         $studentsInClass = collect();
+        $class = null;
+        $attendance = null;
 
         if ($classTeacher) {
             $class_id = $classTeacher->class_id;
@@ -36,7 +44,10 @@ class AttendanceController extends Controller
             $studentsInClass = Student::where('class_id', $class_id)->get();
         }
 
-        return view('teacher.attendance.create', compact('studentsInClass', 'class'));
+        if ($id) {
+            $attendance = StudentAttendance::findOrFail($id);
+        }
+        return compact('studentsInClass', 'class', 'attendance');
     }
 
     /**
@@ -69,26 +80,6 @@ class AttendanceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $teacherId = Auth::user()->id;
-        $classTeacher = ClassTeacher::where('teacher_id', $teacherId)->first();
-        $studentsInClass = collect();
-
-        if ($classTeacher) {
-            $class_id = $classTeacher->class_id;
-            $class = AddClass::where('id', $class_id)->first();
-            $studentsInClass = Student::where('class_id', $class_id)->get();
-        }
-
-        $attendance = StudentAttendance::findOrFail($id);
-
-        return view('teacher.attendance.create', compact('attendance', 'class', 'studentsInClass'));
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -116,15 +107,5 @@ class AttendanceController extends Controller
         }
 
         return redirect()->route('attendance.index')->with('message', 'Attendance updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $item = StudentAttendance::findOrFail($id);
-        $item->delete();
-        return redirect()->route("attendance.index")->with('message', 'Attendance Record Deleted Successfully!');
     }
 }
