@@ -3,18 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\CrudTrait;
+use App\Http\Traits\RestControllerTrait;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    use CrudTrait;
+    use RestControllerTrait;
 
-    protected $model = Subject::class;
-    protected $viewPath = 'admin';
-    protected $folderPath = 'subject';
-    protected $routePrefix = 'add-subject';
+    public $modelClass = Subject::class;
+    public $folderPath = 'admin';
+    public $viewPath = 'subject';
+    public $routeName = 'add-subject';
+    public $message = 'Subject'; 
+
+    public function _selectLookups($id = null): array
+    {
+        $item = null;
+
+        if($id){
+            $item = Subject::findOrFail($id);
+        }
+
+        return[
+            'item' => $item
+        ];
+    }
 
     public function store(Request $request)
     {
@@ -41,6 +55,6 @@ class SubjectController extends Controller
             'status' => $request->status ? '1' : '0',
         ]);
 
-        return redirect()->route("add-subject.index")->with('message','Class Created Successfully!');
+        return redirect()->route("add-subject.index")->with('message','Subject Updated Successfully!');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | ' . (isset($item) ? 'Edit Subject' : 'Add Subject'))
+@section('title', 'PreSkool | ' . (isset($selectLookups['item']) ? 'Edit Subject' : 'Add Subject'))
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -7,10 +7,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">{{ isset($item) ? 'Edit Subject' : 'Add Subject' }}</h3>
+                        <h3 class="page-title">{{ isset($selectLookups['item']) ? 'Edit Subject' : 'Add Subject' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="subjects.html">Subject</a></li>
-                            <li class="breadcrumb-item active">{{ isset($item) ? 'Edit Subject' : 'Add Subject' }}</li>
+                            <li class="breadcrumb-item active">{{ isset($selectLookups['item']) ? 'Edit Subject' : 'Add Subject' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -34,10 +34,10 @@
                     <div class="card">
                         <div class="card-body">
                             <form
-                                action="{{ isset($item) ? route('add-subject.update', $item->id) : route('add-subject.store') }}"
+                                action="{{ isset($selectLookups['item']) ? route('add-subject.update', $selectLookups['item']->id) : route('add-subject.store') }}"
                                 method="POST" id="subject-form">
                                 @csrf
-                                @if (isset($item))
+                                @if (isset($selectLookups['item']))
                                     @method('PUT')
                                 @endif
                                 <div class="row">
@@ -48,7 +48,7 @@
                                         <div class="form-group local-forms">
                                             <label>Subject Name <span class="login-danger">*</span></label>
                                             <input type="text" class="form-control" name="name"
-                                                value="{{ isset($item) ? $item->name : old('name') }}">
+                                                value="{{ isset($selectLookups['item']) ? $selectLookups['item']->name : old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
@@ -57,7 +57,7 @@
                                             <select class="form-control" name="type">
                                                 @foreach ($subjectTypeOptions as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($item) && $item->type == $value ? 'selected' : '' }}>
+                                                        {{ isset($selectLookups['item']) && $selectLookups['item']->type == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -68,13 +68,13 @@
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" {{ isset($item) && $item->status == '1' ? 'checked' : '' }}>
+                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" {{ isset($selectLookups['item']) && $selectLookups['item']->status == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
                                     </div>
-                                    @if (isset($item))
-                                        <input type="hidden" name="user_id" value="{{ $item->user_id }}">
+                                    @if (isset($selectLookups['item']))
+                                        <input type="hidden" name="user_id" value="{{ $selectLookups['item']->user_id }}">
                                     @else
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                     @endif

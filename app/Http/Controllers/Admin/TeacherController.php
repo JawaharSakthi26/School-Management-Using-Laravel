@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RestControllerTrait;
 use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
@@ -11,26 +12,34 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use RestControllerTrait;
+
+    public $modelClass = User::class;
+    public $folderPath = 'admin';
+    public $viewPath = 'teacher';
+    public $routeName = 'add-teacher';
+    public $message = 'Teacher';
+
+
     public function index()
     {
-        $data = Teacher::all();
+        $data = Teacher::with('user')->get();
         return view('admin.teacher.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    protected function _selectLookups($id = null): array
     {
-        return view('admin.teacher.create');
+        $teacher = null;
+        
+        if ($id) {
+            $teacher = User::with('teacher')->findOrFail($id);
+        }
+
+        return [
+            'teacher' => $teacher,
+        ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $filename = '';
@@ -76,15 +85,6 @@ class TeacherController extends Controller
         ]);
 
         return redirect()->route('add-teacher.index')->with('message', 'Teacher Created Successfully!');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $teacher = User::with('teacher')->findOrFail($id);
-        return view('admin.teacher.create', compact('teacher'));
     }
 
     /**
@@ -146,13 +146,4 @@ class TeacherController extends Controller
         return redirect()->route('add-teacher.index')->with('message', 'Teacher updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $item = User::findOrFail($id);
-        $item->delete();
-        return redirect()->route("add-teacher.index")->with('message', 'Teacher deleted successfully');;
-    }
 }
