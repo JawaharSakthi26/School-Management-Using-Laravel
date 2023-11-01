@@ -15,20 +15,6 @@
                     </div>
                 </div>
             </div>
-            @php
-                $subjectTypeOptions = [
-                    '' => 'Select Type',
-                    '1' => 'Theory',
-                    '2' => 'Practical',
-                    '3' => 'Theory & Practical',
-                    '4' => 'Extra Curricular',
-                ];
-
-                $statusOptions = [
-                    '1' => 'Active',
-                    '0' => 'Inactive',
-                ];
-            @endphp
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -54,8 +40,8 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group local-forms">
                                             <label>Subject Type <span class="login-danger">*</span></label>
-                                            <select class="form-control" name="type">
-                                                @foreach ($subjectTypeOptions as $value => $label)
+                                            <select class="form-control select" name="type">
+                                                @foreach (config('custom.subjectTypeOptions') as $value => $label)
                                                     <option value="{{ $value }}"
                                                         {{ isset($selectLookups['item']) && $selectLookups['item']->type == $value ? 'selected' : '' }}>
                                                         {{ $label }}

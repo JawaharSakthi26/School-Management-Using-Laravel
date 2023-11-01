@@ -15,9 +15,6 @@
                     </div>
                 </div>
             </div>
-            @php
-                $eventCategory = ['Academic Events', 'Extracurricular Activities', 'Cultural Events', 'Parent and Family Engagement', 'Special Celebrations', 'Holidays', 'Others'];
-            @endphp
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -39,8 +36,8 @@
                                             <label>Event Category <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="category" id="category">
                                                 <option value="">-- Select Category --</option>
-                                                @foreach ($eventCategory as $index => $event)
-                                                    <option value="{{ $index + 1 }}">{{ $event }}</option>
+                                                @foreach (config('custom.eventCategory') as $value => $event)
+                                                    <option value="{{ $value }}">{{ $event }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

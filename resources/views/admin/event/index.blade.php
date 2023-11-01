@@ -33,11 +33,6 @@
                     </div>
                 </div>
             </div>
-
-            @php
-                $eventCategory = ['Academic Events', 'Extracurricular Activities', 'Cultural Events', 'Parent and Family Engagement', 'Special Celebrations', 'Holidays', 'Others'];
-            @endphp
-
             <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -55,8 +50,8 @@
                                     <label for="eventCategory" class="form-label">Event Category:</label>
                                     <select class="form-select" name="category" id="eventCategory" required>
                                         <option value="">-- Select Category --</option>
-                                        @foreach ($eventCategory as $index => $event)
-                                            <option value="{{ $index + 1 }}">{{ $event }}</option>
+                                        @foreach (config('custom.eventCategory') as $index => $event)
+                                            <option value="{{ $index }}">{{ $event }}</option>
                                         @endforeach
                                     </select>
                                     <input type="hidden" value="{{ Auth::user()->id }}" id="user_id">

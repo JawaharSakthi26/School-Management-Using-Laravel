@@ -148,27 +148,6 @@
                                 </div>
                             </div>
                         </div>
-                        @php
-                            $genderOptions = [
-                                '' => 'Select Gender',
-                                '1' => 'Male',
-                                '2' => 'Female',
-                                '3' => 'Others',
-                            ];
-
-                            $religionOptions = [
-                                '' => 'Select Religion',
-                                '1' => 'Hindu',
-                                '2' => 'Christian',
-                                '3' => 'Muslim',
-                                '4' => 'Others',
-                            ];
-
-                            $statusOptions = [
-                                '1' => 'Active',
-                                '0' => 'Inactive',
-                            ];
-                        @endphp
                         <div class="modal fade" id="scrollable-modal" tabindex="-1" role="dialog"
                             aria-labelledby="scrollableModalTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -205,14 +184,14 @@
                                                     <label for="gender" class="form-label">Gender</label>
                                                     <select class="form-control" name="gender">
                                                         @if ($user->hasRole('Teacher'))
-                                                            @foreach ($genderOptions as $value => $label)
+                                                            @foreach (config('custom.genderOptions') as $value => $label)
                                                                 <option value="{{ $value }}"
                                                                     {{ $user->teacher->gender == $value ? 'selected' : '' }}>
                                                                     {{ $label }}
                                                                 </option>
                                                             @endforeach
                                                         @elseif ($user->hasRole('Student'))
-                                                            @foreach ($genderOptions as $value => $label)
+                                                            @foreach (config('custom.genderOptions') as $value => $label)
                                                                 <option value="{{ $value }}"
                                                                     {{ $user->student->gender == $value ? 'selected' : '' }}>
                                                                     {{ $label }}
@@ -242,11 +221,11 @@
                                                                 value="{{ $user->hasRole('Student') ? $user->student->class->name : '' }}" disabled>
                                                         </div>
                                                         <label>Religion <span class="login-danger">*</span></label>
-                                                        <select class="form-control select" name="religion">
-                                                            @foreach ($religionOptions as $index => $value)
-                                                                <option value="{{ $index }}"
-                                                                    {{ $user->student->religion == $index ? 'selected' : '' }}>
-                                                                    {{ $value }}
+                                                        <select class="form-control" name="religion">
+                                                            @foreach (config('custom.religionOptions') as $value => $label)
+                                                                <option value="{{ $value }}"
+                                                                    {{ $user->student->religion == $value ? 'selected' : '' }}>
+                                                                    {{ $label }}
                                                                 </option>
                                                             @endforeach
                                                         </select>

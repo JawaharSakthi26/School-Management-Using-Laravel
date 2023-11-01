@@ -15,14 +15,6 @@
                     </div>
                 </div>
             </div>
-            @php
-                $typeLabels = [
-                    '1' => 'Theory',
-                    '2' => 'Practical',
-                    '3' => 'Theory & Practical',
-                    '4' => 'Extra-Curricular',
-                ];
-            @endphp
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card card-table">
@@ -61,7 +53,7 @@
                                                         <a>{{ $value->name }}</a>
                                                     </h2>
                                                 </td>
-                                                <td>{{ $typeLabels[$value->type] ?? '' }}</td>
+                                                <td>{{ config('custom.subjectTypeOptions')[$value->type] ?? '' }}</td>
                                                 <td>
                                                     @if ($value->status == 1)
                                                         <span class="badge bg-success">Active</span>
@@ -75,9 +67,7 @@
                                                             class="btn btn-sm bg-success-light me-2">
                                                             <i class="feather-edit"></i>
                                                         </a>
-                                                        {{-- <a href="{{route()}}" class="btn btn-sm bg-danger-light">
-                                                            <i class="feather-trash"></i>
-                                                        </a> --}}
+
                                                         <form action="{{ route('add-subject.destroy', $value->id) }}"
                                                             method="POST">
                                                             @csrf

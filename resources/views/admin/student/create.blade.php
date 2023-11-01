@@ -16,30 +16,6 @@
                     </div>
                 </div>
             </div>
-
-            @php
-                $genderOptions = [
-                    '' => 'Select Gender',
-                    '1' => 'Male',
-                    '2' => 'Female',
-                    '3' => 'Others',
-                ];
-
-                $religionOptions = [
-                    '' => 'Select Religion',
-                    '1' => 'Hindu',
-                    '2' => 'Christian',
-                    '3' => 'Muslim',
-                    '4' => 'Others',
-                ];
-
-                $statusOptions = [
-                    '1' => 'Active',
-                    '0' => 'Inactive',
-                ];
-
-            @endphp
-
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
@@ -100,7 +76,7 @@
                                         <div class="form-group local-forms">
                                             <label>Gender <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="gender">
-                                                @foreach ($genderOptions as $value => $label)
+                                                @foreach (config('custom.genderOptions') as $value => $label)
                                                     <option value="{{ $value }}"
                                                         {{ isset($selectLookups['student']) && $selectLookups['student']->student->gender == $value ? 'selected' : '' }}>
                                                         {{ $label }}
@@ -159,7 +135,7 @@
                                         <div class="form-group local-forms">
                                             <label>Religion <span class="login-danger">*</span></label>
                                             <select class="form-control select" name="religion">
-                                                @foreach ($religionOptions as $value => $label)
+                                                @foreach (config('custom.religionOptions') as $value => $label)
                                                     <option value="{{ $value }}"
                                                         {{ isset($selectLookups['student']) && $selectLookups['student']->student->religion == $value ? 'selected' : '' }}>
                                                         {{ $label }}
