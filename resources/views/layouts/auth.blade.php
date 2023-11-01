@@ -46,7 +46,7 @@
             color: #000;
         }
 
-        .fc-day-header{
+        .fc-day-header {
             color: #3D30A2;
         }
 
@@ -113,6 +113,16 @@
 
     @if (Auth::check())
         <script>
+            var categoryColors = {
+                '1': 'red', 
+                '2': 'blue', 
+                '3': 'sky blue', 
+                '4': 'purple', 
+                '5': 'orange', 
+                '6': 'green', 
+                '7': 'gray', 
+            };
+
             var userRole = @json(Auth::user()->roles->pluck('name')->first());
 
             $(document).ready(function() {
@@ -138,6 +148,10 @@
 
                         if (event.start.day() === 0) {
                             element.addClass('sunday-holiday');
+                        }
+
+                        if (event.category && categoryColors[event.category]) {
+                            element.css('background-color', categoryColors[event.category]);
                         }
                     },
                     selectable: true,
@@ -206,4 +220,5 @@
         </script>
     @endif
 </body>
+
 </html>

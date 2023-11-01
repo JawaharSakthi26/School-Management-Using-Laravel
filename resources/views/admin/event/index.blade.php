@@ -49,7 +49,6 @@
                                 <div class="mb-3">
                                     <label for="eventCategory" class="form-label">Event Category:</label>
                                     <select class="form-select" name="category" id="eventCategory" required>
-                                        <option value="">-- Select Category --</option>
                                         @foreach (config('custom.eventCategory') as $index => $event)
                                             <option value="{{ $index }}">{{ $event }}</option>
                                         @endforeach
