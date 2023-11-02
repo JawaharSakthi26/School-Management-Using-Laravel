@@ -114,13 +114,13 @@
     @if (Auth::check())
         <script>
             var categoryColors = {
-                '1': 'red', 
-                '2': 'blue', 
-                '3': 'sky blue', 
-                '4': 'purple', 
-                '5': 'orange', 
-                '6': 'green', 
-                '7': 'gray', 
+                '1': '#0C356A',
+                '2': '#176B87',
+                '3': '#5D12D2',
+                '4': '#C70039',
+                '5': '#FFB000',
+                '6': '#FF6C22',
+                '7': '#7D7C7C',
             };
 
             var userRole = @json(Auth::user()->roles->pluck('name')->first());
