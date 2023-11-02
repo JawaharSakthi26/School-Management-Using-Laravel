@@ -66,7 +66,7 @@ class TimeTableController extends Controller
                         'end_time' => $endTime,
                     ]);
                 } else {
-                    // If a conflict is detected, roll back the transaction.
+
                     DB::rollBack();
 
                     return redirect()->back()->with('error', 'Class already exists for the class/teacher')->withInput();
@@ -77,7 +77,7 @@ class TimeTableController extends Controller
             return redirect()->route('add-timetable.index')->with('message', 'Class Timetable Saved!');
 
         } catch (\Exception $e) {
-
+            
             DB::rollBack();
             return redirect()->back()->with('error', 'An error occurred while saving the data. Changes have been rolled back.')->withInput();
             

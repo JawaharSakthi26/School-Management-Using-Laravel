@@ -32,12 +32,11 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table border-0 star-student table-hover table-center mb-0 table-striped"
-                                    id="datatable">
+                            {{-- <div class="table-responsive">
+                                <table class="table border-0 data-table star-student table-hover table-center mb-0 table-striped" id="teacher-datatable">
                                     <thead class="student-thread">
                                         <tr>
-                                            <th>ID</th>
+                                            <th>id</th>
                                             <th>Subject Name</th>
                                             <th>Type</th>
                                             <th>Status</th>
@@ -81,6 +80,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div> --}}
+                            <div class="card-body">
+                                {!! $dataTable->table(['class' => 'table table-striped table-responsive dt-bootstrap4 no-footer', 'id' => 'datatable-buttons']) !!}
                             </div>
                         </div>
                     </div>
@@ -91,4 +93,11 @@
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>
     </div>
+
+    {{-- <script type="text/javascript">
+        $(function() {
+            var table = $('#teacher-datatable').DataTable();
+        });
+    </script> --}}
+
 @endsection

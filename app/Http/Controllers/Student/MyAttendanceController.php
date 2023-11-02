@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\DataTables\MyAttendanceDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\StudentAttendanceStatus;
-use Illuminate\Support\Facades\Auth;
 
 class MyAttendanceController extends Controller
 {
-    public function index()
+    public function index(MyAttendanceDataTable $dataTable)
     {
-        $student_id = Auth::user()->id;
-        $attendanceDates = StudentAttendanceStatus::with('attendance')->where('student_id',$student_id)->get();
-        return view('student.myAttendance.index', compact('attendanceDates'));
+        return $dataTable->render("student.myAttendance.index");
     }
 }

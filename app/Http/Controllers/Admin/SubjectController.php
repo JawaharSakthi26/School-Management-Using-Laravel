@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\SubjectDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\Subject;
@@ -15,17 +16,22 @@ class SubjectController extends Controller
     public $folderPath = 'admin';
     public $viewPath = 'subject';
     public $routeName = 'add-subject';
-    public $message = 'Subject'; 
+    public $message = 'Subject';
+
+    public function index(SubjectDataTable $dataTable)
+    {
+        return $dataTable->render("admin.subject.index");
+    }
 
     public function _selectLookups($id = null): array
     {
         $item = null;
 
-        if($id){
+        if ($id) {
             $item = Subject::findOrFail($id);
         }
 
-        return[
+        return [
             'item' => $item
         ];
     }
@@ -40,7 +46,7 @@ class SubjectController extends Controller
             'type' => $data['type'],
             'status' => $request->status ? '1' : '0',
         ]);
-        return redirect()->route("add-subject.index")->with('message','Subject Created Successfully!');
+        return redirect()->route("add-subject.index")->with('message', 'Subject Created Successfully!');
     }
 
     public function update(Request $request, string $id)
@@ -55,6 +61,6 @@ class SubjectController extends Controller
             'status' => $request->status ? '1' : '0',
         ]);
 
-        return redirect()->route("add-subject.index")->with('message','Subject Updated Successfully!');
+        return redirect()->route("add-subject.index")->with('message', 'Subject Updated Successfully!');
     }
 }

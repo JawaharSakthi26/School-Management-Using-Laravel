@@ -31,7 +31,7 @@
                                 </div>
                             </div>
 
-                            <table
+                            {{-- <table
                                 class="table border-0 star-student table-hover table-center mb-0 table-striped" id="datatable">
                                 <thead class="student-thread">
                                     <tr>
@@ -81,7 +81,10 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
+                            <div class="card-body">
+                                {!! $dataTable->table(['class' => 'table table-striped table-responsive dt-bootstrap4 no-footer', 'id' => 'datatable-buttons']) !!}
+                            </div>
                         </div>
                     </div>
                 </div>

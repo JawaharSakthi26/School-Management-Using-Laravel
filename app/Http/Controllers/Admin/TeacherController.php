@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\TeacherDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\Teacher;
@@ -21,10 +22,12 @@ class TeacherController extends Controller
     public $message = 'Teacher';
 
 
-    public function index()
+    public function index(TeacherDataTable $dataTable)
     {
-        $data = Teacher::with('user')->get();
-        return view('admin.teacher.index', compact('data'));
+        // $data = Teacher::with('user')->get();
+        // return view('admin.teacher.index', compact('data'));
+
+        return $dataTable->render("admin.teacher.index");
     }
 
     protected function _selectLookups($id = null): array

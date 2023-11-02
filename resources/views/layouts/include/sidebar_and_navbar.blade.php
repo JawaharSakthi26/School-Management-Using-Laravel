@@ -147,9 +147,9 @@
                         </li>
                         <li class="{{ Request::is('my-attendance*') ? 'active' : '' }}">
                             <a href="{{ route('my-attendance.index') }}" class="{{ Request::is('my-attendance*') }}"><i
-                                    class="fa fa-address-book"></i><span> Attendance</span></a>
+                                    class="fa fa-address-book"></i><span> My Attendance</span></a>
                         </li>
-                        <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">
+                        <li class="{{ Request::is('academic-calendar*') ? 'active' : '' }}">
                             <a href="{{ route('academic-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
                                     class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>
                         </li>

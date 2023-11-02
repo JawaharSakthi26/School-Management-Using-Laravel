@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\DataTables\AttendanceDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -24,10 +25,9 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AttendanceDataTable $dataTable)
     {
-        $attendanceDates = StudentAttendance::with('statuses')->where('user_id', Auth::user()->id)->orderBy('attendance_date', 'asc')->get();
-        return view('teacher.attendance.index', compact('attendanceDates'));
+        return $dataTable->render("teacher.attendance.index");
     }
 
     protected function _selectLookups($id = null): array

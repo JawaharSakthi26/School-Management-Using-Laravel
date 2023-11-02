@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\ClassTeacherDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -17,7 +18,12 @@ class ClassTeacherController extends Controller
     public $folderPath = 'admin';
     public $viewPath = 'classTeacher';
     public $routeName = 'add-classTeacher';
-    public $message = 'Class Teacher'; 
+    public $message = 'Class Teacher';
+
+    public function index(ClassTeacherDataTable $dataTable)
+    {
+        return $dataTable->render("admin.classTeacher.index");
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,7 +34,7 @@ class ClassTeacherController extends Controller
 
         ClassTeacher::create([
             'user_id' => $data['user_id'],
-            'class_id' =>$data['class_id'],
+            'class_id' => $data['class_id'],
             'teacher_id' => $data['teacher_id'],
         ]);
         return redirect()->route('add-classTeacher.index')->with('message', 'Class teacher created successfully');
@@ -41,18 +47,18 @@ class ClassTeacherController extends Controller
     {
         $classes = AddClass::where('status', 1)->get();
         $teachers = Teacher::where('status', 1)->get();
-        
+
         $result = [
             'classes' => $classes,
             'teachers' => $teachers,
             'item' => null
         ];
-        
+
         if ($id) {
             $item = ClassTeacher::findOrFail($id);
             $result['item'] = $item;
         }
-    
+
         return $result;
     }
 
@@ -64,7 +70,7 @@ class ClassTeacherController extends Controller
         $updateId = ClassTeacher::findOrFail($id);
 
         $data = $request->all();
-        
+
         $updateId->update([
             'user_id' => $data['user_id'],
             'class_id' => $data['class_id'],

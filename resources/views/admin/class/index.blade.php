@@ -31,7 +31,7 @@
                                 </div>
                             </div>
 
-                            <table
+                            {{-- <table
                                 class="table border-0 star-student table-hover table-center mb-0 table-striped" id="datatable">
                                 <thead class="student-thread">
                                     <tr>
@@ -65,9 +65,6 @@
                                                         class="btn btn-sm bg-success-light me-2">
                                                         <i class="feather-edit"></i>
                                                     </a>
-                                                    {{-- <a href="edit-department.html" class="btn btn-sm bg-danger-light">
-                                                        <i class="feather-trash"></i>
-                                                    </a> --}}
                                                     <form action="{{ route('add-class.destroy', $value->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -78,7 +75,10 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
+                            <div class="card-body">
+                                {!! $dataTable->table(['class' => 'table table-striped table-responsive dt-bootstrap4 no-footer', 'id' => 'datatable-buttons']) !!}
+                            </div>
                         </div>
                     </div>
                 </div>

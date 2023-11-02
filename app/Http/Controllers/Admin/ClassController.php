@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\ClassDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -17,6 +18,12 @@ class ClassController extends Controller
     public $viewPath = 'class';
     public $routeName = 'add-class';
     public $message = 'Class';
+
+    public function index(ClassDataTable $dataTable)
+    {
+        return $dataTable->render("admin.class.index");
+
+    }
 
     protected function _selectLookups($id = null): array
     {

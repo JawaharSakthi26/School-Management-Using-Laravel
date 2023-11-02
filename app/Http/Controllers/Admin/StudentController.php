@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\StudentDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -22,10 +23,9 @@ class StudentController extends Controller
     public $message = 'Student';
 
     
-    public function index()
+    public function index(StudentDataTable $dataTable)
     {
-        $data = Student::with('user')->get();
-        return view("admin.student.index", compact('data'));
+        return $dataTable->render("admin.student.index");
     }
 
     protected function _selectLookups($id = null): array

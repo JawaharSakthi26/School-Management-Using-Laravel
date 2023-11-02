@@ -13,6 +13,13 @@ trait RestControllerTrait
         return view("{$this->folderPath}.{$this->viewPath}.index", compact('data'));
     }
 
+    // public function index()
+    // {
+    //     $dt = "\\App\\DataTables\\".class_basename($this->modelClass).'DataTable';
+    //     $dataTable = new $dt;
+    //     return $dataTable->render("{$this->folderPath}.{$this->viewPath}.index");
+    // }
+
     public function create() :View
     {
         $model = $this->_createResource();
