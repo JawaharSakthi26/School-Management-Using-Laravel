@@ -126,14 +126,16 @@
             var userRole = @json(Auth::user()->roles->pluck('name')->first());
 
             $(document).ready(function() {
+                var isEditable = userRole == 'Admin';
+
                 var calendar = $('#calendar').fullCalendar({
                     header: {
-                        left: 'prev,next today',
+                        left: 'prev,next',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay'
+                        right: 'month,basicWeek,basicDay,list'
                     },
                     navLinks: true,
-                    editable: true,
+                    editable: isEditable,
                     events: {
                         url: "calendar",
                         method: "GET"
