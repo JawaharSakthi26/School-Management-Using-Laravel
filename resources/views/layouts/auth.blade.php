@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/multiselect/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables.net-bs4/datatables.net-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -83,6 +84,7 @@
     <script src="{{ asset('assets/js/mask.js') }}"></script>
     <script src="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    {!! isset($dataTable) ? $dataTable->scripts() : '' !!}
 
     @if (Session::has('message'))
         <script>
