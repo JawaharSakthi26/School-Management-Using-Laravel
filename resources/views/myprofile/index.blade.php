@@ -33,7 +33,7 @@
                                 @php
                                     $role = $user->getRoleNames()->first();
                                 @endphp
-                                <h6 class="text-muted">{{ $role }}</h6>
+                                <h6 class="text-muted">{{ $role }} {{$role == 'Student' ? '- ' . $user->student->class->name : ''}}</h6>
 
                                 @if ($user->hasRole('Teacher|Student'))
                                     <div class="user-Location"><i class="fas fa-map-marker-alt"></i>

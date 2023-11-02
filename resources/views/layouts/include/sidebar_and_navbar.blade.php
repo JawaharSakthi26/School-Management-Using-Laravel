@@ -66,9 +66,6 @@
                     <li class="menu-title">
                         <span>Main Menu</span>
                     </li>
-                    {{-- <li class="{{ Request::is('admin*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.index') }}">Admin Dashboard</a>
-                    </li> --}}
                     @hasrole('Admin')
                         <li class="{{ Request::is('admin*') ? 'active' : '' }}">
                             <a href="{{ route('admin.index') }}" class="{{ Request::is('admin*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
@@ -148,8 +145,8 @@
                             <a href="{{ route('student-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i
                                     class="fas fa-table"></i><span> My Timetable</span></a>
                         </li>
-                        <li class="{{ Request::is('attendance*') ? 'active' : '' }}">
-                            <a href="{{ route('attendance.index') }}" class="{{ Request::is('attendance*') }}"><i
+                        <li class="{{ Request::is('my-attendance*') ? 'active' : '' }}">
+                            <a href="{{ route('my-attendance.index') }}" class="{{ Request::is('my-attendance*') }}"><i
                                     class="fa fa-address-book"></i><span> Attendance</span></a>
                         </li>
                         <li class="{{ Request::is('my-calendar*') ? 'active' : '' }}">

@@ -31,4 +31,10 @@ return [
         '3' => 'Theory & Practical',
         '4' => 'Extra Curricular',
     ],
+    'attendanceStatus' => [
+        '1' => 'Present',
+        '2' => 'Absent',
+        '3' => 'Late Entry',
+        '4' => 'Permission',
+    ]
 ];
