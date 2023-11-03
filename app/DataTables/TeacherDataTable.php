@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\Student;
 use App\Models\Teacher;
 
 class TeacherDataTable extends BaseDataTable

@@ -64,6 +64,7 @@ class MyStudentsDataTable extends BaseDataTable
             $class_id = $classTeacher->class_id;
             $studentsInClass = $model->with('user', 'class')
                 ->where('class_id', $class_id)
+                ->where('status','1')
                 ->get();
         }
 
