@@ -1,6 +1,16 @@
 @extends('layouts.auth')
 @section('title', 'PreSkool | My Timetable')
 @section('content')
+    <style>
+        .table-hover tbody{
+            background:  #AEDEFC;
+        }
+        .table-hover tbody td {
+            border: 2px solid #fff;
+            padding: 10px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
@@ -35,7 +45,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table border-0 star-student table-hover table-center mb-0 table-striped">
+                                <table class="table border-0 table-hover table-center mb-0">
                                     <thead class="student-thread">
                                         <tr>
                                             <th>Days</th>
@@ -52,16 +62,17 @@
                                             <tr>
                                                 <td><b>{{ $day->name }}</b></td>
                                                 @if ($day->name === 'Sunday')
-                                                    <td colspan="6" class="text-center fs-4 text-capitalize bg-secondary text-dark font-monospace rounded-2">
+                                                    <td colspan="6"
+                                                        class="text-center fs-4 text-capitalize bg-dark text-white font-monospace rounded-2">
                                                         <span>Weekend Holiday!</span>
                                                     </td>
                                                 @else
-                                                    @for ($i = 10; $i <= 16; $i++)
+                                                    @for ($i = 10; $i < 16; $i++)
                                                         <td>
                                                             @foreach ($timetable as $entry)
                                                                 @if ($entry->day->name == $day->name && $entry->start_time == "$i:00" && $entry->end_time == $i + 1 . ':00')
-                                                                    Subject: {{ $entry->subject->name }}<br>
-                                                                    Class: {{ $entry->class->name }}
+                                                                    <b>Subject:</b> {{ $entry->subject->name }}<br>
+                                                                    <b>Class:</b> {{ $entry->class->name }}
                                                                 @endif
                                                             @endforeach
                                                         </td>
