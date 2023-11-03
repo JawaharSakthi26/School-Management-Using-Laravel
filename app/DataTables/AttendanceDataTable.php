@@ -2,9 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\AddClass;
 use App\Models\StudentAttendance;
-use App\Models\StudentAttendanceStatus;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceDataTable extends BaseDataTable

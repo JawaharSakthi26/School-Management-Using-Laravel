@@ -27,7 +27,6 @@
                     </div>
                 </div>
             </div>
-            {{-- @dd($selectLookups['item']); --}}
 
             <div class="row">
                 <div class="col-sm-12">

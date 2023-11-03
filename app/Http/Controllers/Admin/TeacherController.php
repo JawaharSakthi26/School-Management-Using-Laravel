@@ -24,9 +24,6 @@ class TeacherController extends Controller
 
     public function index(TeacherDataTable $dataTable)
     {
-        // $data = Teacher::with('user')->get();
-        // return view('admin.teacher.index', compact('data'));
-
         return $dataTable->render("admin.teacher.index");
     }
 

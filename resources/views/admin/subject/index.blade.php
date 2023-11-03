@@ -31,56 +31,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- <div class="table-responsive">
-                                <table class="table border-0 data-table star-student table-hover table-center mb-0 table-striped" id="teacher-datatable">
-                                    <thead class="student-thread">
-                                        <tr>
-                                            <th>id</th>
-                                            <th>Subject Name</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th class="text-end">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $key => $value)
-                                            <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>
-                                                    <h2>
-                                                        <a>{{ $value->name }}</a>
-                                                    </h2>
-                                                </td>
-                                                <td>{{ config('custom.subjectTypeOptions')[$value->type] ?? '' }}</td>
-                                                <td>
-                                                    @if ($value->status == 1)
-                                                        <span class="badge bg-success">Active</span>
-                                                    @elseif($value->status == 0)
-                                                        <span class="badge bg-danger">Inactive</span>
-                                                    @endif
-                                                </td>
-                                                <td class="text-end">
-                                                    <div class="actions">
-                                                        <a href="{{ route('add-subject.edit', $value->id) }}"
-                                                            class="btn btn-sm bg-success-light me-2">
-                                                            <i class="feather-edit"></i>
-                                                        </a>
-
-                                                        <form action="{{ route('add-subject.destroy', $value->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm bg-danger-light"><i
-                                                                    class="feather-trash"></i></button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div> --}}
                             <div class="card-body">
                                 {!! $dataTable->table(['class' => 'table table-striped table-responsive dt-bootstrap4 no-footer', 'id' => 'datatable-buttons']) !!}
                             </div>
@@ -93,11 +43,4 @@
             <p>Copyright © 2022 Dreamguys.</p>
         </footer>
     </div>
-
-    {{-- <script type="text/javascript">
-        $(function() {
-            var table = $('#teacher-datatable').DataTable();
-        });
-    </script> --}}
-
 @endsection

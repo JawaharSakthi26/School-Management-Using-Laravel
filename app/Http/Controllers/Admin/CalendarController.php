@@ -15,14 +15,26 @@ class CalendarController extends Controller
     public $folderPath = 'admin';
     public $viewPath = 'event';
     public $routeName = 'calendar';
-    public $message = 'Calendar'; 
+    public $message = 'Calendar';
 
     public function store(Request $request)
     {
         $data = $request->all();
         Event::create($data);
 
-        return redirect()->route('calendar')->with('message','Event created successfully!');
+        return redirect()->route('calendar')->with('message', 'Event created successfully!');
+    }
+
+    //ajax request
+    public function getEvent()
+    {
+        if (request()->ajax()) {
+            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+            $events = Event::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id', 'title', 'category', 'start', 'end']);
+            return response()->json($events);
+        }
+        return view('admin.event.index');
     }
 
     //ajax request
@@ -30,17 +42,5 @@ class CalendarController extends Controller
     {
         $event = Event::find($request->id);
         return $event->delete();
-    }
-
-    //ajax request
-    public function getEvent()
-    {
-        if(request()->ajax()){
-            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
-            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
-            $events = Event::whereDate('start', '>=', $start)->whereDate('end','<=',$end)->get(['id','title','category','start','end']);
-            return response()->json($events);
-        }
-        return view('admin.event.index');
     }
 }
