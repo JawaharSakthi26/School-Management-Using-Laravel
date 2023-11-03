@@ -22,11 +22,30 @@ class AttendanceDataTable extends BaseDataTable
             ->addColumn('attendance_date', function ($model) {
                 return \Carbon\Carbon::parse($model->attendance_date)->format('M d, Y');
             })
-            //need to work
             ->addColumn('present', function ($model) {
-                $attendanceDate = \Carbon\Carbon::parse($model->attendance_date)->format('Y-m-d');
-                $presentCount = $model->attendanceStatus
-                    ->where('status', 'present')
+                $presentCount = $model->statuses
+                    ->where('status', '1')
+                    ->count();
+            
+                return $presentCount;
+            })
+            ->addColumn('absent', function ($model) {
+                $presentCount = $model->statuses
+                    ->where('status', '2')
+                    ->count();
+            
+                return $presentCount;
+            })
+            ->addColumn('late_entry', function ($model) {
+                $presentCount = $model->statuses
+                    ->where('status', '3')
+                    ->count();
+            
+                return $presentCount;
+            })
+            ->addColumn('permission', function ($model) {
+                $presentCount = $model->statuses
+                    ->where('status', '4')
                     ->count();
             
                 return $presentCount;
@@ -53,7 +72,7 @@ class AttendanceDataTable extends BaseDataTable
      */
     public function query(StudentAttendance $model)
     {
-        $attendanceDates = $model->with('statuses')->where('user_id', Auth::user()->id)->orderBy('attendance_date', 'asc')->get();
+        $attendanceDates = $model->with('statuses')->where('user_id', Auth::user()->id)->orderBy('attendance_date', 'desc')->get();
         return $attendanceDates;
     }
 
