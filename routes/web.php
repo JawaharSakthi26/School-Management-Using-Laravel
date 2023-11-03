@@ -3,15 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::middleware(['noauth'])->group(function () {
+    Route::get('/', function () {
+        return view('auth.login');
+    });
 });
 
-// Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
-
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
@@ -42,6 +40,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/my-attendance',  App\Http\Controllers\Student\MyAttendanceController::class);
     });
 
-Route::resource('/my-profile', \App\Http\Controllers\MyProfileController::class);
-Route::get('/calendar', [\App\Http\Controllers\Admin\CalendarController::class, 'getEvent'])->name('calendar');
+    Route::resource('/my-profile', \App\Http\Controllers\MyProfileController::class);
+    Route::get('/calendar', [\App\Http\Controllers\Admin\CalendarController::class, 'getEvent'])->name('calendar');
 });
