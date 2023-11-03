@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables.net-bs4/datatables.net-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/preloader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -60,6 +61,15 @@
 
 <body>
 
+    <div class="preloader">
+        <div class="rectangles">
+            <div class="rectangle"></div>
+            <div class="rectangle"></div>
+            <div class="rectangle"></div>
+            <div class="rectangle"></div>
+        </div>
+    </div>
+
     @if (Auth::check())
         @include('layouts.include.sidebar_and_navbar')
     @endif
@@ -83,6 +93,8 @@
     <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/mask.js') }}"></script>
     <script src="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/fullCalendar.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/preloader.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     {!! isset($dataTable) ? $dataTable->scripts() : '' !!}
 
@@ -109,7 +121,6 @@
     <script>
         $(document).ready(function() {
             $('.multi-select').select2();
-            $('#datatable').DataTable();
         });
     </script>
 
