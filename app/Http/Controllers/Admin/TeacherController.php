@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\TeacherDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
-use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,12 +19,7 @@ class TeacherController extends Controller
     public $viewPath = 'teacher';
     public $routeName = 'add-teacher';
     public $message = 'Teacher';
-
-
-    public function index(TeacherDataTable $dataTable)
-    {
-        return $dataTable->render("admin.teacher.index");
-    }
+    public $dataTable = TeacherDataTable::class;
 
     protected function _selectLookups($id = null): array
     {

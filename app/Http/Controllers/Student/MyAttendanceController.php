@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Student;
 
 use App\DataTables\MyAttendanceDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RestControllerTrait;
 
 class MyAttendanceController extends Controller
 {
-    public function index(MyAttendanceDataTable $dataTable)
-    {
-        return $dataTable->render("student.myAttendance.index");
-    }
+    use RestControllerTrait;
+
+    public $folderPath = 'student';
+    public $viewPath = 'myAttendance';
+    public $dataTable = MyAttendanceDataTable::class;
+
 }

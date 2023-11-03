@@ -17,11 +17,8 @@ class SubjectController extends Controller
     public $viewPath = 'subject';
     public $routeName = 'add-subject';
     public $message = 'Subject';
+    public $dataTable = SubjectDataTable::class;
 
-    public function index(SubjectDataTable $dataTable)
-    {
-        return $dataTable->render("admin.subject.index");
-    }
 
     public function _selectLookups($id = null): array
     {

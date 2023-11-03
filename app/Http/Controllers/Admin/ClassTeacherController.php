@@ -19,11 +19,7 @@ class ClassTeacherController extends Controller
     public $viewPath = 'classTeacher';
     public $routeName = 'add-classTeacher';
     public $message = 'Class Teacher';
-
-    public function index(ClassTeacherDataTable $dataTable)
-    {
-        return $dataTable->render("admin.classTeacher.index");
-    }
+    public $dataTable = ClassTeacherDataTable::class;
 
     /**
      * Store a newly created resource in storage.

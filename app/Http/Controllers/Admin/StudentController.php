@@ -21,12 +21,7 @@ class StudentController extends Controller
     public $viewPath = 'student';
     public $routeName = 'add-student';
     public $message = 'Student';
-
-    
-    public function index(StudentDataTable $dataTable)
-    {
-        return $dataTable->render("admin.student.index");
-    }
+    public $dataTable = StudentDataTable::class;
 
     protected function _selectLookups($id = null): array
     {

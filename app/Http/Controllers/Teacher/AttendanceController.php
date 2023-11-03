@@ -21,14 +21,7 @@ class AttendanceController extends Controller
     public $viewPath = 'attendance';
     public $routeName = 'attendance';
     public $message = 'Attendance';
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(AttendanceDataTable $dataTable)
-    {
-        return $dataTable->render("teacher.attendance.index");
-    }
+    public $dataTable = AttendanceDataTable::class;
 
     protected function _selectLookups($id = null): array
     {

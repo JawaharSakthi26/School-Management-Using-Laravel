@@ -5,14 +5,13 @@ namespace App\Http\Traits;
 use Illuminate\View\View;
 
 trait RestControllerTrait
-{
-
+{    
     public function index()
     {
-        $data = $this->modelClass::all();
-        return view("{$this->folderPath}.{$this->viewPath}.index", compact('data'));
+        $dataTable = new $this->dataTable();
+        return $dataTable->render("{$this->folderPath}.{$this->viewPath}.index");
     }
-    
+
     public function create() :View
     {
         $model = $this->_createResource();

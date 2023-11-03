@@ -18,12 +18,7 @@ class ClassController extends Controller
     public $viewPath = 'class';
     public $routeName = 'add-class';
     public $message = 'Class';
-
-    public function index(ClassDataTable $dataTable)
-    {
-        return $dataTable->render("admin.class.index");
-
-    }
+    public $dataTable = ClassDataTable::class;
 
     protected function _selectLookups($id = null): array
     {

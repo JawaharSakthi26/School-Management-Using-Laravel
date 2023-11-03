@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Teacher;
 
 use App\DataTables\MyStudentsDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\RestControllerTrait;
 
 class MyStudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(MyStudentsDataTable $dataTable)
-    {
-        return $dataTable->render("teacher.myStudents.index");
-    }
 
+    use RestControllerTrait;
+
+    public $folderPath = 'teacher';
+    public $viewPath = 'myStudents';
+    public $dataTable = MyStudentsDataTable::class;
+    
 }
