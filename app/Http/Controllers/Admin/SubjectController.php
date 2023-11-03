@@ -40,6 +40,13 @@ class SubjectController extends Controller
     {
         $data = $request->all();
 
+        $existingSubjects = Subject::where('name', 'LIKE', $data['name'])->whereRaw('LOWER(name) = ?', [strtolower($data['name'])])
+            ->first();
+
+        if ($existingSubjects) {
+            return redirect()->route("add-subject.index")->with('error', 'Subject already Exist!');
+        }
+
         Subject::create([
             'user_id' => $data['user_id'],
             'name' => $data['name'],
@@ -53,6 +60,15 @@ class SubjectController extends Controller
     {
         $updateId = Subject::findOrFail($id);
         $data = $request->all();
+
+        $existingSubjects = Subject::where('name', 'LIKE', $data['name'])
+            ->whereRaw('LOWER(name) = ?', [strtolower($data['name'])])
+            ->where('id', '!=', $id) 
+            ->first();
+
+        if ($existingSubjects) {
+            return redirect()->route("add-subject.index")->with('error', 'Subject already exists!');
+        }
 
         $updateId->update([
             'user_id' => $data['user_id'],

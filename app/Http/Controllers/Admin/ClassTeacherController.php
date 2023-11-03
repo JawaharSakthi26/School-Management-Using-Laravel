@@ -32,6 +32,15 @@ class ClassTeacherController extends Controller
     {
         $data = $request->all();
 
+        $existingTeacher = ClassTeacher::where('teacher_id', $data['teacher_id'])->first();
+        $exisitingClass = ClassTeacher::where('class_id', $data['class_id'])->first();
+
+        if ($existingTeacher) {
+            return redirect()->route('add-classTeacher.index')->with('error', 'The teacher is already assigned to another class.');
+        } elseif ($exisitingClass) {
+            return redirect()->route('add-classTeacher.index')->with('error', 'The class already has a class teacher.');
+        }
+
         ClassTeacher::create([
             'user_id' => $data['user_id'],
             'class_id' => $data['class_id'],
@@ -70,6 +79,16 @@ class ClassTeacherController extends Controller
         $updateId = ClassTeacher::findOrFail($id);
 
         $data = $request->all();
+
+        $existingAssignment = ClassTeacher::where('teacher_id', $data['teacher_id'])
+            ->where('class_id', '!=', $data['class_id'])
+            ->first();
+
+        if ($existingAssignment) {
+            return redirect()
+                ->route('add-classTeacher.index')
+                ->with('error', 'The teacher is already assigned to another class.');
+        }
 
         $updateId->update([
             'user_id' => $data['user_id'],
