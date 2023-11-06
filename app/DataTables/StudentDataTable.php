@@ -53,7 +53,7 @@ class StudentDataTable extends BaseDataTable
             ->addColumn('action', function ($model) {
                 $id = $model->id;
                 $action = '<a href="' . route('add-student.edit', $model->user_id) . '" class="btn btn-sm bg-success-light me-2"> <i class="feather-edit"></i> </a> &nbsp;';
-                $action .= '<form action="' . route('add-student.destroy', $id) . '" method="POST">
+                $action .= '<form action="' . route('add-student.destroy', $model->user_id) . '" method="POST">
                                 ' . csrf_field() . '
                                 ' . method_field('DELETE') . '
                                 <button type="submit" class="btn btn-sm bg-danger-light"><i class="feather-trash"></i></button>
