@@ -7,10 +7,12 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">{{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}</h3>
+                            <h3 class="page-title">{{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}
+                            </h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('add-student.index') }}">Student</a></li>
-                                <li class="breadcrumb-item active">{{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}</li>
+                                <li class="breadcrumb-item active">
+                                    {{ isset($selectLookups['student']) ? 'Edit Student' : 'Add Student' }}</li>
                             </ul>
                         </div>
                     </div>
@@ -20,7 +22,8 @@
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form action="{{ isset($selectLookups['student']) ? route('add-student.update', $selectLookups['student']->id) : route('add-student.store') }}"
+                            <form
+                                action="{{ isset($selectLookups['student']) ? route('add-student.update', $selectLookups['student']->id) : route('add-student.store') }}"
                                 method="POST" enctype="multipart/form-data" id="student-form">
                                 @csrf
                                 @if (isset($selectLookups['student']))
@@ -61,7 +64,9 @@
                                         <div class="form-group local-forms">
                                             <label>Create Password <span class="login-danger">*</span></label>
                                             <input class="form-control" id="password" type="password" name="password"
-                                                placeholder="Create Password" {{ isset($selectLookups['student']) ? 'disabled' : '' }}>
+                                                placeholder="Create Password"
+                                                {{ isset($selectLookups['student']) ? 'disabled' : '' }}
+                                                value="{{ old('password') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -69,7 +74,8 @@
                                             <label>Confirm Password <span class="login-danger">*</span></label>
                                             <input class="form-control" type="password" id="confirm_password"
                                                 name="password_confirmation" placeholder="Confirm Password"
-                                                {{ isset($selectLookups['student']) ? 'disabled' : '' }}>
+                                                {{ isset($selectLookups['student']) ? 'disabled' : '' }}
+                                                value="{{ old('password_confirmation') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -78,7 +84,7 @@
                                             <select class="form-control select" name="gender">
                                                 @foreach (config('custom.genderOptions') as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->gender == $value ? 'selected' : '' }}>
+                                                        {{ (isset($selectLookups['student']) && $selectLookups['student']->student->gender == $value) || old('gender') == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -108,13 +114,13 @@
                                                 <option value="">Please Select Class</option>
                                                 @foreach ($selectLookups['classes'] as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->class_id == $class->id ? 'selected' : '' }}>
+                                                        {{ (isset($selectLookups['student']) && $selectLookups['student']->student->class_id == $class->id) || old('class') == $class->id ? 'selected' : '' }}>
                                                         {{ $class->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Roll Number </label>
@@ -137,13 +143,13 @@
                                             <select class="form-control select" name="religion">
                                                 @foreach (config('custom.religionOptions') as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($selectLookups['student']) && $selectLookups['student']->student->religion == $value ? 'selected' : '' }}>
+                                                        {{ (isset($selectLookups['student']) && $selectLookups['student']->student->religion == $value) || old('religion') == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Address 1st Line </label>
@@ -196,8 +202,9 @@
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
-                                                    {{ (isset($selectLookups['student']) && $selectLookups['student']->student->status == '1') ? 'checked' : '' }}>
+                                                <input class="form-check-input custom-switch" type="checkbox"
+                                                    id="statusSwitch" name="status" value="1"
+                                                    {{ isset($selectLookups['student']) && $selectLookups['student']->student->status == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>

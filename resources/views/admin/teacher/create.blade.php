@@ -10,7 +10,8 @@
                         <h3 class="page-title">{{ isset($selectLookups['teacher']) ? 'Edit Teacher' : 'Add Teacher' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('add-teacher.index') }}">Teachers</a></li>
-                            <li class="breadcrumb-item active">{{ isset($selectLookups['teacher']) ? 'Edit Teacher' : 'Add Teacher' }}</li>
+                            <li class="breadcrumb-item active">
+                                {{ isset($selectLookups['teacher']) ? 'Edit Teacher' : 'Add Teacher' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -44,7 +45,7 @@
                                             <select class="form-control select" name="gender">
                                                 @foreach (config('custom.genderOptions') as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ isset($selectLookups['teacher']) && $selectLookups['teacher']->teacher->gender == $value ? 'selected' : '' }}>
+                                                        {{ (isset($selectLookups['teacher']) && $selectLookups['teacher']->teacher->gender == $value) || old('gender') == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
@@ -114,7 +115,9 @@
                                         <div class="form-group local-forms">
                                             <label>Create Password <span class="login-danger">*</span></label>
                                             <input class="form-control" id="password" type="password" name="password"
-                                                placeholder="Create Password" {{ isset($selectLookups['teacher']) ? 'disabled' : '' }}>
+                                                placeholder="Create Password"
+                                                {{ isset($selectLookups['teacher']) ? 'disabled' : '' }}
+                                                value="{{ old('password') }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">
@@ -122,7 +125,8 @@
                                             <label>Confirm Password <span class="login-danger">*</span></label>
                                             <input class="form-control" type="password" id="confirm_password"
                                                 name="password_confirmation" placeholder="Confirm Password"
-                                                {{ isset($selectLookups['teacher']) ? 'disabled' : '' }}>
+                                                {{ isset($selectLookups['teacher']) ? 'disabled' : '' }}
+                                                value="{{ old('password_confirmation') }}">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -172,8 +176,9 @@
                                         <div class="form-group">
                                             <label>Status <span class="login-danger">*</span></label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input custom-switch" type="checkbox" id="statusSwitch" name="status" value="1"
-                                                    {{ (isset($selectLookups['teacher']) && $selectLookups['teacher']->teacher->status == '1') ? 'checked' : '' }}>
+                                                <input class="form-check-input custom-switch" type="checkbox"
+                                                    id="statusSwitch" name="status" value="1"
+                                                    {{ isset($selectLookups['teacher']) && $selectLookups['teacher']->teacher->status == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="statusSwitch"></label>
                                             </div>
                                         </div>
