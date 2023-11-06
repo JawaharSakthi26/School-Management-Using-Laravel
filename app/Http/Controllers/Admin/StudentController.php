@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\StudentDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
+use App\Jobs\SendMailJob;
 use App\Models\AddClass;
 use App\Models\Student;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -90,6 +92,9 @@ class StudentController extends Controller
             'country' => $data['country'],
             'status' => $request->input('status') ? '1' : '0',
         ]);
+
+        SendMailJob::dispatch($user, $data['password']);
+
         return redirect()->route('add-student.index')->with('message', 'Student Created Successfully!');
     }
 

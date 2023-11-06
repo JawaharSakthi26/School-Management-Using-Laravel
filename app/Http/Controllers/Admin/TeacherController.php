@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\TeacherDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
+use App\Jobs\SendMailJob;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,7 +78,9 @@ class TeacherController extends Controller
             'country' => $data['country'],
             'status' => $request->input('status') ? '1' : '0',
         ]);
-
+        
+        SendMailJob::dispatch($user, $data['password']);
+        
         return redirect()->route('add-teacher.index')->with('message', 'Teacher Created Successfully!');
     }
 
