@@ -69,6 +69,7 @@ class TeacherDataTable extends BaseDataTable
     public function html()
     {
         // $params = $this->getBuilderParameters();
+        $params['scrollX'] = true;
         $params['order'] = [[0, 'asc']];
         $params['rowReorder'] =  false;
         $params['pageLength'] = 15;

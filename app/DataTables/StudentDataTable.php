@@ -82,13 +82,13 @@ class StudentDataTable extends BaseDataTable
     public function html()
     {
         // $params = $this->getBuilderParameters();
+        $params['scrollX'] = true;
         $params['order'] = [[0, 'asc']];
         $params['rowReorder'] =  false;
         $params['pageLength'] = 15;
         $params['buttons'] = [];
         $actionParam['width'] = '210px';
         $params['stateSave'] = true;
-
 
         return $this->builder()
             ->columns($this->getColumns())
