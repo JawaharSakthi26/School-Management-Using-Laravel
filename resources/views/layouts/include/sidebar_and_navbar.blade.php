@@ -158,6 +158,9 @@
                         <li class="menu-title">
                             <span>Management</span>
                         </li>
+                        <li class="{{ Request::is('view-attendance*') ? 'active' : '' }}">
+                            <a href="{{ route('view-attendance.index') }}"><i class="fa fa-address-book"></i> <span>Attendance</span></a>
+                        </li>
                         <li class="{{ Request::is('calendar*') || Request::is('event*') ? 'active' : '' }}">
                             <a href="{{ route('calendar') }}"><i 
                                 class="fas fa-calendar-day"></i> <span>Full Calendar</span></a>
