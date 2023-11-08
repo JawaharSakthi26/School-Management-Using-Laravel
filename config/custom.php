@@ -16,12 +16,12 @@ return [
     ],
     'eventCategory' => [
         '' => 'Select Event',
-        '1' => 'Academic Events', 
-        '2' => 'Extracurricular Activities', 
-        '3' => 'Cultural Events', 
-        '4' => 'Parent and Family Engagement', 
-        '5' => 'Special Celebrations', 
-        '6' => 'Holidays', 
+        '1' => 'Academic Events',
+        '2' => 'Extracurricular Activities',
+        '3' => 'Cultural Events',
+        '4' => 'Parent and Family Engagement',
+        '5' => 'Special Celebrations',
+        '6' => 'Holidays',
         '7' => 'Others'
     ],
     'subjectTypeOptions' => [
@@ -36,5 +36,9 @@ return [
         '2' => 'Absent',
         '3' => 'Late Entry',
         '4' => 'Permission',
-    ]
+    ],
+    'email_templates' => [
+        'teacher_template' => 'email.teacherTemplate',
+        'student_template' => 'email.studentTemplate',
+    ],
 ];
