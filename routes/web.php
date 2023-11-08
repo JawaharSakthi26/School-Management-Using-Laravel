@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-teacher', \App\Http\Controllers\Admin\TeacherController::class);
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
         Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
+        Route::resource('/view-attendance', \App\Http\Controllers\Admin\AttendanceController::class);
+        Route::get('/fetch-attendance', [\App\Http\Controllers\Admin\AttendanceController::class, 'fetchAttendance'])->name('fetch-attendance');
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
         Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');
         Route::resource('/event', \App\Http\Controllers\Admin\CalendarController::class);

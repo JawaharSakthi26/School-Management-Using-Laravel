@@ -16,4 +16,8 @@ class StudentAttendanceStatus extends Model
     public function attendance(){
         return $this->belongsTo(StudentAttendance::class,'attendance_date_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'student_id');
+    }
 }
