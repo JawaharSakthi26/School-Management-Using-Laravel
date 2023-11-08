@@ -25,7 +25,7 @@ class TeacherController extends Controller
     protected function _selectLookups($id = null): array
     {
         $teacher = null;
-        
+
         if ($id) {
             $teacher = User::with('teacher')->findOrFail($id);
         }
@@ -42,7 +42,7 @@ class TeacherController extends Controller
         $data = $request->all();
 
         if (User::where('email', $data['email'])->exists()) {
-            return redirect()->back()->with('error', 'Email already exists')->withInput(); 
+            return redirect()->back()->with('error', 'Email already exists')->withInput();
         }
 
         if ($request->hasFile('photo')) {
@@ -78,9 +78,11 @@ class TeacherController extends Controller
             'country' => $data['country'],
             'status' => $request->input('status') ? '1' : '0',
         ]);
-        
-        SendMailJob::dispatch($user, $data['password']);
-        
+
+        $emailTemplate = config('custom.email_templates.teacher_template');
+
+        SendMailJob::dispatch($user, $data['password'], $emailTemplate);
+
         return redirect()->route('add-teacher.index')->with('message', 'Teacher Created Successfully!');
     }
 
@@ -97,7 +99,7 @@ class TeacherController extends Controller
 
         $filename = $user->avatar;
         $data = $request->all();
-        
+
         if (User::where('email', $data['email'])->where('id', '!=', $user->id)->exists()) {
             return redirect()->back()->with('error', 'Email already exists')->withInput();
         }
@@ -142,5 +144,4 @@ class TeacherController extends Controller
 
         return redirect()->route('add-teacher.index')->with('message', 'Teacher updated successfully');
     }
-
 }

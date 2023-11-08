@@ -18,16 +18,18 @@ class SendMailJob implements ShouldQueue
 
     protected $user;
     protected $password;
+    protected $emailTemplate;
 
-    public function __construct(User $user, $password)
+    public function __construct(User $user, $password, $emailTemplate)
     {
         $this->user = $user;
         $this->password = $password;
+        $this->emailTemplate = $emailTemplate;
     }
 
     public function handle()
     {
-        $email = new RegisteredMail($this->user, $this->password);
+        $email = new RegisteredMail($this->user, $this->password, $this->emailTemplate);
         Mail::to($this->user->email)->send($email);
     }
 }

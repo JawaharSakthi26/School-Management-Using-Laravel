@@ -93,7 +93,8 @@ class StudentController extends Controller
             'status' => $request->input('status') ? '1' : '0',
         ]);
 
-        SendMailJob::dispatch($user, $data['password']);
+        $emailTemplate = config('custom.email_templates.student_template');
+        SendMailJob::dispatch($user, $data['password'], $emailTemplate);
 
         return redirect()->route('add-student.index')->with('message', 'Student Created Successfully!');
     }

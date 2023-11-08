@@ -17,11 +17,13 @@ class RegisteredMail extends Mailable
 
     protected $user;
     protected $password;
+    protected $emailTemplate;
 
-    public function __construct(User $user, $password)
+    public function __construct(User $user, $password, $emailTemplate)
     {
         $this->user = $user;
         $this->password = $password;
+        $this->emailTemplate = $emailTemplate;
     }
     
     public function build()
@@ -29,7 +31,7 @@ class RegisteredMail extends Mailable
         return $this
             ->from('preskool@gmail.com', 'PreSkool')
             ->subject('Welcome to PreSkool!')
-            ->view('email.mailTemplate')
+            ->view($this->emailTemplate)
             ->with(['user' => $this->user, 'password' => $this->password]); 
     }
 
