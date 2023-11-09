@@ -24,7 +24,7 @@
 
                             <div class="mb-3 float-end">
                                 <a href="{{ route('excel-myStudents') }}" class="btn btn-success" id="exportExcel">Excel</a>
-                                <a href="#" class="btn btn-danger" id="exportPdf">PDF</a>
+                                <a href="{{ route('pdf-myStudents') }}" class="btn btn-danger" id="exportPdf">PDF</a>
                                 <a href="#" class="btn btn-secondary" id="exportCsv">CSV</a>
                                 <a href="#" class="btn btn-info" id="exportCopy">Copy</a>
                             </div>
@@ -53,23 +53,4 @@
             <p>Copyright © 2023 PreSkool.</p>
         </footer>
     </div>
-
-    <script>
-        $('#exportExcel').on('click', function() {
-            alert('Exporting to Excel');
-        });
-
-        $('#exportPdf').on('click', function() {
-            alert('Exporting to PDF');
-        });
-
-        $('#exportCsv').on('click', function() {
-            alert('Exporting to CSV');
-        });
-
-        $('#exportCopy').on('click', function() {
-            alert('Copying data');
-        });
-    </script>
-
 @endsection

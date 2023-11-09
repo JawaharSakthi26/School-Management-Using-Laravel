@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/my-calendar',  App\Http\Controllers\Teacher\CalendarController::class);
         Route::get('/excel/myStudents', [App\Http\Controllers\Teacher\MyStudentController::class, 'exportExcel'])->name('excel-myStudents');
         Route::get('/excel/attendance', [App\Http\Controllers\Teacher\AttendanceController::class, 'exportExcel'])->name('excel-attendance');
+        Route::get('/pdf/myStudents', [App\Http\Controllers\Teacher\MyStudentController::class, 'exportPdf'])->name('pdf-myStudents');
     });
 
     Route::middleware(['role:Admin|Student'])->group(function () {

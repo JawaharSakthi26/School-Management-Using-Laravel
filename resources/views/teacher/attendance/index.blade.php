@@ -27,17 +27,13 @@
                                 <a href="#" class="btn btn-danger" id="exportPdf">PDF</a>
                                 <a href="#" class="btn btn-secondary" id="exportCsv">CSV</a>
                                 <a href="#" class="btn btn-info" id="exportCopy">Copy</a>
+                                <a href="{{ route('attendance.create') }}" class="btn btn-primary mx-3"><i class="fas fa-plus"></i></a>
                             </div>
 
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h3 class="page-title">Attendance</h3>
-                                    </div>
-
-                                    <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="{{ route('attendance.create') }}" class="btn btn-primary"><i
-                                                class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
