@@ -93,7 +93,6 @@
     <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/mask.js') }}"></script>
     <script src="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/fullCalendar.js') }}"></script> --}}
     <script src="{{ asset('assets/js/preloader.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     {!! isset($dataTable) ? $dataTable->scripts() : '' !!}

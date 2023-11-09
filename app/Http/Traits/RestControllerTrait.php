@@ -3,12 +3,14 @@
 namespace App\Http\Traits;
 
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MyStudentsExport;
 
 trait RestControllerTrait
 {    
     public function index()
     {
-        $dataTable = new $this->dataTable();
+        $dataTable = $this->getDataTableInstance();
         return $dataTable->render("{$this->folderPath}.{$this->viewPath}.index");
     }
 
@@ -19,7 +21,6 @@ trait RestControllerTrait
 
         return view("{$this->folderPath}.{$this->viewPath}.create", compact('model','selectLookups'));
     }
-
 
     public function edit($id) :View
     {
@@ -36,12 +37,10 @@ trait RestControllerTrait
         return redirect()->route("{$this->routeName}.index")->with('message',"{$this->message} Deleted Successfully");
     }
 
-
     protected function _createResource()
     {
         return new $this->modelClass;
     }
-
 
     protected function _save($request, $model)
     {
@@ -58,7 +57,26 @@ trait RestControllerTrait
     protected function _selectLookups($id = null) :array
     {
         return [
-            //
+            // Your select lookups
         ];
+    }
+
+    public function exportExcel()
+    {
+        $dataTable = $this->getDataTableInstance();
+        $model = app($this->modelClass);
+        $export = $this->getExport($dataTable);
+    
+        return Excel::download($export, $this->message.'.xlsx');
+    }
+
+    protected function getDataTableInstance()
+    {
+        return new $this->dataTable();
+    }
+
+    protected function getExport($dataTable)
+    {
+        return new $this->export($dataTable->query(app($this->modelClass)));
     }
 }
