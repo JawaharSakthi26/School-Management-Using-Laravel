@@ -39,10 +39,10 @@ class TeacherDataTable extends BaseDataTable
             })
             ->addColumn('action', function ($model) {
                 $id = $model->id;
-                $action = '<a href="' . route('add-teacher.edit', $model->user_id) . '" class="btn btn-sm bg-success-light me-2"> <i class="feather-edit"></i> </a> &nbsp;';
+                $action = '<a href="' . route('add-teacher.edit', $model->id) . '" class="btn btn-sm bg-success-light me-2"> <i class="feather-edit"></i> </a> &nbsp;';
                 $action .= '<form action="' . route('add-teacher.destroy', $model->user_id) . '" method="POST">
                                 ' . csrf_field() . '
-                                ' . method_field('DELETE') . '
+                                ' . method_field('DELETE') . '  
                                 <button type="submit" class="btn btn-sm bg-danger-light"><i class="feather-trash"></i></button>
                             </form>&nbsp;';
                 return $action;

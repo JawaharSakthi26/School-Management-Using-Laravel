@@ -36,6 +36,7 @@
 <table>
     <thead>
         <tr>
+            <th>#</th>
             <th>Admission ID</th>
             <th>Roll Number</th>
             <th>Name</th>
@@ -48,11 +49,13 @@
             <th>Address</th>
             <th>Zipcode</th>
             <th>Country</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
         @foreach($dataTable as $student)
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $student->admission_id }}</td>
                 <td>{{ $student['roll_number'] }}</td>
                 <td>{{ $student['user']['name'] }}</td>
@@ -65,6 +68,7 @@
                 <td>{{ $student['address'] }}{{ $student['city'] }}</td>
                 <td>{{ $student['zip_code'] }}</td>
                 <td>{{ $student['country'] }}</td>
+                <td>{{ $student['status'] == '1' ? 'Active' : 'Inactive'}}</td>
             </tr>
         @endforeach
     </tbody>

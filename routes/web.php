@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');
         Route::get('/excel/list-Students', [App\Http\Controllers\Admin\StudentController::class, 'exportExcel'])->name('excel-listStudents');
         Route::get('/pdf/list-Students', [App\Http\Controllers\Admin\StudentController::class, 'exportPdf'])->name('pdf-listStudents');
+        Route::get('/excel/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportExcel'])->name('excel-listTeachers');
+        Route::get('/pdf/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportPdf'])->name('pdf-listTeachers');
         Route::resource('/event', \App\Http\Controllers\Admin\CalendarController::class);
     });
 
