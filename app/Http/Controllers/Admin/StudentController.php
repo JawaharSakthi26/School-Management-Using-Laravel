@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\StudentDataTable;
+use App\Exports\Teacher\MyStudentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Jobs\SendMailJob;
@@ -12,16 +13,16 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
     use RestControllerTrait;
 
-    public $modelClass = User::class;
+    public $modelClass = Student::class;
     public $folderPath = 'admin';
     public $viewPath = 'student';
     public $routeName = 'add-student';
+    public $export = MyStudentsExport::class;
     public $message = 'Student';
     public $dataTable = StudentDataTable::class;
 
@@ -31,7 +32,7 @@ class StudentController extends Controller
         $student = null;
 
         if ($id) {
-            $student = User::with('student')->findOrFail($id);
+            $student = Student::with('user')->findOrFail($id);
         }
 
         return [
