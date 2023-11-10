@@ -24,9 +24,7 @@
                             <div class="mb-3 float-end">
                                 <a href="{{ route('excel-listStudents') }}" class="btn btn-success" id="exportExcel">Excel</a>
                                 <a href="{{ route('pdf-listStudents') }}" class="btn btn-danger" id="exportPdf">PDF</a>
-                                <a href="#" class="btn btn-secondary" id="exportCsv">CSV</a>
-                                <a href="{{ route('add-student.create') }}" class="btn btn-primary"><i
-                                        class="fas fa-plus"></i></a>
+                                <a href="{{ route('add-student.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                             </div>
 
                             <div class="page-header">

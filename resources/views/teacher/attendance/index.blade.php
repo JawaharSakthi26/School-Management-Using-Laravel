@@ -25,7 +25,6 @@
                             <div class="mb-3 float-end">
                                 <a href="{{ route('excel-attendance') }}" class="btn btn-success" id="exportExcel">Excel</a>
                                 <a href="{{ route('pdf-attendance') }}" class="btn btn-danger" id="exportPdf">PDF</a>
-                                <a href="#" class="btn btn-secondary" id="exportCsv">CSV</a>
                                 <a href="{{ route('attendance.create') }}" class="btn btn-primary mx-3"><i class="fas fa-plus"></i></a>
                             </div>
 

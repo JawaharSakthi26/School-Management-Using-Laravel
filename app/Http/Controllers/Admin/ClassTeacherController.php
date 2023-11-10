@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ClassTeacherDataTable;
+use App\Exports\Admin\ClassTeacherExport;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -15,6 +16,7 @@ class ClassTeacherController extends Controller
     use RestControllerTrait;
 
     public $modelClass = ClassTeacher::class;
+    public $export = ClassTeacherExport::class;
     public $folderPath = 'admin';
     public $viewPath = 'classTeacher';
     public $routeName = 'add-classTeacher';

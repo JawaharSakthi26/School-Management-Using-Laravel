@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pdf/list-Students', [App\Http\Controllers\Admin\StudentController::class, 'exportPdf'])->name('pdf-listStudents');
         Route::get('/excel/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportExcel'])->name('excel-listTeachers');
         Route::get('/pdf/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportPdf'])->name('pdf-listTeachers');
+        Route::get('/excel/class-Teachers', [App\Http\Controllers\Admin\ClassTeacherController::class, 'exportExcel'])->name('excel-classTeacher');
+        Route::get('/pdf/class-Teachers', [App\Http\Controllers\Admin\ClassTeacherController::class, 'exportPdf'])->name('pdf-classTeacher');
         Route::resource('/event', \App\Http\Controllers\Admin\CalendarController::class);
     });
 
