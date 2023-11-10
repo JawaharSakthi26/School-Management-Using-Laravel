@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\TeacherDataTable;
+use App\Exports\Admin\TeacherExport;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Jobs\SendMailJob;
+use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +17,8 @@ class TeacherController extends Controller
 {
     use RestControllerTrait;
 
-    public $modelClass = User::class;
+    public $modelClass = Teacher::class;
+    public $export = TeacherExport::class;
     public $folderPath = 'admin';
     public $viewPath = 'teacher';
     public $routeName = 'add-teacher';
@@ -27,7 +30,7 @@ class TeacherController extends Controller
         $teacher = null;
 
         if ($id) {
-            $teacher = User::with('teacher')->findOrFail($id);
+            $teacher = Teacher::with('user')->findOrFail($id);
         }
 
         return [
@@ -143,5 +146,12 @@ class TeacherController extends Controller
         ]);
 
         return redirect()->route('add-teacher.index')->with('message', 'Teacher updated successfully');
+    }
+
+    public function destroy(string $id)
+    {
+        $item = User::findOrFail($id);
+        $item->delete();
+        return redirect()->route("add-teacher.index")->with('message', 'Teacher Deleted Successfully!');
     }
 }

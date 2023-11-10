@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// This is dev branch
+
 Route::middleware(['noauth'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
@@ -24,6 +24,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/fetch-attendance', [\App\Http\Controllers\Admin\AttendanceController::class, 'fetchAttendance'])->name('fetch-attendance');
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
         Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');
+        Route::get('/excel/list-Students', [App\Http\Controllers\Admin\StudentController::class, 'exportExcel'])->name('excel-listStudents');
+        Route::get('/pdf/list-Students', [App\Http\Controllers\Admin\StudentController::class, 'exportPdf'])->name('pdf-listStudents');
+        Route::get('/excel/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportExcel'])->name('excel-listTeachers');
+        Route::get('/pdf/list-Teachers', [App\Http\Controllers\Admin\TeacherController::class, 'exportPdf'])->name('pdf-listTeachers');
+        Route::get('/excel/class-Teachers', [App\Http\Controllers\Admin\ClassTeacherController::class, 'exportExcel'])->name('excel-classTeacher');
+        Route::get('/pdf/class-Teachers', [App\Http\Controllers\Admin\ClassTeacherController::class, 'exportPdf'])->name('pdf-classTeacher');
         Route::resource('/event', \App\Http\Controllers\Admin\CalendarController::class);
     });
 
@@ -33,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/my-timetable',  App\Http\Controllers\Teacher\MyTimetableController::class);
         Route::resource('/attendance',  App\Http\Controllers\Teacher\AttendanceController::class);
         Route::resource('/my-calendar',  App\Http\Controllers\Teacher\CalendarController::class);
+        Route::get('/excel/myStudents', [App\Http\Controllers\Teacher\MyStudentController::class, 'exportExcel'])->name('excel-myStudents');
+        Route::get('/excel/attendance', [App\Http\Controllers\Teacher\AttendanceController::class, 'exportExcel'])->name('excel-attendance');
+        Route::get('/pdf/myStudents', [App\Http\Controllers\Teacher\MyStudentController::class, 'exportPdf'])->name('pdf-myStudents');
+        Route::get('/pdf/attendance', [App\Http\Controllers\Teacher\AttendanceController::class, 'exportPdf'])->name('pdf-attendance');
     });
 
     Route::middleware(['role:Admin|Student'])->group(function () {

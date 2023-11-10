@@ -18,7 +18,9 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Username <span class="login-danger">*</span></label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email" autofocus>
+                                    <input id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" autocomplete="email" placeholder="Email" autofocus>
                                     <span class="profile-views"><i class="fas fa-user-circle"></i></span>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -29,7 +31,9 @@
 
                                 <div class="form-group">
                                     <label>Password <span class="login-danger">*</span></label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        placeholder="Password">
                                     <span class="profile-views feather-eye toggle-password"></span>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -60,6 +64,16 @@
     </div>
     <script>
         $(document).ready(function() {
+            $(".toggle-password").click(function() {
+                var passwordField = $("#password");
+                var fieldType = passwordField.attr("type");
+                if (fieldType === "password") {
+                    passwordField.attr("type", "text");
+                } else {
+                    passwordField.attr("type", "password");
+                }
+            });
+            
             $("#login-form").validate({
                 rules: {
                     email: {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\DataTables\AttendanceDataTable;
+use App\Exports\Teacher\AttendanceExport;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\RestControllerTrait;
 use App\Models\AddClass;
@@ -17,6 +18,7 @@ class AttendanceController extends Controller
     use RestControllerTrait;
 
     public $modelClass = StudentAttendance::class;
+    public $export = AttendanceExport::class;
     public $folderPath = 'teacher';
     public $viewPath = 'attendance';
     public $routeName = 'attendance';

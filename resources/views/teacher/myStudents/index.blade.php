@@ -22,15 +22,24 @@
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
 
+                            <div class="mb-3 float-end">
+                                <a href="{{ route('excel-myStudents') }}" class="btn btn-success" id="exportExcel">Excel</a>
+                                <a href="{{ route('pdf-myStudents') }}" class="btn btn-danger" id="exportPdf">PDF</a>
+                            </div>
+
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col-md-12">
-                                            <h3 class="page-title">My Students</h3>
+                                        <h3 class="page-title">My Students</h3>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card-body">
-                                {!! $dataTable->table(['class' => 'table table-striped table-responsive dt-bootstrap4 no-footer', 'id' => 'datatable-buttons']) !!}
+                                {!! $dataTable->table([
+                                    'class' => 'table table-striped table-responsive dt-bootstrap4 no-footer',
+                                    'id' => 'datatable-buttons',
+                                ]) !!}
                             </div>
 
                         </div>

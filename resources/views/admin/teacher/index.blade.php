@@ -21,15 +21,15 @@
                 <div class="col-sm-12">
                     <div class="card card-table comman-shadow">
                         <div class="card-body">
-
+                            <div class="mb-3 float-end">
+                                <a href="{{ route('excel-listTeachers') }}" class="btn btn-success" id="exportExcel">Excel</a>
+                                <a href="{{ route('pdf-listTeachers') }}" class="btn btn-danger" id="exportPdf">PDF</a>
+                                <a href="{{ route('add-teacher.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                            </div>
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h3 class="page-title">Teachers</h3>
-                                    </div>
-                                    <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="{{ route('add-teacher.create') }}" class="btn btn-primary"><i
-                                                class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>

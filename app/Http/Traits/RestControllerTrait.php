@@ -3,25 +3,26 @@
 namespace App\Http\Traits;
 
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 trait RestControllerTrait
-{    
+{
     public function index()
     {
-        $dataTable = new $this->dataTable();
+        $dataTable = $this->getDataTableInstance();
         return $dataTable->render("{$this->folderPath}.{$this->viewPath}.index");
     }
 
-    public function create() :View
+    public function create(): View
     {
         $model = $this->_createResource();
         $selectLookups = $this->_selectLookups();
 
-        return view("{$this->folderPath}.{$this->viewPath}.create", compact('model','selectLookups'));
+        return view("{$this->folderPath}.{$this->viewPath}.create", compact('model', 'selectLookups'));
     }
 
-
-    public function edit($id) :View
+    public function edit($id): View
     {
         $model = $this->_getModel($id);
         $selectLookups = $this->_selectLookups($id);
@@ -33,15 +34,13 @@ trait RestControllerTrait
     {
         $model = $this->_getModel($id);
         $model->delete();
-        return redirect()->route("{$this->routeName}.index")->with('message',"{$this->message} Deleted Successfully");
+        return redirect()->route("{$this->routeName}.index")->with('message', "{$this->message} Deleted Successfully");
     }
-
 
     protected function _createResource()
     {
         return new $this->modelClass;
     }
-
 
     protected function _save($request, $model)
     {
@@ -55,10 +54,36 @@ trait RestControllerTrait
         return call_user_func_array([$this->modelClass, "findOrFail"], [$id]);
     }
 
-    protected function _selectLookups($id = null) :array
+    protected function _selectLookups($id = null): array
     {
         return [
-            //
+            // Your select lookups
         ];
     }
+
+    public function exportExcel()
+    {
+        $dataTable = $this->getDataTableInstance();
+        $model = app($this->modelClass);
+
+        $export = new $this->export($dataTable->query($model));
+
+        return Excel::download($export, "{$this->message}.xlsx");
+    }
+
+    public function exportPdf()
+    {
+        $dataTable = $this->getDataTableInstance();
+        $model = app($this->modelClass);
+
+        $pdf = PDF::loadView("{$this->folderPath}.{$this->viewPath}.pdf.index", ['dataTable' => $dataTable->query($model)]);
+
+        return $pdf->download("{$this->message}.pdf");
+    }
+
+    protected function getDataTableInstance()
+    {
+        return new $this->dataTable();
+    }
+
 }
