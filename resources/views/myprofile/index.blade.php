@@ -33,7 +33,8 @@
                                 @php
                                     $role = $user->getRoleNames()->first();
                                 @endphp
-                                <h6 class="text-muted">{{ $role }} {{$role == 'Student' ? '- ' . $user->student->class->name : ''}}</h6>
+                                <h6 class="text-muted">{{ $role }}
+                                    {{ $role == 'Student' ? '- ' . $user->student->class->name : '' }}</h6>
 
                                 @if ($user->hasRole('Teacher|Student'))
                                     <div class="user-Location"><i class="fas fa-map-marker-alt"></i>
@@ -331,6 +332,37 @@
         </div>
     </div>
     <script>
+        $(document).ready(function() {
+            $('#password-change-form').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        toastr.options = {
+                            "progressBar": true,
+                            "closeButton": true,
+                        }
+                        toastr.success(data.message);
+                        setTimeout(function() {
+                            window.location.href = 'my-profile';
+                        }, 5000); 
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.error;
+                        if (errors) {
+                            toastr.options = {
+                                "progressBar": true,
+                                "closeButton": true,
+                            }
+                            toastr.error(errors);
+                        }
+                    }
+                });
+            });
+        });
         $('#password-change-form').validate({
             rules: {
                 old_password: {

@@ -14,7 +14,8 @@
                         <h3 class="page-title">{{ isset($selectLookups['item']) ? 'Edit Class' : 'Add Class' }}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('add-class.index') }}">Class</a></li>
-                            <li class="breadcrumb-item active">{{ isset($selectLookups['item']) ? 'Edit Class' : 'Add Class' }}</li>
+                            <li class="breadcrumb-item active">
+                                {{ isset($selectLookups['item']) ? 'Edit Class' : 'Add Class' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -48,20 +49,12 @@
                                                     class="login-danger">*</span></label>
                                             <select class="form-control select2 multi-select" id="classSubjects"
                                                 name="subjects[]" multiple="multiple">
-                                                @if (isset($selectLookups['item']))
-                                                    @foreach ($selectLookups['subjects'] as $subject)
-                                                        <option value="{{ $subject->id }}"
-                                                            {{ in_array($subject->id, $selectLookups['selectedSubjects']) ? 'selected' : '' }}>
-                                                            {{ $subject->name }}
-                                                        </option>
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($selectLookups['subjects'] as $subject)
-                                                        <option value="{{ $subject->id }}">
-                                                            {{ $subject->name }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
+                                                @foreach ($selectLookups['subjects'] as $subject)
+                                                    <option value="{{ $subject->id }}"
+                                                        {{ in_array($subject->id, old('subjects', isset($selectLookups['selectedSubjects']) ? $selectLookups['selectedSubjects'] : [])) ? 'selected' : '' }}>
+                                                        {{ $subject->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -71,19 +64,15 @@
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input custom-switch" type="checkbox"
                                                     id="statusSwitch" name="status" value="1"
-                                                    {{ isset($selectLookups['item']) && $selectLookups['item']->status == '1' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="statusSwitch"></label>
+                                                    {{ old('status', (isset($selectLookups['item']) && $selectLookups['item']->status == '1') || !isset($selectLookups['item']) ? 'checked' : '') }}>
                                             </div>
                                         </div>
                                     </div>
-                                    @if (isset($selectLookups['item']))
-                                        <input type="hidden" name="user_id" value="{{ $selectLookups['item']->user_id }}">
-                                    @else
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    @endif
+                                    <input type="hidden" name="user_id"
+                                        value="{{ old('user_id', isset($selectLookups['item']) ? $selectLookups['item']->user_id : Auth::user()->id) }}">
                                     <div class="col-12">
                                         <div class="student-submit">
-                                            <button type="submit"
+                                            <button type="submit" id="submitForm"
                                                 class="btn btn-primary">{{ isset($selectLookups['item']) ? 'Update' : 'Submit' }}</button>
                                         </div>
                                     </div>

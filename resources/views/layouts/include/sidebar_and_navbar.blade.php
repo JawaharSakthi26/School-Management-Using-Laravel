@@ -68,7 +68,7 @@
                     </li>
                     @hasrole('Admin')
                         <li class="{{ Request::is('admin*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.index') }}" class="{{ Request::is('admin*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
+                            <a href="{{ route('admin-dashboard.index') }}" class="{{ Request::is('admin*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
                         <li class="submenu {{ Request::is('add-student*') ? 'active' : '' }}">
                             <a href="#" class="{{ Request::is('add-student*') ? 'active' : '' }}"><i
@@ -118,7 +118,7 @@
                     @endhasrole
                     @hasrole('Teacher')
                         <li class="{{ Request::is('teacher*') ? 'active' : '' }}">
-                            <a href="{{ route('teacher.index') }}" class="{{ Request::is('teacher*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
+                            <a href="{{ route('teacher-dashboard.index') }}" class="{{ Request::is('teacher*') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
                         <li class="{{ Request::is('my-students*') ? 'active' : '' }}">
                             <a href="{{ route('my-students.index') }}" class="{{ Request::is('my-students*') }}"><i
@@ -139,7 +139,7 @@
                     @endhasrole
                     @hasrole('Student')
                         <li class="{{ Request::is('student') ? 'active' : '' }}">
-                            <a href="{{ route('student.index') }}" class="{{ Request::is('student') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
+                            <a href="{{ route('student-dashboard.index') }}" class="{{ Request::is('student') }}"><i class="fa fa-th"></i><span> Dashboard</span></a>
                         </li>
                         <li class="{{ Request::is('student-timetable*') ? 'active' : '' }}">
                             <a href="{{ route('student-timetable.index') }}" class="{{ Request::is('my-timetable*') }}"><i

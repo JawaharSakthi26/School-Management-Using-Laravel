@@ -21,13 +21,12 @@ class MyProfileController extends Controller
         $user = User::findOrFail($id);
         if ($request->has('password')) {
             if (!Hash::check($data['old_password'], $user->password)) {
-                return redirect()->back()->with('error', 'The old password is incorrect.');
+                return response()->json(['error' => 'The old password is incorrect.'], 422);
             }
 
             if ($request->filled('password')) {
                 $user->update(['password' => Hash::make($data['password'])]);
             }
-
         } else {
             if ($user->hasRole('Admin')) {
                 $user->update([
@@ -78,6 +77,10 @@ class MyProfileController extends Controller
                 ]);
             }
         }
-        return redirect()->route('my-profile.index')->with('message', 'Profile updated successfully.');
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Profile updated successfully.']);
+        } else {
+            return redirect()->route('my-profile.index')->with('message', 'Profile updated successfully.');
+        }
     }
 }
