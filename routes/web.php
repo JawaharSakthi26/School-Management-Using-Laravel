@@ -9,6 +9,9 @@ Route::middleware(['noauth'])->group(function () {
     });
     Route::get('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+
+    Route::get('auth/facebook', [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
+    Route::get('auth/facebook/callback', [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
 });
 
 Auth::routes();
