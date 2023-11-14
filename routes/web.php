@@ -7,13 +7,18 @@ Route::middleware(['noauth'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     });
+    Route::get('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+
+    Route::get('auth/facebook', [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
+    Route::get('auth/facebook/callback', [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
 });
 
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
-        Route::resource('/admin', App\Http\Controllers\Admin\DashboardController::class);
+        Route::resource('/admin-dashboard', App\Http\Controllers\Admin\DashboardController::class);
         Route::resource('/add-student', App\Http\Controllers\Admin\StudentController::class);
         Route::resource('/add-class', App\Http\Controllers\Admin\ClassController::class);
         Route::resource('/add-classTeacher', App\Http\Controllers\Admin\ClassTeacherController::class);
@@ -34,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['role:Admin|Teacher'])->group(function () {
-        Route::resource('/teacher',  App\Http\Controllers\Teacher\DashboardController::class);
+        Route::resource('/teacher-dashboard',  App\Http\Controllers\Teacher\DashboardController::class);
         Route::resource('/my-students',  App\Http\Controllers\Teacher\MyStudentController::class);
         Route::resource('/my-timetable',  App\Http\Controllers\Teacher\MyTimetableController::class);
         Route::resource('/attendance',  App\Http\Controllers\Teacher\AttendanceController::class);
@@ -46,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['role:Admin|Student'])->group(function () {
-        Route::resource('/student', App\Http\Controllers\Student\DashboardController::class);
+        Route::resource('/student-dashboard', App\Http\Controllers\Student\DashboardController::class);
         Route::resource('/academic-calendar',  App\Http\Controllers\Student\CalendarController::class);
         Route::resource('/student-timetable',  App\Http\Controllers\Student\MyTimetableController::class);
         Route::resource('/my-attendance',  App\Http\Controllers\Student\MyAttendanceController::class);

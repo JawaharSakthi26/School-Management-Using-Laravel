@@ -1,5 +1,17 @@
 @extends('layouts.auth')
-@section('title', 'PreSkool | Admin Home')
+@section('title')
+
+    PreSkool |
+
+    @if(Auth::user()->hasRole('Admin'))
+        Admin Home
+    @elseif(Auth::user()->hasRole('Teacher'))
+        Teacher Home
+    @elseif(Auth::user()->hasRole('Student'))
+        Student Home
+    @endif
+
+@endsection
 
 @section('content')
 
