@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
         Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
         Route::resource('/view-attendance', \App\Http\Controllers\Admin\AttendanceController::class);
+        Route::resource('/add-fees', \App\Http\Controllers\Admin\FeeController::class);
+        Route::get('/fetch-feesData', [\App\Http\Controllers\Admin\FeeController::class, 'fetchFees'])->name('fetch-feesData');
         Route::get('/fetch-attendance', [\App\Http\Controllers\Admin\AttendanceController::class, 'fetchAttendance'])->name('fetch-attendance');
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
         Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');

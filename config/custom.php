@@ -37,6 +37,11 @@ return [
         '3' => 'Late Entry',
         '4' => 'Permission',
     ],
+    'school_terms' => [
+        '1' => 'First Mid Term',
+        '2' => 'Second Mid Term',
+        '3' => 'Third Mid Term',
+    ],
     'email_templates' => [
         'teacher_template' => 'email.teacherTemplate',
         'student_template' => 'email.studentTemplate',
