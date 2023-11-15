@@ -81,6 +81,7 @@
     <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/simple-calendar/jquery.simple-calendar.js') }}"></script>
     <script src="{{ asset('assets/js/calander.js') }}"></script>
+    <script src="{{ asset('assets/js/moneyMask.js') }}"></script>
     <script src="{{ asset('assets/js/circle-progress.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
@@ -121,6 +122,7 @@
         $(document).ready(function() {
             $('.multi-select').select2();
         });
+        $('#money').maskMoney();
     </script>
 
     @if (Auth::check())

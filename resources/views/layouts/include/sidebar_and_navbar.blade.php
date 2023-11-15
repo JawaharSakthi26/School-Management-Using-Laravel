@@ -115,6 +115,17 @@
                                         href="{{ route('add-subject.create') }}">Subject Add</a></li>
                             </ul>
                         </li>
+                        <li class="submenu {{ Request::is('add-fees*') ? 'active' : '' }}">
+                            <a href="#" class="{{ Request::is('add-fees*') ? 'active' : '' }}"><i
+                                    class="fas fa-book-reader"></i> <span> Fees</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a
+                                        href="{{ route('add-fees.index') }}">Fees List</a></li>
+                                <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a
+                                        href="{{ route('add-fees.create') }}">Add Fees</a></li>
+                            </ul>
+                        </li>
                     @endhasrole
                     @hasrole('Teacher')
                         <li class="{{ Request::is('teacher*') ? 'active' : '' }}">

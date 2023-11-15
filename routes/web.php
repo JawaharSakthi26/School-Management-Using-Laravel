@@ -12,6 +12,9 @@ Route::middleware(['noauth'])->group(function () {
 
     Route::get('auth/facebook', [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
     Route::get('auth/facebook/callback', [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
+
+    Route::get('auth/twitter', [\App\Http\Controllers\TwitterController::class, 'redirectToTwitter'])->name('auth.twitter');
+    Route::get('auth/twitter/callback', [\App\Http\Controllers\TwitterController::class, 'handleTwitterCallback']);
 });
 
 Auth::routes();
@@ -26,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/add-subject', \App\Http\Controllers\Admin\SubjectController::class);
         Route::resource('/add-timetable', \App\Http\Controllers\Admin\TimeTableController::class);
         Route::resource('/view-attendance', \App\Http\Controllers\Admin\AttendanceController::class);
+        Route::resource('/add-fees', \App\Http\Controllers\Admin\FeeController::class);
+        Route::get('/fetch-feesData', [\App\Http\Controllers\Admin\FeeController::class, 'fetchFees'])->name('fetch-feesData');
         Route::get('/fetch-attendance', [\App\Http\Controllers\Admin\AttendanceController::class, 'fetchAttendance'])->name('fetch-attendance');
         Route::get('/fetch-subjects/{classId}', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchSubjects'])->name('fetch-subjects');
         Route::get('/fetch-timetable', [\App\Http\Controllers\Admin\TimeTableController::class, 'fetchTimetable'])->name('fetch-timetable');
