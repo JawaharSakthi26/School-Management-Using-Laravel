@@ -12,6 +12,9 @@ Route::middleware(['noauth'])->group(function () {
 
     Route::get('auth/facebook', [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
     Route::get('auth/facebook/callback', [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
+
+    Route::get('auth/twitter', [\App\Http\Controllers\TwitterController::class, 'redirectToTwitter'])->name('auth.twitter');
+    Route::get('auth/twitter/callback', [\App\Http\Controllers\TwitterController::class, 'handleTwitterCallback']);
 });
 
 Auth::routes();
