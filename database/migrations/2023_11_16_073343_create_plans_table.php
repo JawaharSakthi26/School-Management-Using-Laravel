@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fee_details', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('class_id');
-            $table->string('term');
+            $table->string('plan_id');
+            $table->string('name');
+            $table->string('billing_method');
+            $table->string('interval_count');
             $table->string('amount');
-            $table->date('due_date');
+            $table->string('currency');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fee_details');
+        Schema::dropIfExists('plans');
     }
 };

@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/academic-calendar',  App\Http\Controllers\Student\CalendarController::class);
         Route::resource('/student-timetable',  App\Http\Controllers\Student\MyTimetableController::class);
         Route::resource('/my-attendance',  App\Http\Controllers\Student\MyAttendanceController::class);
+        Route::resource('/pay-fees',  App\Http\Controllers\Student\FeeController::class);
     });
 
     Route::resource('/my-profile', \App\Http\Controllers\MyProfileController::class);

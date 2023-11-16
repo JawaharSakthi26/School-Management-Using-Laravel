@@ -117,12 +117,12 @@
                         </li>
                         <li class="submenu {{ Request::is('add-fees*') ? 'active' : '' }}">
                             <a href="#" class="{{ Request::is('add-fees*') ? 'active' : '' }}"><i
-                                    class="fas fa-book-reader"></i> <span> Fees</span> <span
+                                    class="fas fa-briefcase"></i> <span> Fees</span> <span
                                     class="menu-arrow"></span></a>
                             <ul>
-                                <li class="{{ Request::is('add-subject') ? 'active' : '' }}"><a
+                                <li class="{{ Request::is('add-fees') ? 'active' : '' }}"><a
                                         href="{{ route('add-fees.index') }}">Fees List</a></li>
-                                <li class="{{ Request::is('add-subject/create') ? 'active' : '' }}"><a
+                                <li class="{{ Request::is('add-fees/create') ? 'active' : '' }}"><a
                                         href="{{ route('add-fees.create') }}">Add Fees</a></li>
                             </ul>
                         </li>
@@ -159,6 +159,10 @@
                         <li class="{{ Request::is('my-attendance*') ? 'active' : '' }}">
                             <a href="{{ route('my-attendance.index') }}" class="{{ Request::is('my-attendance*') }}"><i
                                     class="fa fa-address-book"></i><span> My Attendance</span></a>
+                        </li>
+                        <li class="{{ Request::is('pay-fees*') ? 'active' : '' }}">
+                            <a href="{{ route('pay-fees.index') }}" class="{{ Request::is('pay-fees*') }}"><i
+                                    class="fas fa-credit-card"></i><span> My Fees & Payments</span></a>
                         </li>
                         <li class="{{ Request::is('academic-calendar*') ? 'active' : '' }}">
                             <a href="{{ route('academic-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i

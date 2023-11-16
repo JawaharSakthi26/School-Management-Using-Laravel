@@ -37,10 +37,9 @@ return [
         '3' => 'Late Entry',
         '4' => 'Permission',
     ],
-    'school_terms' => [
-        '1' => 'First Mid Term',
-        '2' => 'Second Mid Term',
-        '3' => 'Third Mid Term',
+    'plan_name' => [
+        '1' => 'Basic - Half Year',
+        '2' => 'Premium - One Year',
     ],
     'email_templates' => [
         'teacher_template' => 'email.teacherTemplate',
