@@ -1,0 +1,30 @@
+.subscription-option {
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    background-color: #00A9FF;
+    margin-bottom: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease;
+    border-radius: 2%;
+}
+
+.subscription-option:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.plan-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.plan-price {
+    font-size: 18px;
+    color: #272829;
+}
+
+.plan-price small {
+    font-size: 14px;
+    color: #212A3E;
+}

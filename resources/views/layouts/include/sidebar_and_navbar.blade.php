@@ -160,6 +160,10 @@
                             <a href="{{ route('my-attendance.index') }}" class="{{ Request::is('my-attendance*') }}"><i
                                     class="fa fa-address-book"></i><span> My Attendance</span></a>
                         </li>
+                        <li class="{{ Request::is('pay-fees*') ? 'active' : '' }}">
+                            <a href="{{ route('pay-fees.index') }}" class="{{ Request::is('pay-fees*') }}"><i
+                                    class="fas fa-credit-card"></i><span> My Fees & Payments</span></a>
+                        </li>
                         <li class="{{ Request::is('academic-calendar*') ? 'active' : '' }}">
                             <a href="{{ route('academic-calendar.index') }}" class="{{ Request::is('my-calendar*') }}"><i
                                     class="fas fa-calendar-day"></i><span> Academic Calendar</span></a>

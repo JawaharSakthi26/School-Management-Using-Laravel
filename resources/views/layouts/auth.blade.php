@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables.net-bs4/datatables.net-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/preloader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plans.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -75,7 +77,7 @@
     @endif
 
     @yield('content')
-
+    
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
