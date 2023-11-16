@@ -6,7 +6,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class BaseDataTable extends DataTable
 {
-    protected $excludeFromExport = ['action'];
+    // protected $excludeFromExport = ['action'];
 
     public function getActionParamters()
     {
@@ -21,10 +21,10 @@ class BaseDataTable extends DataTable
         return $params;
     }
 
-    protected function getBuilderParameters($create_route = null)
-    {
-        $params = config('datatables-buttons.parameters');
+    // protected function getBuilderParameters($create_route = null)
+    // {
+    //     $params = config('datatables-buttons.parameters');
 
-        return $params;
-    }
+    //     return $params;
+    // }
 }
