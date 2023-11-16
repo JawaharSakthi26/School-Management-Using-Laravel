@@ -18,7 +18,7 @@
             <div class="row">
                 <form action="" method="get" id="fees-form">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-10">
                             <div class="form-group local-forms">
                                 <label>Class <span class="login-danger">*</span></label>
                                 <select class="form-control select" name="class_id" id="classSelect">
@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-2">
                             <div class="search-student-btn">
                                 <button type="button" class="btn btn-primary" id="searchButton">Search</button>
                             </div>
