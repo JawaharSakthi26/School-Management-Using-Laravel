@@ -72,6 +72,7 @@
                                     </div>
 
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="plan_id" value="{{ isset($selectLookups['fees']->plan_id) ? $selectLookups['fees']->plan_id : '' }}">
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit"
