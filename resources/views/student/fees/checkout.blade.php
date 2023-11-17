@@ -29,7 +29,8 @@
                                                 <span
                                                     class="plan-name">{{ config('custom.plan_name')[$plans->name] }}</span>
                                                 <br>
-                                                <span class="plan-price">&pound;{{ number_format($plans->amount, 2, '.', ',') }}<small>/{{ $plans->interval_count }}
+                                                <span
+                                                    class="plan-price">&pound;{{ number_format($plans->amount, 2, '.', ',') }}<small>/{{ $plans->interval_count }}
                                                         {{ $plans->billing_method }}</small></span>
                                             </label>
                                         </div>
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         var stripe = Stripe('{{ env('STRIPE_KEY') }}');
