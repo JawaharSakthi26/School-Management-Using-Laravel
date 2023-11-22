@@ -15,16 +15,14 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icons/flags/flags.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/simple-calendar/simple-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/plugins/jquery_datatables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/multiselect/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fullcalendar/fullcalendar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables.net-bs4/datatables.net-bs4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables.net-bs4/datatables.net-bs4.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/preloader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plans.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}">
@@ -80,15 +78,9 @@
     
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/simple-calendar/jquery.simple-calendar.js') }}"></script>
-    <script src="{{ asset('assets/js/calander.js') }}"></script>
-    <script src="{{ asset('assets/js/moneyMask.js') }}"></script>
-    <script src="{{ asset('assets/js/circle-progress.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-    {{-- <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script> --}}
     <script src="{{ asset('assets/plugins/jquery_datatables/datatables.js') }}"></script>
     <script src="{{ asset('assets/plugins/multiselect/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
