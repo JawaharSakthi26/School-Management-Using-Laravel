@@ -7,14 +7,14 @@ Route::middleware(['noauth'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     });
-    Route::get('auth/google', [\App\Http\Controllers\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
-    Route::get('auth/google/callback', [\App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+    Route::get('auth/google', [\App\Http\Controllers\socialite\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('auth/google/callback', [\App\Http\Controllers\socialite\GoogleController::class, 'handleGoogleCallback']);
 
-    Route::get('auth/facebook', [\App\Http\Controllers\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
-    Route::get('auth/facebook/callback', [\App\Http\Controllers\FacebookController::class, 'handleFacebookCallback']);
+    Route::get('auth/facebook', [\App\Http\Controllers\socialite\FacebookController::class, 'redirectToFacebook'])->name('auth.facebook');
+    Route::get('auth/facebook/callback', [\App\Http\Controllers\socialite\FacebookController::class, 'handleFacebookCallback']);
 
-    Route::get('auth/twitter', [\App\Http\Controllers\TwitterController::class, 'redirectToTwitter'])->name('auth.twitter');
-    Route::get('auth/twitter/callback', [\App\Http\Controllers\TwitterController::class, 'handleTwitterCallback']);
+    Route::get('auth/twitter', [\App\Http\Controllers\socialite\TwitterController::class, 'redirectToTwitter'])->name('auth.twitter');
+    Route::get('auth/twitter/callback', [\App\Http\Controllers\socialite\TwitterController::class, 'handleTwitterCallback']);
 });
 
 Auth::routes();
