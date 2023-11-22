@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\socialite;
 
+use App\Http\Controllers\Controller;
 use App\Http\Traits\SocialiteLoginTrait;
 
 class TwitterController extends Controller
