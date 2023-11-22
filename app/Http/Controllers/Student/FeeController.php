@@ -42,21 +42,13 @@ class FeeController extends Controller
         $user->createOrGetStripeCustomer();
 
         $paymentMethod = $request->payment_method;
-
-        if ($paymentMethod != null) {
-            $paymentMethod = $user->addPaymentMethod($paymentMethod);
-        }
-
+        $paymentMethod = $user->addPaymentMethod($paymentMethod);
         $plan = $request->plan_id;
 
-        try {
-            $subscription = $user->newSubscription('default', $plan);
+        $subscription = $user->newSubscription('default', $plan);
 
-            if ($request->has('payment_method')) {
-                $subscription->create($request->payment_method);
-            } else {
-                $subscription->create();
-            }
+        try {
+            $subscription->create($request->payment_method);
         } catch (IncompletePayment $ex) {
             return back()->with('error', $ex->getMessage());
         }
